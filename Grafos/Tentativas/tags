@@ -1,0 +1,21 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CL_CALLBACK	dijk.cpp	14;"	d	file:
+arestas	dijk.cpp	/^		vector < edge > arestas; 		\/\/ Vetor de arestas$/;"	m	class:grafo	file:
+checkErr	dijk.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+contextCallback	dijk.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+dest	dijk.cpp	/^	int dest, peso;$/;"	m	class:edge	file:
+edge	dijk.cpp	/^	edge (int d, int p) {$/;"	f	class:edge
+edge	dijk.cpp	/^class edge {$/;"	c	file:
+grafo	dijk.cpp	/^class grafo {$/;"	c	file:
+infoPlataforma	dijk.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+main	dijk.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	entrada.cpp	/^int main (int argc, char *argv[]) {$/;"	f
+make_graph	dijk.cpp	/^grafo::make_graph(FILE *fp) {$/;"	f	class:grafo
+numV	dijk.cpp	/^		int numV; 				\/\/ Numero de vertices$/;"	m	class:grafo	file:
+peso	dijk.cpp	/^	int dest, peso;$/;"	m	class:edge	file:
+vert	dijk.cpp	/^		vector < int > vert; 			\/\/ Vetor de vertices$/;"	m	class:grafo	file:
