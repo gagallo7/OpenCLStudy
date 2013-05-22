@@ -38,7 +38,7 @@ class grafo {
 // Cria grafo baseado no modelo do DIMACS
 // DIMACS usa o seguinte modelo:
 // Cada linha tem o vertice de origem e o resto da linha sao
-// as aresta do mesmo vertices
+// as arestas do mesmo vertices
 void grafo::make_graph(FILE *fp) {
 	int numArestas;
 	cin >> numV >> numArestas;
@@ -57,28 +57,44 @@ void grafo::make_graph(FILE *fp) {
 
 	// Cada linha tem a representacao de cada vertice
 	// fgets limita-se a capturar uma linha
+	int ant = -1;
 	while (fgets (linha, 2000, fp) != NULL) {
 		// Capturando o vertice
-		int ant = -1;
 		while (1) {
 			sscanf(linha," %d %[0-9 ]", &i, linha);
+			// Caso de fim de linha, pois nao ha arestas iguais
+			// Logo, o destino nao pode ser o mesmo
 			if (ant == i) {
 				break;
 			}
 			edge e(i,1);		// Criando aresta de peso 1
-			cout << i << " ";
+//			cout << i << " ";
 			ant = i;
 			arestas.push_back(e);
 		}
 		/*
 		*/
-		cout << "----------" << endl;
+//		cout << "----------" << endl;
 		// Apontando para a proxima lista de adjacencias
 		vert.push_back(arestas.size());
 	}
 	fclose(fp);
 }
 
+void grafo::printInfo () {
+	cout << "Vetor de vertices:" << endl;
+	vector < int >::iterator it;
+	for (it=vert.begin();it!=vert.end();it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+
+	cout << "Vetor de arestas:" << endl;
+	for (it=arestas.begin();it!=arestas.end();it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+}
 
 
 void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {
