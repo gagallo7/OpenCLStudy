@@ -17,6 +17,7 @@
 
 using namespace std;
 
+/*
 class edge {
 	public:
 	int dest, peso;
@@ -25,29 +26,26 @@ class edge {
 		this->peso = p;
 	}
 };
+*/
 
 class grafo {
 	public:
 		int numV; 				// Numero de vertices
-		vector < int > vert; 			// Vetor de vertices
-		vector < edge > arestas; 		// Vetor de arestas
+		vector < cl_uint > vert; 			// Vetor de vertices
+		vector < cl_uint > arestas; 		// Vetor de arestas
+		vector < cl_uint > pesos; 			// Vetor de pesos
 
 		void make_graph (FILE *);
+		void printInfo (void);
+		void prepare (vector < cl_uint >&, vector < cl_uint >&, vector < cl_uint >&);
 };
 
 // Cria grafo baseado no modelo do DIMACS
 // DIMACS usa o seguinte modelo:
 // Cada linha tem o vertice de origem e o resto da linha sao
-// as arestas do mesmo vertices
+// as arestas do mesmo vertice
 void grafo::make_graph(FILE *fp) {
-	int numArestas;
-	cin >> numV >> numArestas;
-
-//	vert.resize(numV);
-//	arestas.resize(numArestas);
-
 	char linha[2000];
-	int i;
 	if (fp==NULL) {
 		cout << "Erro ao abrir arquivo!" << endl;
 		return;
@@ -55,47 +53,65 @@ void grafo::make_graph(FILE *fp) {
 	// Primeiro vertice comeca sua lista de adjacencias em 0
 	vert.push_back(0);
 
+	//cout << "aquiquqiqui";
 	// Cada linha tem a representacao de cada vertice
 	// fgets limita-se a capturar uma linha
 	int ant = -1;
+	int i, peso;
 	while (fgets (linha, 2000, fp) != NULL) {
 		// Capturando o vertice
 		while (1) {
-			sscanf(linha," %d %[0-9 ]", &i, linha);
+			sscanf(linha," %d %d %[0-9 ]", &i, &peso,  linha);
 			// Caso de fim de linha, pois nao ha arestas iguais
 			// Logo, o destino nao pode ser o mesmo
 			if (ant == i) {
 				break;
 			}
-			edge e(i,1);		// Criando aresta de peso 1
-//			cout << i << " ";
+			cout << i << " ";
 			ant = i;
-			arestas.push_back(e);
+			arestas.push_back(i);
+			pesos.push_back(peso);
 		}
 		/*
 		*/
-//		cout << "----------" << endl;
 		// Apontando para a proxima lista de adjacencias
 		vert.push_back(arestas.size());
 	}
 	fclose(fp);
+	numV = vert.size();
 }
 
 void grafo::printInfo () {
 	cout << "Vetor de vertices:" << endl;
-	vector < int >::iterator it;
+	vector < cl_uint >::iterator it, it2;
 	for (it=vert.begin();it!=vert.end();it++) {
 		cout << *it << " ";
 	}
 	cout << endl;
 
 	cout << "Vetor de arestas:" << endl;
+	it2 = pesos.begin();
 	for (it=arestas.begin();it!=arestas.end();it++) {
-		cout << *it << " ";
+		cout << *it << ":" << *it2 << " ";
+		it2++;
 	}
 	cout << endl;
 }
 
+// Retorna a proxima potencia de 2 baseado numa entrada
+cl_uint nextPow2 (int n) {
+	cl_uint p = 2;
+	while (p < n && 2*p) p *= 2;
+	return p;
+}
+
+void prepare (vector < cl_uint >& M, vector < cl_uint >& C, vector < cl_uint >& U,
+		int numV) {
+	cl_uint inf = 0xFFFFFFFF; // Infinito
+	M.resize(numV,0);
+	C.resize(numV, inf);
+	U.resize(numV, inf);
+}
 
 void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {
 	cl_int err;
@@ -138,46 +154,30 @@ int main(int argc, char *argv[]) {
 	cl_command_queue fila;
 	cl_program programa;
 	cl_kernel kernel;
+	cl_mem Vbuffer;
 	cl_mem Abuffer;
-	cl_mem Bbuffer;
+	cl_mem Pbuffer;
+	cl_mem Mbuffer;
 	cl_mem Cbuffer;
+	cl_mem Ubuffer;
 	cl_event evento;
 
-// Constantes
-// Matrizes A, B e C
-// Tamanhos:
-// A: l x m
-// B: m x n
-// C: l x n --- C = A x B
-	/*
-int nn = atoi(argv[1]);
-const unsigned int l = nn;
-const unsigned int m = nn;
-const unsigned int n = nn;
-cl_uint **A;
-A = (cl_uint **)malloc(sizeof(cl_uint *)*l);
-cl_uint **C;
-C = (cl_uint **)malloc(sizeof(cl_uint *)*l);
-cl_uint **B;
-B = (cl_uint **)malloc(sizeof(cl_uint *)*l);
-	// Preenchendo as matrizes
+	cout << "Abrindo arquivo... " << endl;
+	// Abrindo arquivo de entrada
+	FILE *fp = fopen(argv[1], "r");
+	grafo g;
+	// Criando vetores auxiliares
+	vector < cl_uint > C, U, M;
+	// Criando Grafo
+	cout << "Montando grafo... " << endl;
+	g.make_graph(fp);
+	// Preparando vetores auxiliares para o Dijkstra
+	cout << "Preparando... " << endl;
+	prepare(M, C, U, g.numV);
+	g.printInfo();
+	cout << "Vetores prontos. " <<  endl;
+	cout << "Numero de workitems: " << nextPow2(g.arestas.size()) << endl;
 
-	for ( int x = 0; x < l ; x ++ ) {
-		A[x] = (cl_uint *)malloc(sizeof(cl_uint)*m);
-		B[x] = (cl_uint *)malloc(sizeof(cl_uint)*m);
-		C[x] = (cl_uint *)malloc(sizeof(cl_uint)*m);
-		for (int y = 0; y < m ; y ++ ) {
-			A[x][y] = x + y*2;
-		}
-	}
-
-	for ( int x = 0; x < m ; x ++ ) {
-		for (int y = 0; y < n ; y ++ ) {
-			B[x][y] = 3*x + y;
-			B[x][y] |= 1;
-		}
-	}
-*/
 	///// Selecionando uma plataforma OpenCL para rodar
 
 	// Atribuindo a nPlataformas o número de plataformas disponíveis
@@ -299,19 +299,60 @@ B = (cl_uint **)malloc(sizeof(cl_uint *)*l);
 	// Criando o objeto do Kernel
 	kernel = clCreateKernel (
 			programa,
-			"multiplyMatrix",
+			"dijkstra",
 			&errNum);
 	checkErr(errNum, "clCreateKernel");
 
 	// Alocando Buffers
+	Vbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			sizeof(int) * g.vert.size(),
+			g.vert.data(),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(V)");
+
 	Abuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			sizeof(cl_uint)*l*m,
-			(A),
+			sizeof(int) * g.arestas.size(),
+			g.arestas.data(),
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(A)");
 
+	Pbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			sizeof(int) * g.pesos.size(),
+			g.pesos.data(),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(P)");
+
+	Ubuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			sizeof(int) * U.size(),
+			U.data(),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(U)");
+
+	Mbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			sizeof(int) * M.size(),
+			M.data(),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(M)");
+
+	Cbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			sizeof(int) * C.size(),
+			C.data(),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(C)");
+
+	/*
 	Bbuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -327,6 +368,7 @@ B = (cl_uint **)malloc(sizeof(cl_uint *)*l);
 			NULL,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(C)");
+	*/
 
 	// Escolhendo o primeiro dispositivo e criando a fila de comando
 	fila = clCreateCommandQueue (
@@ -337,23 +379,25 @@ B = (cl_uint **)malloc(sizeof(cl_uint *)*l);
 	checkErr(errNum, "clCreateCommandQueue");
 
 	// Setando os argumentos da função do Kernel
-	errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &Abuffer);
-	errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &Bbuffer);
-	errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &Cbuffer);
-	errNum |= clSetKernelArg(kernel, 3, sizeof(cl_uint), &l);
-	errNum |= clSetKernelArg(kernel, 4, sizeof(cl_uint), &m);
-	errNum |= clSetKernelArg(kernel, 5, sizeof(cl_uint), &n);
+	errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &Vbuffer);
+	errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &Abuffer);
+	errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &Pbuffer);
+	errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Mbuffer);
+	errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Cbuffer);
+	errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Ubuffer);
+	/*
+	*/
 	checkErr(errNum, "clSetKernelArg");
 
 	// Definindo o número de work-items globais e locais
-	const size_t globalWorkSize[2] = { l, n };
-	const size_t localWorkSize[2] = { 8, 8 };
+	const size_t globalWorkSize[1] = { g.arestas.size() };
+	const size_t localWorkSize[1] = { 1 };
 
 	// Enfileirando o Kernel para execução através da matriz
 	errNum = clEnqueueNDRangeKernel (
 			fila,
 			kernel,
-			2,
+			1,
 			NULL,
 			globalWorkSize,
 			localWorkSize,
@@ -374,11 +418,73 @@ B = (cl_uint **)malloc(sizeof(cl_uint *)*l);
 
 	errNum = clEnqueueReadBuffer (
 			fila,
+			Mbuffer,
+			CL_TRUE,
+			0,
+			sizeof(cl_uint) * M.size(),
+			M.data(),
+			0,
+			NULL,
+			NULL);
+	checkErr(errNum, "clEnqueueReadBuffer");
+
+	/*
+	errNum = clEnqueueReadBuffer (
+			fila,
+			Vbuffer,
+			CL_TRUE,
+			0,
+			sizeof(cl_uint) * g.vert.size(),
+			g.vert.data(),
+			0,
+			NULL,
+			NULL);
+	checkErr(errNum, "clEnqueueReadBuffer");
+
+	errNum = clEnqueueReadBuffer (
+			fila,
+			Abuffer,
+			CL_TRUE,
+			0,
+			sizeof(cl_uint) * g.arestas.size(),
+			g.arestas.data(),
+			0,
+			NULL,
+			NULL);
+	checkErr(errNum, "clEnqueueReadBuffer");
+
+	errNum = clEnqueueReadBuffer (
+			fila,
+			Pbuffer,
+			CL_TRUE,
+			0,
+			sizeof(cl_uint) * g.pesos.size(),
+			g.pesos.data(),
+			0,
+			NULL,
+			NULL);
+	checkErr(errNum, "clEnqueueReadBuffer");
+	*/
+
+	errNum = clEnqueueReadBuffer (
+			fila,
 			Cbuffer,
 			CL_TRUE,
 			0,
-			sizeof(cl_uint)*l*n,
-			C,
+			sizeof(cl_uint) * C.size(),
+			C.data(),
+			0,
+			NULL,
+			NULL);
+	checkErr(errNum, "clEnqueueReadBuffer");
+
+	errNum = clEnqueueReadBuffer (
+			fila,
+			Ubuffer,
+			CL_TRUE,
+			0,
+			sizeof(cl_uint) * U.size(),
+			U.data(),
 			0,
 			NULL,
 			NULL);

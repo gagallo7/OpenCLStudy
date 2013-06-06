@@ -1,9 +1,15 @@
 all:
+	g++ -o dj2 dijk.cpp -lOpenCL
+run:
+	g++ -o dj2 dijk.cpp -lOpenCL
+	./dj2 tiny
+
+allI:
 	g++ input.cpp -o ipt
 
-r:
+rI:
 	./ipt tiny > saida
 
-run:
+runI:
 	g++ input.cpp -o ipt
 	./ipt tiny
