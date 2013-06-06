@@ -17,17 +17,6 @@
 
 using namespace std;
 
-/*
-class edge {
-	public:
-	int dest, peso;
-	edge (int d, int p) {
-		this->dest = d;
-		this->peso = p;
-	}
-};
-*/
-
 class grafo {
 	public:
 		int numV; 				// Numero de vertices
@@ -107,10 +96,13 @@ cl_uint nextPow2 (int n) {
 
 void prepare (vector < cl_uint >& M, vector < cl_uint >& C, vector < cl_uint >& U,
 		int numV) {
-	cl_uint inf = 0xFFFFFFFF; // Infinito
+	cl_uint inf = 99999; // Infinito
 	M.resize(numV,0);
 	C.resize(numV, inf);
 	U.resize(numV, inf);
+	M[0] = true;
+	C[0] = 0;
+	U[0] = 0;
 }
 
 void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {
@@ -152,14 +144,15 @@ int main(int argc, char *argv[]) {
 	cl_device_id *listaDispositivoID;
 	cl_context contexto = NULL;
 	cl_command_queue fila;
-	cl_program programa;
-	cl_kernel kernel;
+	cl_program programa, programa2;
+	cl_kernel kernel, kernel2;
 	cl_mem Vbuffer;
 	cl_mem Abuffer;
 	cl_mem Pbuffer;
 	cl_mem Mbuffer;
 	cl_mem Cbuffer;
 	cl_mem Ubuffer;
+	cl_mem SEMbuffer;
 	cl_event evento;
 
 	cout << "Abrindo arquivo... " << endl;
@@ -201,9 +194,9 @@ int main(int argc, char *argv[]) {
 	for (i=0; i < nPlataformas; i++) {
 		// Atribuindo o número de dispositivos de GPU a nDispositivos
 		errNum = clGetDeviceIDs (	listaPlataformaID[i],
-	//				CL_DEVICE_TYPE_ALL,
-					CL_DEVICE_TYPE_CPU,
-		//			CL_DEVICE_TYPE_GPU,
+				//				CL_DEVICE_TYPE_ALL,
+				CL_DEVICE_TYPE_CPU,
+				//			CL_DEVICE_TYPE_GPU,
 				0,
 				NULL,
 				&nDispositivos		);
@@ -218,9 +211,9 @@ int main(int argc, char *argv[]) {
 
 			errNum = clGetDeviceIDs (	
 					listaPlataformaID[i],
-	//				CL_DEVICE_TYPE_ALL,
+					//				CL_DEVICE_TYPE_ALL,
 					CL_DEVICE_TYPE_CPU,
-			//		CL_DEVICE_TYPE_GPU,
+					//		CL_DEVICE_TYPE_GPU,
 					nDispositivos,
 					&listaDispositivoID[0],
 					NULL);
@@ -270,9 +263,40 @@ int main(int argc, char *argv[]) {
 			&errNum);
 	checkErr(errNum, "clCreateProgramWithSource");
 
+	// Criando programa da fonte do kernel2
+	// Carregando o arquivo-fonte cl para póstuma compilação feita em runtime
+	std::ifstream srcFile2("kernel2.cl");
+
+	// Conferindo se ele foi aberto
+	checkErr(srcFile2.is_open() ? CL_SUCCESS : -1, "lendo kernel2.cl");
+
+	std::string srcProg2 (
+			std::istreambuf_iterator<char>(srcFile2),
+			(std::istreambuf_iterator<char>()));
+
+	const char *fonte2 = srcProg2.c_str();
+	tamanho = srcProg2.length();
+	programa2 = clCreateProgramWithSource (
+			contexto,
+			1,
+			&fonte2,
+			&tamanho,
+			&errNum);
+	checkErr(errNum, "clCreateProgramWithSource");
+	/*
+	*/
+
 	// Compilando programa
 	errNum = clBuildProgram (
 			programa,
+			nDispositivos,
+			listaDispositivoID,
+			NULL,
+			NULL,
+			NULL);
+
+	errNum = clBuildProgram (
+			programa2,
 			nDispositivos,
 			listaDispositivoID,
 			NULL,
@@ -302,6 +326,14 @@ int main(int argc, char *argv[]) {
 			"dijkstra",
 			&errNum);
 	checkErr(errNum, "clCreateKernel");
+
+
+	// Criando o objeto do Kernel2
+	kernel2 = clCreateKernel (
+			programa2,
+			"dijkstra",
+			&errNum);
+	checkErr(errNum, "clCreateKernel2");
 
 	// Alocando Buffers
 	Vbuffer = clCreateBuffer (
@@ -352,23 +384,32 @@ int main(int argc, char *argv[]) {
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(C)");
 
-	/*
-	Bbuffer = clCreateBuffer (
+	int semaforo = 0;
+	SEMbuffer = clCreateBuffer (
 			contexto,
-			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			sizeof(cl_uint)*m*n,
-			(B),
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			sizeof(int),
+			&semaforo,
 			&errNum);
-	checkErr(errNum, "clCreateBuffer(B)");
+	checkErr(errNum, "clCreateBuffer(semaforo)");
 
-	Cbuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_WRITE_ONLY,
-			sizeof(cl_uint)*l*n,
-			NULL,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(C)");
-	*/
+	/*
+	   Bbuffer = clCreateBuffer (
+	   contexto,
+	   CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+	   sizeof(cl_uint)*m*n,
+	   (B),
+	   &errNum);
+	   checkErr(errNum, "clCreateBuffer(B)");
+
+	   Cbuffer = clCreateBuffer (
+	   contexto,
+	   CL_MEM_WRITE_ONLY,
+	   sizeof(cl_uint)*l*n,
+	   NULL,
+	   &errNum);
+	   checkErr(errNum, "clCreateBuffer(C)");
+	   */
 
 	// Escolhendo o primeiro dispositivo e criando a fila de comando
 	fila = clCreateCommandQueue (
@@ -385,14 +426,26 @@ int main(int argc, char *argv[]) {
 	errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Mbuffer);
 	errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Cbuffer);
 	errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Ubuffer);
+	errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &SEMbuffer);
 	/*
 	*/
+	// Setando os argumentos da função do Kernel2
+	errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Vbuffer);
+	errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Abuffer);
+	errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Pbuffer);
+	errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Mbuffer);
+	errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Cbuffer);
+	errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &Ubuffer);
+	errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &SEMbuffer);
 	checkErr(errNum, "clSetKernelArg");
 
 	// Definindo o número de work-items globais e locais
-	const size_t globalWorkSize[1] = { g.arestas.size() };
+	const size_t globalWorkSize[1] = { g.vert.size() };
 	const size_t localWorkSize[1] = { 1 };
 
+	//while(!vazio(M)) 
+	//TODO
+	//	for (int i=0; i<g.vert.size(); i++) {
 	// Enfileirando o Kernel para execução através da matriz
 	errNum = clEnqueueNDRangeKernel (
 			fila,
@@ -405,6 +458,21 @@ int main(int argc, char *argv[]) {
 			NULL,
 			&evento);
 	checkErr(errNum, "clEnqueueNDRangeKernel");
+
+
+	// Enfileirando o Kernel2 para execução através da matriz
+	errNum = clEnqueueNDRangeKernel (
+			fila,
+			kernel2,
+			1,
+			NULL,
+			globalWorkSize,
+			localWorkSize,
+			0,
+			NULL,
+			&evento);
+	checkErr(errNum, "clEnqueueNDRangeKernel2");
+	//	}
 
 	cl_ulong ev_start_time=(cl_ulong)0;     
 	cl_ulong ev_end_time=(cl_ulong)0;
@@ -429,42 +497,42 @@ int main(int argc, char *argv[]) {
 	checkErr(errNum, "clEnqueueReadBuffer");
 
 	/*
-	errNum = clEnqueueReadBuffer (
-			fila,
-			Vbuffer,
-			CL_TRUE,
-			0,
-			sizeof(cl_uint) * g.vert.size(),
-			g.vert.data(),
-			0,
-			NULL,
-			NULL);
-	checkErr(errNum, "clEnqueueReadBuffer");
+	   errNum = clEnqueueReadBuffer (
+	   fila,
+	   Vbuffer,
+	   CL_TRUE,
+	   0,
+	   sizeof(cl_uint) * g.vert.size(),
+	   g.vert.data(),
+	   0,
+	   NULL,
+	   NULL);
+	   checkErr(errNum, "clEnqueueReadBuffer");
 
-	errNum = clEnqueueReadBuffer (
-			fila,
-			Abuffer,
-			CL_TRUE,
-			0,
-			sizeof(cl_uint) * g.arestas.size(),
-			g.arestas.data(),
-			0,
-			NULL,
-			NULL);
-	checkErr(errNum, "clEnqueueReadBuffer");
+	   errNum = clEnqueueReadBuffer (
+	   fila,
+	   Abuffer,
+	   CL_TRUE,
+	   0,
+	   sizeof(cl_uint) * g.arestas.size(),
+	   g.arestas.data(),
+	   0,
+	   NULL,
+	   NULL);
+	   checkErr(errNum, "clEnqueueReadBuffer");
 
-	errNum = clEnqueueReadBuffer (
-			fila,
-			Pbuffer,
-			CL_TRUE,
-			0,
-			sizeof(cl_uint) * g.pesos.size(),
-			g.pesos.data(),
-			0,
-			NULL,
-			NULL);
-	checkErr(errNum, "clEnqueueReadBuffer");
-	*/
+	   errNum = clEnqueueReadBuffer (
+	   fila,
+	   Pbuffer,
+	   CL_TRUE,
+	   0,
+	   sizeof(cl_uint) * g.pesos.size(),
+	   g.pesos.data(),
+	   0,
+	   NULL,
+	   NULL);
+	   checkErr(errNum, "clEnqueueReadBuffer");
+	   */
 
 	errNum = clEnqueueReadBuffer (
 			fila,
@@ -490,29 +558,32 @@ int main(int argc, char *argv[]) {
 			NULL);
 	checkErr(errNum, "clEnqueueReadBuffer");
 
-/*
-	// Imprimindo saída do resultado
-	for(int x = l-1; x < l; x++) {
-		for( int y=0; y<m; y++) {
-			std::cout << A[x][y] << " ";
-		}
-		std::cout << std::endl;
+	for(int i=0; i<g.vert.size(); i++) {
+		cout << g.vert[i] << " ";
+	}
+
+	std::cout << std::endl;
+	for(int i=0; i<g.vert.size(); i++) {
+		cout << M[i] << " ";
+	}
+	std::cout << endl << "Pesos: " << std::endl;
+	for(int i=0; i<g.arestas.size(); i++) {
+		cout << g.pesos[i] << " ";
 	}
 	std::cout << std::endl;
-	for(int x = m-1; x < m; x++) {
-		for( int y=0; y<n; y++) {
-			std::cout << B[x][y] << " ";
-		}
-		std::cout << std::endl;
+
+	std::cout << "Update: " << std::endl;
+	for(int i=0; i<g.vert.size(); i++) {
+		cout << U[i] << " ";
 	}
 	std::cout << std::endl;
-	for(int x = l-1; x < l; x++) {
-		for( int y=0; y<n; y++) {
-			std::cout << C[x][y] << " ";
-		}
-		std::cout << std::endl;
+
+	std::cout << "Cost: " << std::endl;
+	for(int i=0; i<g.vert.size(); i++) {
+		cout << C[i] << " ";
 	}
-*/
+	std::cout << std::endl;
+
 	std::cout << std::endl << std::fixed;
 	std::cout << "Tempo de execução: " << std::setprecision(6) << run_time_gpu/1000000 << "ms";
 	std::cout << std::endl;

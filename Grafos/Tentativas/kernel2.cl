@@ -12,6 +12,15 @@ void ReleaseSemaphor(__global int * semaphor)
 	int prevVal = atom_xchg (semaphor, 0);
 }
 
+/*
+tid ← getThreadID
+if Ca [tid] > Ua [tid] then
+Ca [tid] ← Ua [tid]
+Ma [tid] ← true
+end if
+Ua [tid] ← Ca [tid]
+*/
+
 __kernel void dijkstra (
 		__global const int *V,
 		__global const int *A,
@@ -23,20 +32,10 @@ __kernel void dijkstra (
 		) {
 	int tid = get_global_id(0);
 
-	if (M[tid]) {
-		M[tid] = false;
-		GetSemaphor(sem);
-		int first, last;
-		first = V[tid];
-		// TODO
-		last = V[tid+1]; // Non-coalesced access - Review
-		ReleaseSemaphor(sem);
-
-		for (int nid = first; nid < last; nid++) {
-			if (U[nid] > C[tid]+W[nid]) {
-				U[nid] = C[tid]+W[nid];
-			}
-		}
+	if (C[tid] > U[tid]) {
+		C[tid] = U[tid];
+		M[tid] = true;
 	}
+	U[tid] = C[tid];
 }
 
