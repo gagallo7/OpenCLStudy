@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <list>
 
 #ifdef __APPLE__
 #include <OpenCL/cl.h>
@@ -17,6 +18,14 @@
 
 using namespace std;
 
+bool vazio (vector < unsigned int > M) {
+	for (int i = 0; i < M.size(); i++) {
+		if (M[i] == true)
+			return false;
+	}
+	return true;
+}
+
 class grafo {
 	public:
 		int numV; 				// Numero de vertices
@@ -25,9 +34,77 @@ class grafo {
 		vector < cl_uint > pesos; 			// Vetor de pesos
 
 		void make_graph (FILE *);
+		void make_graph9 (FILE *);
 		void printInfo (void);
 		void prepare (vector < cl_uint >&, vector < cl_uint >&, vector < cl_uint >&);
 };
+
+// Cria grafo baseado no modelo do DIMACS9
+// DIMACS usa o seguinte modelo:
+// Cada linha tem o vertice de origem e saida e também o peso de
+// cada aresta
+//
+void grafo::make_graph9 ( FILE* fp ) {
+	char linha[2000];
+	vector < unsigned int > a_tmp, p_tmp, v_tmp;
+	vector < list < vector < unsigned int > > > la;
+	if (fp==NULL) {
+		cout << "Erro ao abrir arquivo!" << endl;
+		return;
+	}
+	// Primeiro vertice comeca sua lista de adjacencias em 0
+	//vert.push_back(0);
+
+	// Cada linha tem a representacao de cada vertice
+	// fgets limita-se a capturar uma linha
+	int i, o, peso;
+
+	// Coletando a primeira linha, a qual armazena o numero
+	// de vertices do grafo
+	if (fgets (linha, 2000, fp) != NULL) {
+		sscanf(linha, " %d", &numV);
+	}
+
+	la.resize(numV+1);
+
+	cout << numV << endl;
+
+	// Coletando as arestas
+	while (fgets (linha, 2000, fp) != NULL) {
+		//int ant = -1;
+		// Capturando o vertice
+		if (*linha != '-') { // Se o vertice tiver arestas
+			sscanf(linha," %d %d %d", &i, &o, &peso);
+			
+			// Caso de fim de linha, pois nao ha arestas iguais
+			// Logo o destino nao pode ser o mesmo
+			cout << i << " " << o << " " << peso;
+		//	ant = i;
+			vector < unsigned int > novo;
+			novo.push_back(o);
+			novo.push_back(peso);
+			la[i].push_back(novo);
+		}
+		/*
+		*/
+		// Apontando para a proxima lista de adjacencias
+		//vert.push_back(arestas.size());
+	}
+	fclose(fp);
+
+	list < vector < unsigned int > >::iterator ll;
+
+	int j = 0;
+	for (int i = 0; i < numV; i++) {
+		vert.push_back(j);
+		for (ll = la[i].begin(); ll != la[i].end(); ll++) {
+			j++;
+			arestas.push_back((*ll)[0]);
+			pesos.push_back((*ll)[1]);
+		}
+	}	
+
+}
 
 // Cria grafo baseado no modelo do DIMACS
 // DIMACS usa o seguinte modelo:
@@ -42,32 +119,32 @@ void grafo::make_graph(FILE *fp) {
 	// Primeiro vertice comeca sua lista de adjacencias em 0
 	vert.push_back(0);
 
-	//cout << "aquiquqiqui";
 	// Cada linha tem a representacao de cada vertice
 	// fgets limita-se a capturar uma linha
-	int ant = -1;
 	int i, peso;
 	while (fgets (linha, 2000, fp) != NULL) {
+		int ant = -1;
 		// Capturando o vertice
-		while (1) {
-			sscanf(linha," %d %d %[0-9 ]", &i, &peso,  linha);
-			// Caso de fim de linha, pois nao ha arestas iguais
-			// Logo, o destino nao pode ser o mesmo
-			if (ant == i) {
-				break;
+		if (*linha != '\n') // Se o vertice tiver arestas
+			while(1) {
+				sscanf(linha," %d %d %[0-9 ]", &i, &peso,  linha);
+				// Caso de fim de linha, pois nao ha arestas iguais
+				// Logo o destino nao pode ser o mesmo
+				if (ant == i) {
+					break;
+				}
+				cout << i << " ";
+				ant = i;
+				arestas.push_back(i);
+				pesos.push_back(peso);
 			}
-			cout << i << " ";
-			ant = i;
-			arestas.push_back(i);
-			pesos.push_back(peso);
-		}
 		/*
 		*/
 		// Apontando para a proxima lista de adjacencias
 		vert.push_back(arestas.size());
 	}
 	fclose(fp);
-	numV = vert.size();
+	numV = vert.size() - 1; // A representacao faz com que tenha mais um elemento no vetor de vertices
 }
 
 void grafo::printInfo () {
@@ -95,14 +172,14 @@ cl_uint nextPow2 (int n) {
 }
 
 void prepare (vector < cl_uint >& M, vector < cl_uint >& C, vector < cl_uint >& U,
-		int numV) {
-	cl_uint inf = 99999; // Infinito
+		int numV, int s) {
+	cl_uint inf = 1 << 30; // Infinito
 	M.resize(numV,0);
 	C.resize(numV, inf);
 	U.resize(numV, inf);
-	M[0] = true;
-	C[0] = 0;
-	U[0] = 0;
+	M[s] = true;
+	C[s] = 0;
+	U[s] = 0;
 }
 
 void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {
@@ -153,20 +230,24 @@ int main(int argc, char *argv[]) {
 	cl_mem Cbuffer;
 	cl_mem Ubuffer;
 	cl_mem SEMbuffer;
+	cl_mem numVbuffer;
 	cl_event evento;
+	int raiz;
 
 	cout << "Abrindo arquivo... " << endl;
 	// Abrindo arquivo de entrada
 	FILE *fp = fopen(argv[1], "r");
+	if (argv[2])
+		raiz = atoi(argv[2]);
 	grafo g;
 	// Criando vetores auxiliares
 	vector < cl_uint > C, U, M;
 	// Criando Grafo
 	cout << "Montando grafo... " << endl;
-	g.make_graph(fp);
+	g.make_graph9(fp);
 	// Preparando vetores auxiliares para o Dijkstra
 	cout << "Preparando... " << endl;
-	prepare(M, C, U, g.numV);
+	prepare(M, C, U, g.numV, raiz);
 	g.printInfo();
 	cout << "Vetores prontos. " <<  endl;
 	cout << "Numero de workitems: " << nextPow2(g.arestas.size()) << endl;
@@ -331,7 +412,7 @@ int main(int argc, char *argv[]) {
 	// Criando o objeto do Kernel2
 	kernel2 = clCreateKernel (
 			programa2,
-			"dijkstra",
+			"dijkstra2",
 			&errNum);
 	checkErr(errNum, "clCreateKernel2");
 
@@ -393,6 +474,15 @@ int main(int argc, char *argv[]) {
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(semaforo)");
 
+	int numV = g.vert.size();
+	numVbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			sizeof(int),
+			&numV,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(numero_de_vertices)");
+
 	/*
 	   Bbuffer = clCreateBuffer (
 	   contexto,
@@ -427,6 +517,7 @@ int main(int argc, char *argv[]) {
 	errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Cbuffer);
 	errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Ubuffer);
 	errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &SEMbuffer);
+	errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &numVbuffer);
 	/*
 	*/
 	// Setando os argumentos da função do Kernel2
@@ -437,24 +528,30 @@ int main(int argc, char *argv[]) {
 	errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Cbuffer);
 	errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &Ubuffer);
 	errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &SEMbuffer);
-	checkErr(errNum, "clSetKernelArg");
-
-	errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &Vbuffer);
-	errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &Abuffer);
-	errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &Pbuffer);
-	errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Mbuffer);
-	errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Cbuffer);
-	errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Ubuffer);
-	errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &SEMbuffer);
+	errNum |= clSetKernelArg(kernel2, 7, sizeof(cl_mem), &numVbuffer);
 	checkErr(errNum, "clSetKernelArg");
 
 	// Definindo o número de work-items globais e locais
-	const size_t globalWorkSize[1] = { g.vert.size() };
+	const size_t globalWorkSize[1] = { g.numV };
 	const size_t localWorkSize[1] = { 1 };
 
-	//while(!vazio(M)) 
+	// releituraFeita e um evento que sincroniza a atualizacao feita
+	// por cada chamada aos kernels
+	
+	cl_event releituraFeita;
+	errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, sizeof(int) * M.size(), M.data(), 0, NULL, &releituraFeita);
+        checkErr(errNum, CL_SUCCESS);
+        clWaitForEvents(1, &releituraFeita);
+
+	while(!vazio(M)) {
 	//TODO
-	//	for (int i=0; i<g.vert.size(); i++) {
+	//for (int i=0; i<800; i++) {
+
+	std::cout << endl << "Mask: " << std::endl;
+	for(int i=0; i<M.size(); i++) {
+		cout << M[i] << " ";
+	}
+
 	// Enfileirando o Kernel para execução através da matriz
 	errNum = clEnqueueNDRangeKernel (
 			fila,
@@ -481,19 +578,12 @@ int main(int argc, char *argv[]) {
 			NULL,
 			&evento);
 	checkErr(errNum, "clEnqueueNDRangeKernel2");
-	//	}
 
-	errNum = clEnqueueNDRangeKernel (
-			fila,
-			kernel,
-			1,
-			NULL,
-			globalWorkSize,
-			localWorkSize,
-			0,
-			NULL,
-			&evento);
-	checkErr(errNum, "clEnqueueNDRangeKernel");
+	errNum  = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, sizeof(int) * M.size(), M.data(), 0, NULL, &releituraFeita);
+        checkErr(errNum, CL_SUCCESS);
+        clWaitForEvents(1, &releituraFeita);
+
+		}
 
 	cl_ulong ev_start_time=(cl_ulong)0;     
 	cl_ulong ev_end_time=(cl_ulong)0;
@@ -503,7 +593,7 @@ int main(int argc, char *argv[]) {
 	errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
 	errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
 
-	double run_time_gpu = (double)(ev_end_time - ev_start_time)/1000; // in usec
+	double run_time_gpu = (double)(ev_end_time - ev_start_time); // in usec
 
 	errNum = clEnqueueReadBuffer (
 			fila,
@@ -579,14 +669,21 @@ int main(int argc, char *argv[]) {
 			NULL);
 	checkErr(errNum, "clEnqueueReadBuffer");
 
+	std::cout << endl << "Vertices: " << std::endl;
 	for(int i=0; i<g.vert.size(); i++) {
 		cout << g.vert[i] << " ";
 	}
 
-	std::cout << std::endl;
+	std::cout << endl << "Arestas: " << std::endl;
+	for(int i=0; i<g.arestas.size(); i++) {
+		cout << g.arestas[i] << " ";
+	}
+
+	std::cout << endl << "Mask: " << std::endl;
 	for(int i=0; i<g.vert.size(); i++) {
 		cout << M[i] << " ";
 	}
+
 	std::cout << endl << "Pesos: " << std::endl;
 	for(int i=0; i<g.arestas.size(); i++) {
 		cout << g.pesos[i] << " ";
@@ -594,19 +691,20 @@ int main(int argc, char *argv[]) {
 	std::cout << std::endl;
 
 	std::cout << "Update: " << std::endl;
-	for(int i=0; i<g.vert.size(); i++) {
+	for(int i=0; i<g.numV; i++) {
+		if (i%10==0) cout << std::endl;
 		cout << U[i] << " ";
 	}
 	std::cout << std::endl;
 
 	std::cout << "Cost: " << std::endl;
-	for(int i=0; i<g.vert.size(); i++) {
+	for(int i=0; i<g.numV; i++) {
 		cout << C[i] << " ";
 	}
 	std::cout << std::endl;
 
 	std::cout << std::endl << std::fixed;
-	std::cout << "Tempo de execução: " << std::setprecision(6) << run_time_gpu/1000000 << "ms";
+	std::cout << "Tempo de execução: " << std::setprecision(6) << run_time_gpu/1000000 << " ns";
 	std::cout << std::endl;
 	std::cout << run_time_gpu*1.0e-6;
 	std::cout << std::endl;

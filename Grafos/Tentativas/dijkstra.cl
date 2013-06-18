@@ -12,6 +12,7 @@ void ReleaseSemaphor(__global int * semaphor)
 	int prevVal = atom_xchg (semaphor, 0);
 }
 
+
 __kernel void dijkstra (
 		__global const int *V,
 		__global const int *A,
@@ -19,7 +20,8 @@ __kernel void dijkstra (
 		__global int *M,
 		__global int *C,
 		__global int *U,
-		__global int *sem
+		__global int *sem,
+		__global int *numV
 		) {
 	int tid = get_global_id(0);
 
@@ -28,13 +30,17 @@ __kernel void dijkstra (
 		GetSemaphor(sem);
 		int first, last;
 		first = V[tid];
-		// TODO
-		last = V[tid+1]; // Non-coalesced access - Review
+		// Garantindo que o work-item nao ultrapasse
+		// o tamanho do vetor
+		if ( tid + 0 < numV  ) 
+					// TODO
+			last = V[tid+1]; // Non-coalesced access - Review
 		ReleaseSemaphor(sem);
 
 		for (int nid = first; nid < last; nid++) {
-			if (U[nid] > C[tid]+W[nid]) {
-				U[nid] = C[tid]+W[nid];
+			int edge = A[nid];
+			if (U[edge] > C[tid]+W[nid]) {
+				U[edge] = C[tid]+W[nid];
 			}
 		}
 	}
