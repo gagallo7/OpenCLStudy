@@ -1,0 +1,1565 @@
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+['1000000', '10000000', '100000000', '2000000', '20000000', '4000000', '40000000', '8000000', '80000000']
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csvERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csvERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csvERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+ERRO: clCreateBuffer(A) (-37)
+
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+['1000000', '10000000', '100000000', '2000000', '20000000', '4000000', '40000000', '8000000', '80000000']
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/1000000 >> Speedup.csv
+./dj2 entradas/gigantes/1000000 1000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/10000000 >> Speedup.csv
+./dj2 entradas/gigantes/10000000 10000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csvERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/100000000 >> Speedup.csv
+./dj2 entradas/gigantes/100000000 100000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/2000000 >> Speedup.csv
+./dj2 entradas/gigantes/2000000 2000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/20000000 >> Speedup.csv
+./dj2 entradas/gigantes/20000000 20000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/4000000 >> Speedup.csv
+./dj2 entradas/gigantes/4000000 4000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/40000000 >> Speedup.csv
+./dj2 entradas/gigantes/40000000 40000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csvERRO: clEnqueueNDRangeKernel (-4)
+ERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+ERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x00000000399418b0 ***
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003a8a2130 ***
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003b6128b0 ***
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003a8588b0 ***
+ERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003a1a7db0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7f2baeaddb96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7f2baea9a968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7f2baea9a985]
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003aaa38b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7f57fd7adb96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7f57fd76a968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7f57fd76a985]
+./dj2[0x404a75]
+./dj2[0x4041e2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xed)[0x7f57fd75076d]
+./dj2[0x401e49]
+======= Memory map: ========
+00400000-0040c000 r-xp 00000000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040d000-0040e000 r--p 0000c000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040e000-0040f000 rw-p 0000d000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+01706000-3ac68000 rw-p 00000000 00:00 0                                  [heap]
+200000000-900000000 ---p 00000000 00:00 0 
+7f5730d49000-7f5770d4b000 rw-p 00000000 00:00 0 
+7f5770d54000-7f5790d55000 rw-p 00000000 00:00 0 
+7f5796a7e000-7f57a9bac000 rw-p 00000000 00:00 0 
+7f57f6061000-7f57f6062000 rw-p 00000000 00:00 0 
+7f57f6062000-7f57f6063000 ---p 00000000 00:00 0 
+7f57f6063000-7f57f6863000 rwxp 00000000 00:00 0 
+7f57f6863000-7f57f6864000 ---p 00000000 00:00 0 
+7f57f6864000-7f57f7064000 rwxp 00000000 00:00 0 
+7f57f7064000-7f57f7065000 ---p 00000000 00:00 0 
+7f57f7065000-7f57f7865000 rwxp 00000000 00:00 0 
+7f57f7865000-7f57f7866000 ---p 00000000 00:00 0 
+7f57f7866000-7f57f8066000 rwxp 00000000 00:00 0 
+7f57f8066000-7f57f8067000 ---p 00000000 00:00 0 
+7f57f8067000-7f57f8867000 rwxp 00000000 00:00 0 
+7f57f8867000-7f57f8972000 rw-p 00000000 00:00 0 
+7f57f8972000-7f57f8a72000 rw-s 403933000 00:05 7148                      /dev/nvidia0
+7f57f8a72000-7f57f8b72000 rw-p 00000000 00:00 0 
+7f57f8b72000-7f57f8c72000 rw-s 413039000 00:05 7148                      /dev/nvidia0
+7f57f8c72000-7f57f8d72000 rw-p 00000000 00:00 0 
+7f57f8d72000-7f57f8d73000 rw-s d7d60000 00:05 7148                       /dev/nvidia0
+7f57f8d73000-7f57f8d74000 rw-s 3a2208000 00:05 7148                      /dev/nvidia0
+7f57f8d74000-7f57f9176000 rw-s 40feb8000 00:05 7148                      /dev/nvidia0
+7f57f9176000-7f57f9578000 rw-s 411c0f000 00:05 7148                      /dev/nvidia0
+7f57f9578000-7f57f9579000 ---p 00000000 00:00 0 
+7f57f9579000-7f57f9d79000 rwxp 00000000 00:00 0 
+7f57f9d79000-7f57f9f79000 rw-p 00000000 00:00 0 
+7f57f9f79000-7f57f9f8f000 r-xp 00000000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f57f9f8f000-7f57fa18e000 ---p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f57fa18e000-7f57fa18f000 r--p 00015000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f57fa18f000-7f57fa190000 rw-p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f57fa190000-7f57fa8d6000 r-xp 00000000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f57fa8d6000-7f57faad5000 ---p 00746000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f57faad5000-7f57fabc7000 rw-p 00745000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f57fabc7000-7f57fabec000 rw-p 00000000 00:00 0 
+7f57fabec000-7f57fac20000 r-xp 00000000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f57fac20000-7f57fae1f000 ---p 00034000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f57fae1f000-7f57fae21000 r--p 00033000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f57fae21000-7f57fae22000 rw-p 00035000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f57fae22000-7f57fae23000 rw-p 00000000 00:00 0 
+7f57fae23000-7f57fc13d000 r-xp 00000000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f57fc13d000-7f57fc33d000 ---p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f57fc33d000-7f57fc3d8000 r--p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f57fc3d8000-7f57fc3f2000 rw-p 013b5000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f57fc3f2000-7f57fc3fc000 rw-p 00000000 00:00 0 
+7f57fc3fc000-7f57fc403000 r-xp 00000000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f57fc403000-7f57fc602000 ---p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f57fc602000-7f57fc603000 r--p 00006000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f57fc603000-7f57fc604000 rw-p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f57fc604000-7f57fc622000 r-xp 00000000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f57fc622000-7f57fc722000 ---p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f57fc722000-7f57fc725000 rw-p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f57fc725000-7f57fc736000 rw-p 00000000 00:00 0 
+7f57fc736000-7f57fc73f000 r-xp 00000000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f57fc73f000-7f57fc93f000 ---p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f57fc93f000-7f57fc940000 r--p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f57fc940000-7f57fc941000 rw-p 0000a000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f57fc941000-7f57fc95e000 r-xp 00000000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f57fc95e000-7f57fcb5e000 ---p 0001d000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f57fcb5e000-7f57fcb5f000 r--p 0001d000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f57fcb5f000-7f57fcb60000 rw-p 0001e000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f57fcb60000-7f57fcb67000 r-xp 00000000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f57fcb67000-7f57fcd66000 ---p 00007000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f57fcd66000-7f57fcd67000 r--p 00006000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f57fcd67000-7f57fcd68000 rw-p 00007000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f57fcd68000-7f57fce09000 r-xp 00000000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f57fce09000-7f57fd009000 ---p 000a1000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f57fd009000-7f57fd00f000 r--p 000a1000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f57fd00f000-7f57fd011000 rw-p 000a7000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f57fd011000-7f57fd012000 rw-p 00000000 00:00 0 
+7f57fd012000-7f57fd10d000 r-xp 00000000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f57fd10d000-7f57fd30c000 ---p 000fb000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f57fd30c000-7f57fd30d000 r--p 000fa000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f57fd30d000-7f57fd30e000 rw-p 000fb000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f57fd30e000-7f57fd310000 r-xp 00000000 08:01 49414264                   /lib/x86_64-linux-gnu/libdl-2.15.so
+7f57fd310000-7f57fd510000 ---p 00002000 08:01 49ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003a89d8b0 ***
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003b12a8b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7f516826cb96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7f5168229968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7f5168229985]
+./dj2[0x404a75]
+./dj2[0x4041e2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xed)[0x7f516820f76d]
+./dj2[0x401e49]
+======= Memory map: ========
+00400000-0040c000 r-xp 00000000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040d000-0040e000 r--p 0000c000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040e000-0040f000 rw-p 0000d000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+01d8d000-3b2ef000 rw-p 00000000 00:00 0                                  [heap]
+200000000-900000000 ---p 00000000 00:00 0 
+7f509b808000-7f50db80a000 rw-p 00000000 00:00 0 
+7f50db813000-7f50fb814000 rw-p 00000000 00:00 0 
+7f510153d000-7f511466b000 rw-p 00000000 00:00 0 
+7f5160b20000-7f5160b21000 rw-p 00000000 00:00 0 
+7f5160b21000-7f5160b22000 ---p 00000000 00:00 0 
+7f5160b22000-7f5161322000 rwxp 00000000 00:00 0 
+7f5161322000-7f5161323000 ---p 00000000 00:00 0 
+7f5161323000-7f5161b23000 rwxp 00000000 00:00 0 
+7f5161b23000-7f5161b24000 ---p 00000000 00:00 0 
+7f5161b24000-7f5162324000 rwxp 00000000 00:00 0 
+7f5162324000-7f5162325000 ---p 00000000 00:00 0 
+7f5162325000-7f5162b25000 rwxp 00000000 00:00 0 
+7f5162b25000-7f5162b26000 ---p 00000000 00:00 0 
+7f5162b26000-7f5163326000 rwxp 00000000 00:00 0 
+7f5163326000-7f5163431000 rw-p 00000000 00:00 0 
+7f5163431000-7f5163531000 rw-s 41027c000 00:05 7148                      /dev/nvidia0
+7f5163531000-7f5163631000 rw-p 00000000 00:00 0 
+7f5163631000-7f5163731000 rw-s 404cc2000 00:05 7148                      /dev/nvidia0
+7f5163731000-7f5163831000 rw-p 00000000 00:00 0 
+7f5163831000-7f5163832000 rw-s d7d60000 00:05 7148                       /dev/nvidia0
+7f5163832000-7f5163833000 rw-s 413926000 00:05 7148                      /dev/nvidia0
+7f5163833000-7f5163c35000 rw-s 4076ec000 00:05 7148                      /dev/nvidia0
+7f5163c35000-7f5164037000 rw-s 404e34000 00:05 7148                      /dev/nvidia0
+7f5164037000-7f5164038000 ---p 00000000 00:00 0 
+7f5164038000-7f5164838000 rwxp 00000000 00:00 0 
+7f5164838000-7f5164a38000 rw-p 00000000 00:00 0 
+7f5164a38000-7f5164a4e000 r-xp 00000000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f5164a4e000-7f5164c4d000 ---p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f5164c4d000-7f5164c4e000 r--p 00015000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f5164c4e000-7f5164c4f000 rw-p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f5164c4f000-7f5165395000 r-xp 00000000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f5165395000-7f5165594000 ---p 00746000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f5165594000-7f5165686000 rw-p 00745000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f5165686000-7f51656ab000 rw-p 00000000 00:00 0 
+7f51656ab000-7f51656df000 r-xp 00000000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f51656df000-7f51658de000 ---p 00034000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f51658de000-7f51658e0000 r--p 00033000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f51658e0000-7f51658e1000 rw-p 00035000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f51658e1000-7f51658e2000 rw-p 00000000 00:00 0 
+7f51658e2000-7f5166bfc000 r-xp 00000000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f5166bfc000-7f5166dfc000 ---p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f5166dfc000-7f5166e97000 r--p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f5166e97000-7f5166eb1000 rw-p 013b5000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f5166eb1000-7f5166ebb000 rw-p 00000000 00:00 0 
+7f5166ebb000-7f5166ec2000 r-xp 00000000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f5166ec2000-7f51670c1000 ---p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f51670c1000-7f51670c2000 r--p 00006000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f51670c2000-7f51670c3000 rw-p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f51670c3000-7f51670e1000 r-xp 00000000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f51670e1000-7f51671e1000 ---p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f51671e1000-7f51671e4000 rw-p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f51671e4000-7f51671f5000 rw-p 00000000 00:00 0 
+7f51671f5000-7f51671fe000 r-xp 00000000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f51671fe000-7f51673fe000 ---p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f51673fe000-7f51673ff000 r--p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f51673ff000-7f5167400000 rw-p 0000a000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f5167400000-7f516741d000 r-xp 00000000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f516741d000-7f516761d000 ---p 0001d000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f516761d000-7f516761e000 r--p 0001d000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f516761e000-7f516761f000 rw-p 0001e000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f516761f000-7f5167626000 r-xp 00000000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f5167626000-7f5167825000 ---p 00007000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f5167825000-7f5167826000 r--p 00006000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f5167826000-7f5167827000 rw-p 00007000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f5167827000-7f51678c8000 r-xp 00000000 08:01 1314794                    /usr/lib64/OpenCL/venERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x00000000399be8b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7faed0387b96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7faed0344968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7faed0344985]
+./dj2[0x404a75]
+./dj2[0x4041e2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xed)[0x7faed032a76d]
+./dj2[0x401e49]
+======= Memory map: ========
+00400000-0040c000 r-xp 00000000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040d000-0040e000 r--p 0000c000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040e000-0040f000 rw-p 0000d000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+00621000-39b83000 rw-p 00000000 00:00 0                                  [heap]
+200000000-900000000 ---p 00000000 00:00 0 
+7fae03923000-7fae43925000 rw-p 00000000 00:00 0 
+7fae4392e000-7fae6392f000 rw-p 00000000 00:00 0 
+7fae69658000-7fae7c786000 rw-p 00000000 00:00 0 
+7faec0c3b000-7faec8c3b000 ---p 00000000 00:00 0 
+7faec8c3b000-7faec8c3c000 rw-p 00000000 00:00 0 
+7faec8c3c000-7faec8c3d000 ---p 00000000 00:00 0 
+7faec8c3d000-7faec943d000 rwxp 00000000 00:00 0 
+7faec943d000-7faec943e000 ---p 00000000 00:00 0 
+7faec943e000-7faec9c3e000 rwxp 00000000 00:00 0 
+7faec9c3e000-7faec9c3f000 ---p 00000000 00:00 0 
+7faec9c3f000-7faeca43f000 rwxp 00000000 00:00 0 
+7faeca43f000-7faeca440000 ---p 00000000 00:00 0 
+7faeca440000-7faecac40000 rwxp 00000000 00:00 0 
+7faecac40000-7faecac41000 ---p 00000000 00:00 0 
+7faecac41000-7faecb441000 rwxp 00000000 00:00 0 
+7faecb441000-7faecb54c000 rw-p 00000000 00:00 0 
+7faecb54c000-7faecb64c000 rw-s 412237000 00:05 7148                      /dev/nvidia0
+7faecb64c000-7faecb74c000 rw-p 00000000 00:00 0 
+7faecb74c000-7faecb84c000 rw-s 40f8cc000 00:05 7148                      /dev/nvidia0
+7faecb84c000-7faecb94c000 rw-p 00000000 00:00 0 
+7faecb94c000-7faecb94d000 rw-s d7d60000 00:05 7148                       /dev/nvidia0
+7faecb94d000-7faecb94e000 rw-s 40492d000 00:05 7148                      /dev/nvidia0
+7faecb94e000-7faecbd50000 rw-s 40473b000 00:05 7148                      /dev/nvidia0
+7faecbd50000-7faecc152000 rw-s 404ceb000 00:05 7148                      /dev/nvidia0
+7faecc152000-7faecc153000 ---p 00000000 00:00 0 
+7faecc153000-7faecc953000 rwxp 00000000 00:00 0 
+7faecc953000-7faeccb53000 rw-p 00000000 00:00 0 
+7faeccb53000-7faeccb69000 r-xp 00000000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7faeccb69000-7faeccd68000 ---p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7faeccd68000-7faeccd69000 r--p 00015000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7faeccd69000-7faeccd6a000 rw-p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7faeccd6a000-7faecd4b0000 r-xp 00000000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7faecd4b0000-7faecd6af000 ---p 00746000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7faecd6af000-7faecd7a1000 rw-p 00745000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7faecd7a1000-7faecd7c6000 rw-p 00000000 00:00 0 
+7faecd7c6000-7faecd7fa000 r-xp 00000000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7faecd7fa000-7faecd9f9000 ---p 00034000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7faecd9f9000-7faecd9fb000 r--p 00033000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7faecd9fb000-7faecd9fc000 rw-p 00035000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7faecd9fc000-7faecd9fd000 rw-p 00000000 00:00 0 
+7faecd9fd000-7faeced17000 r-xp 00000000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7faeced17000-7faecef17000 ---p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7faecef17000-7faecefb2000 r--p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7faecefb2000-7faecefcc000 rw-p 013b5000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7faecefcc000-7faecefd6000 rw-p 00000000 00:00 0 
+7faecefd6000-7faecefdd000 r-xp 00000000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7faecefdd000-7faecf1dc000 ---p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7faecf1dc000-7faecf1dd000 r--p 00006000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7faecf1dd000-7faecf1de000 rw-p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7faecf1de000-7faecf1fc000 r-xp 00000000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7faecf1fc000-7faecf2fc000 ---p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7faecf2fc000-7faecf2ff000 rw-p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7faecf2ff000-7faecf310000 rw-p 00000000 00:00 0 
+7faecf310000-7faecf319000 r-xp 00000000 08:01 57416478                   /usr/lib/libnuma.so.1
+7faecf319000-7faecf519000 ---p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7faecf519000-7faecf51a000 r--p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7faecf51a000-7faecf51b000 rw-p 0000a000 08:01 57416478                   /usr/lib/libnuma.so.1
+7faecERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003b2f48b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7fe9b72abb96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7fe9b7268968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7fe9b7268985]
+./dj2[0x404a75]
+./dj2[0x4041e2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xed)[0x7fe9b724e76d]
+./dj2[0x401e49]
+======= Memory map: ========
+00400000-0040c000 r-xp 00000000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040d000-0040e000 r--p 0000c000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040e000-0040f000 rw-p 0000d000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+01f57000-3b4b9000 rw-p 00000000 00:00 0                                  [heap]
+200000000-900000000 ---p 00000000 00:00 0 
+7fe8ea847000-7fe92a849000 rw-p 00000000 00:00 0 
+7fe92a852000-7fe94a853000 rw-p 00000000 00:00 0 
+7fe95057c000-7fe9636aa000 rw-p 00000000 00:00 0 
+7fe9a7b5f000-7fe9afb5f000 ---p 00000000 00:00 0 
+7fe9afb5f000-7fe9afb60000 rw-p 00000000 00:00 0 
+7fe9afb60000-7fe9afb61000 ---p 00000000 00:00 0 
+7fe9afb61000-7fe9b0361000 rwxp 00000000 00:00 0 
+7fe9b0361000-7fe9b0362000 ---p 00000000 00:00 0 
+7fe9b0362000-7fe9b0b62000 rwxp 00000000 00:00 0 
+7fe9b0b62000-7fe9b0b63000 ---p 00000000 00:00 0 
+7fe9b0b63000-7fe9b1363000 rwxp 00000000 00:00 0 
+7fe9b1363000-7fe9b1364000 ---p 00000000 00:00 0 
+7fe9b1364000-7fe9b1b64000 rwxp 00000000 00:00 0 
+7fe9b1b64000-7fe9b1b65000 ---p 00000000 00:00 0 
+7fe9b1b65000-7fe9b2365000 rwxp 00000000 00:00 0 
+7fe9b2365000-7fe9b2470000 rw-p 00000000 00:00 0 
+7fe9b2470000-7fe9b2570000 rw-s 4103e2000 00:05 7148                      /dev/nvidia0
+7fe9b2570000-7fe9b2670000 rw-p 00000000 00:00 0 
+7fe9b2670000-7fe9b2770000 rw-s 413ad4000 00:05 7148                      /dev/nvidia0
+7fe9b2770000-7fe9b2870000 rw-p 00000000 00:00 0 
+7fe9b2870000-7fe9b2871000 rw-s d7d60000 00:05 7148                       /dev/nvidia0
+7fe9b2871000-7fe9b2872000 rw-s 404fce000 00:05 7148                      /dev/nvidia0
+7fe9b2872000-7fe9b2c74000 rw-s 4077e2000 00:05 7148                      /dev/nvidia0
+7fe9b2c74000-7fe9b3076000 rw-s 404efb000 00:05 7148                      /dev/nvidia0
+7fe9b3076000-7fe9b3077000 ---p 00000000 00:00 0 
+7fe9b3077000-7fe9b3877000 rwxp 00000000 00:00 0 
+7fe9b3877000-7fe9b3a77000 rw-p 00000000 00:00 0 
+7fe9b3a77000-7fe9b3a8d000 r-xp 00000000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7fe9b3a8d000-7fe9b3c8c000 ---p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7fe9b3c8c000-7fe9b3c8d000 r--p 00015000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7fe9b3c8d000-7fe9b3c8e000 rw-p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7fe9b3c8e000-7fe9b43d4000 r-xp 00000000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7fe9b43d4000-7fe9b45d3000 ---p 00746000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7fe9b45d3000-7fe9b46c5000 rw-p 00745000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7fe9b46c5000-7fe9b46ea000 rw-p 00000000 00:00 0 
+7fe9b46ea000-7fe9b471e000 r-xp 00000000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7fe9b471e000-7fe9b491d000 ---p 00034000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7fe9b491d000-7fe9b491f000 r--p 000330ERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003a4de8b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7fcadeb95b96]
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x0000000039d828b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7f084aef2b96]
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003b2928b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7faae7fddb96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7faae7f9a968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7faae7f9a985]
+./dj2[0x403168]
+/usr/lib/libnvidia-opencl.so.1(+0x177242)[0x7faae4b37242]
+/usr/lib/libnvidia-opencl.so.1(+0x18561d)[0x7faae4b4561d]
+/usr/lib/libnvidia-opencl.so.1(+0x185d44)[0x7faae4b45d44]
+/usr/lib/libnvidia-opencl.so.1(+0x61acc9)[0x7faae4fdacc9]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x7e9a)[0x7faae7d49e9a]
+/lib/x86_64-linux-gnu/libc.so.6(clone+0x6d)[0x7faae8052cbd]
+======= Memory map: ========
+ERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003a02d8b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7f57e54a2b96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7f57e545f968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7f57e545f985]
+./dj2[0x404a75]
+./dj2[0x4041e2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xed)[0x7f57e544576d]
+./dj2[0x401e49]
+======= Memory map: ========
+00400000-0040c000 r-xp 00000000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040d000-0040e000 r--p 0000c000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040e000-0040f000 rw-p 0000d000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+00c90000-3a1f2000 rw-p 00000000 00:00 0                                  [heap]
+200000000-900000000 ---p 00000000 00:00 0 
+7f5718a3e000-7f5758a40000 rw-p 00000000 00:00 0 
+7f5758a49000-7f5778a4a000 rw-p 00000000 00:00 0 
+7f577e773000-7f57918a1000 rw-p 00000000 00:00 0 
+7f57d8000000-7f57ddd56000 ---p 00000000 00:00 0 
+7f57ddd56000-7f57ddd57000 rw-p 00000000 00:00 0 
+7f57ddd57000-7f57ddd58000 ---p 00000000 00:00 0 
+7f57ddd58000-7f57de558000 rwxp 00000000 00:00 0 
+7f57de558000-7f57de559000 ---p 00000000 00:00 0 
+7f57de559000-7f57ded59000 rwxp 00000000 00:00 0 
+7f57ded59000-7f57ded5a000 ---p 00000000 00:00 0 
+7f57ded5a000-7f57df55a000 rwxp 00000000 00:00 0 
+7f57df55a000-7f57df55b000 ---p 00000000 00:00 0 
+7f57df55b000-7f57dfd5b000 rwxp 00000000 00:00 0 
+7f57dfd5b000-7f57dfd5c000 ---p 00000000 00:00 0 
+7f57dfd5c000-7f57e055c000 rwxp 00000000 00:00 0 
+7f57e055c000-7f57e0667000 rw-p 00000000 00:00 0 
+7f57e0667000-7f57e0767000 rw-s 412702000 00:05 7148                      /dev/nvidia0
+7f57e0767000-7f57e0867000 rw-p 00000000 00:00 0 
+7f57e0867000-7f57e0967000 rw-s 40fd88000 00:05 7148                      /dev/nvidia0
+7f57e0967000-7f57e0a67000 rw-p 00000000 00:00 0 
+7f57e0a67000-7f57e0a68000 rw-s d7d60000 00:05 7148                       /dev/nvidia0
+7f57e0a68000-7f57e0a69000 rw-s 40fc85000 00:05 7148                      /dev/nvidia0
+7f57e0a69000-7f57e0e6b000 rw-s 40f9d9000 00:05 7148                      /dev/nvidia0
+7f57e0e6b000-7f57e126d000 rw-s 404a11000 00:05 7148                      /dev/nvidia0
+7f57e126d000-7f57e126e000 ---p 00000000 00:00 0 
+7f57e126e000-7f57e1a6e000 rwxp 00000000 00:00 0 
+7f57e1a6e000-7f57e1c6e000 rw-p 00000000 00:00 0 
+7f57e1c6e000-7f57e1c84000 r-xp 00000000 08:01 49417820                   /libERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x000000003a0518b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7f186e4eeb96]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b968)[0x7f186e4ab968]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3b985)[0x7f186e4ab985]
+./dj2[0x404a75]
+./dj2[0x4041e2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xed)[0x7f186e49176d]
+./dj2[0x401e49]
+======= Memory map: ========
+00400000-0040c000 r-xp 00000000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040d000-0040e000 r--p 0000c000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+0040e000-0040f000 rw-p 0000d000 08:01 44696193                           /home/ggallo/Tentativas/dj2
+00cb4000-3a216000 rw-p 00000000 00:00 0                                  [heap]
+200000000-900000000 ---p 00000000 00:00 0 
+7f17a1a8a000-7f17e1a8c000 rw-p 00000000 00:00 0 
+7f17e1a95000-7f1801a96000 rw-p 00000000 00:00 0 
+7f18077bf000-7f181a8ed000 rw-p 00000000 00:00 0 
+7f1866da2000-7f1866da3000 rw-p 00000000 00:00 0 
+7f1866da3000-7f1866da4000 ---p 00000000 00:00 0 
+7f1866da4000-7f18675a4000 rwxp 00000000 00:00 0 
+7f18675a4000-7f18675a5000 ---p 00000000 00:00 0 
+7f18675a5000-7f1867da5000 rwxp 00000000 00:00 0 
+7f1867da5000-7f1867da6000 ---p 00000000 00:00 0 
+7f1867da6000-7f18685a6000 rwxp 00000000 00:00 0 
+7f18685a6000-7f18685a7000 ---p 00000000 00:00 0 
+7f18685a7000-7f1868da7000 rwxp 00000000 00:00 0 
+7f1868da7000-7f1868da8000 ---p 00000000 00:00 0 
+7f1868da8000-7f18695a8000 rwxp 00000000 00:00 0 
+7f18695a8000-7f18696b3000 rw-p 00000000 00:00 0 
+7f18696b3000-7f18697b3000 rw-s 41274e000 00:05 7148                      /dev/nvidia0
+7f18697b3000-7f18698b3000 rw-p 00000000 00:00 0 
+7f18698b3000-7f18699b3000 rw-s 40fa13000 00:05 7148                      /dev/nvidia0
+7f18699b3000-7f1869ab3000 rw-p 00000000 00:00 0 
+7f1869ab3000-7f1869ab4000 rw-s d7d60000 00:05 7148                       /dev/nvidia0
+7f1869ab4000-7f1869ab5000 rw-s 4102c4000 00:05 7148                      /dev/nvidia0
+7f1869ab5000-7f1869eb7000 rw-s 4101d2000 00:05 7148                      /dev/nvidia0
+7f1869eb7000-7f186a2b9000 rw-s 40fdf3000 00:05 7148                      /dev/nvidia0
+7f186a2b9000-7f186a2ba000 ---p 00000000 00:00 0 
+7f186a2ba000-7f186aaba000 rwxp 00000000 00:00 0 
+7f186aaba000-7f186acba000 rw-p 00000000 00:00 0 
+7f186acba000-7f186acd0000 r-xp 00000000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f186acd0000-7f186aecf000 ---p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f186aecf000-7f186aed0000 r--p 00015000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f186aed0000-7f186aed1000 rw-p 00016000 08:01 49417820                   /lib/x86_64-linux-gnu/libz.so.1.2.3.4
+7f186aed1000-7f186b617000 r-xp 00000000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f186b617000-7f186b816000 ---p 00746000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f186b816000-7f186b908000 rw-p 00745000 08:01 57412775                   /usr/lib/libnvidia-opencl.so.310.40
+7f186b908000-7f186b92d000 rw-p 00000000 00:00 0 
+7f186b92d000-7f186b961000 r-xp 00000000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f186b961000-7f186bb60000 ---p 00034000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f186bb60000-7f186bb62000 r--p 00033000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f186bb62000-7f186bb63000 rw-p 00035000 08:01 1314798                    /usr/lib64/OpenCL/vendors/intel/libcpu_device.so
+7f186bb63000-7f186bb64000 rw-p 00000000 00:00 0 
+7f186bb64000-7f186ce7e000 r-xp 00000000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f186ce7e000-7f186d07e000 ---p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f186d07e000-7f186d119000 r--p 0131a000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f186d119000-7f186d133000 rw-p 013b5000 08:01 1314793                    /usr/lib64/OpenCL/vendors/intel/libclang_compiler.so
+7f186d133000-7f186d13d000 rw-p 00000000 00:00 0 
+7f186d13d000-7f186d144000 r-xp 00000000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f186d144000-7f186d343000 ---p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f186d343000-7f186d344000 r--p 00006000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f186d344000-7f186d345000 rw-p 00007000 08:01 49414269                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f186d345000-7f186d363000 r-xp 00000000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f186d363000-7f186d463000 ---p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f186d463000-7f186d466000 rw-p 0001e000 08:01 1314791                    /usr/lib64/OpenCL/vendors/intel/libtbbmalloc.so.2
+7f186d466000-7f186d477000 rw-p 00000000 00:00 0 
+7f186d477000-7f186d480000 r-xp 00000000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f186d480000-7f186d680000 ---p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f186d680000-7f186d681000 r--p 00009000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f186d681000-7f186d682000 rw-p 0000a000 08:01 57416478                   /usr/lib/libnuma.so.1
+7f186d682000-7f186d69f000 r-xp 00000000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f186d69f000-7f186d89f000 ---p 0001d000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f186d89f000-7f186d8a0000 r--p 0001d000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f186d8a0000-7f186d8a1000 rw-p 0001e000 08:01 1314790                    /usr/lib64/OpenCL/vendors/intel/libtask_executor.so
+7f186d8a1000-7f186d8a8000 r-xp 00000000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f186d8a8000-7f186daa7000 ---p 00007000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f186daa7000-7f186daa8000 r--p 00006000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f186daa8000-7f186daa9000 rw-p 00007000 08:01 1314786                    /usr/lib64/OpenCL/vendors/intel/libcl_logger.so
+7f186daa9000-7f186db4a000 r-xp 00000000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f186db4a000-7f186dd4a000 ---p 000a1000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f186dd4a000-7f186dd50000 r--p 000a1000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f186dd50000-7f186dd52000 rw-p 000a7000 08:01 1314794                    /usr/lib64/OpenCL/vendors/intel/libintelocl.so
+7f186dd52000-7f186dd53000 rw-p 00000000 00:00 0 
+7f186dd53000-7f186de4e000 r-xp 00000000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f186de4e000-7f186e04d000 ---p 000fb000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f186e04d000-7f186e04e000 r--p 000fa000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f186e04e000-7f186e04f000 rw-p 000fb000 08:01 49414273                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f186e04f000-7f186e051000 r-xp 00000000 08:01 49414264                   /lib/x86_64-linux-gnu/libdl-2.15.so
+7f186e051000-7f186e251000 ---p 00002000 08:01 49ERRO: clEnqueueNDRangeKernel (-4)
+*** glibc detected *** ./dj2: double free or corruption (!prev): 0x00000000399ad8b0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7eb96)[0x7fe04337cb96]
+ERRO: clEnqueueNDRangeKernel (-4)
+Segmentation fault (core dumped)
+
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/8000000 >> Speedup.csv
+./dj2 entradas/gigantes/8000000 8000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
+./Serial/moco/djs < entradas/gigantes/80000000 >> Speedup.csv
+./dj2 entradas/gigantes/80000000 80000000 | tail -1 >> Speedup.csv
