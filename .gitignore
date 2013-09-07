@@ -36,3 +36,11 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+
+# Tests, Inputs and Outputs #
+*.in
+*.out
+*.swp
+tst*
+test*
