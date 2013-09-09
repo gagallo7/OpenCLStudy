@@ -7,7 +7,8 @@ BIN=.
 INCLUDES= -I$(INC) -I$(OPF_DIR)/include
 
 #FLAGS= -g -Wall 
-FLAGS= -O3 -Wall
+#FLAGS= -O3 -Wall
+FLAGS= -g
 
 $(LIB)/libift.a:
 	cd ../../; make ; cd -
@@ -15,15 +16,10 @@ $(LIB)/libift.a:
 
  $@.c: $(LIB)/libift.a $@.c 
 	make
-	gcc $(FLAGS) $@.c -o $(BIN)/$@ $(INCLUDES) -L$(LIB) -lift -lm 
+	gcc $(FLAGS) $@.c -o $(BIN)/$@ $(INCLUDES) -L$(LIB) -lift -lm -lOpenCL
 
 
-
-
-
-
-
-
-
-
-
+run:
+	cd ../../; make ; cd -
+	make watershed
+	./watershed flower.pgm flower_grad.pgm flower-seeds.txt

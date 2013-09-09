@@ -386,9 +386,9 @@ int main(int argc, char *argv[]) {
 
 			errNum = clGetDeviceIDs (	
 					listaPlataformaID[i],
-									CL_DEVICE_TYPE_ALL,
+					//				CL_DEVICE_TYPE_ALL,
 			//		CL_DEVICE_TYPE_CPU,
-					//		CL_DEVICE_TYPE_GPU,
+							CL_DEVICE_TYPE_GPU,
 					nDispositivos,
 					&listaDispositivoID[0],
 					NULL);

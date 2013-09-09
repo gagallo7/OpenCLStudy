@@ -26,6 +26,9 @@
 
 #include "ift.h"
 
+/* Including OpenCL framework for parallelizing */
+#include "oclFunctions.h"
+
 /* Papers related to this program:
 
    @incollection{Lotufo00,
@@ -64,6 +67,15 @@
    }
 
 */
+
+bool vazio (unsigned int M[], int n) {
+    int i;
+	for (i = 0; i < n; i++) {
+		if (M[i] == true)
+			return false;
+	}
+	return true;
+}
 
 // Watershed from binary marker
 
@@ -111,9 +123,12 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
         u.x = p%img->ncols;
         u.y = p/img->ncols;
         for (i=1; i < A->n; i++) {
+            /* Finding neighbors of u */
             v.x = u.x + A->dx[i];
             v.y = u.y + A->dy[i];
+            /* If u is adjacent to v (into the image limits) */
             if (ValidPixel(img,v.x,v.y)){
+                /* Now q has the spel form of the pixel v */
                 q   = v.x + img->tbrow[v.y];
                 if (cost->val[p] < cost->val[q]){
 
@@ -158,6 +173,20 @@ int main(int argc, char **argv)
     MemDinInicial = info.uordblks;
 
     /*--------------------------------------------------------*/
+    /* OpenCL variables --------------------------------------*/
+	cl_int errNum;
+	cl_uint nPlataformas;
+	cl_uint nDispositivos;
+	cl_platform_id *listaPlataformaID;
+	cl_device_id *listaDispositivoID;
+	cl_context contexto = NULL;
+	cl_command_queue fila;
+	cl_program programa, programa2;
+	cl_kernel kernel, kernel2;
+    
+
+
+    /*--------------------------------------------------------*/
 
     if (argc!=4){
         fprintf(stderr,"Usage: watershed <image.pgm> <gradient.pgm> <seeds.txt>\n");
@@ -166,6 +195,10 @@ int main(int argc, char **argv)
         fprintf(stderr,"seeds.txt: seed pixels\n");
         exit(-1);
     }
+
+    /* Preparing device for OpenCL program */
+    //prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, listaPlataformaID, listaDispositivoID, contexto, fila, programa, programa2, kernel, kernel2);
+    prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, &contexto, fila, programa, programa2, &kernel, &kernel2);
 
     img   = ReadImage(argv[1]);
     grad  = ReadImage(argv[2]);

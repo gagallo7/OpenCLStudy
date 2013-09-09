@@ -32,6 +32,7 @@ $(OBJ)/dimage.o \
 $(OBJ)/seeds.o \
 $(OBJ)/adjacency.o \
 $(OBJ)/gqueue.o \
+$(OBJ)/oclFunctions.o \
 
 	ar csr $(LIB)/libift.a \
 $(OBJ)/common.o \
@@ -49,6 +50,7 @@ $(OBJ)/dimage.o \
 $(OBJ)/seeds.o \
 $(OBJ)/adjacency.o \
 $(OBJ)/gqueue.o \
+$(OBJ)/oclFunctions.o \
 
 
 $(OBJ)/common.o: $(SRC)/common.c
@@ -96,6 +98,8 @@ $(OBJ)/opf.o: $(SRC)/opf.c
 $(OBJ)/color.o: $(SRC)/color.c
 	gcc $(FLAGS) -c $(SRC)/color.c $(INCLUDES) -o $(OBJ)/color.o
 
+$(OBJ)/oclFunctions.o: $(SRC)/oclFunctions.c
+	gcc $(FLAGS) -c $(SRC)/oclFunctions.c $(INCLUDES) -o $(OBJ)/oclFunctions.o
 
 clean:
 	rm -f $(LIB)/lib*.a; rm -f $(OBJ)/*.o; rm -f $(BIN)/*

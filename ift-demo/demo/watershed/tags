@@ -6,10 +6,7 @@
 !_TAG_PROGRAM_VERSION	5.8	//
 Accuracy	../../src/opf.c	/^float Accuracy(Subgraph *sg)$/;"	f
 AddFrame	../../src/image.c	/^Image *AddFrame(Image *img, int sz, int value)$/;"	f
-AddValue	../../demo/watergray/watergray.c	/^Image *AddValue(Image *img, int H)$/;"	f
 AdjPixels	../../src/adjacency.c	/^AdjPxl *AdjPixels(Image *img, AdjRel *A)$/;"	f
-AdjPxl	../../include/adjacency.h	/^} AdjPxl;$/;"	t	typeref:struct:_adjpxl
-AdjRel	../../include/adjacency.h	/^} AdjRel;$/;"	t	typeref:struct:_adjrel
 AdjRel2Image	../../src/adjacency.c	/^Image  *AdjRel2Image(AdjRel *A){$/;"	f
 AllocCharArray	../../src/common.c	/^char *AllocCharArray(int n)$/;"	f
 AllocDoubleArray	../../src/common.c	/^double *AllocDoubleArray(int n)$/;"	f
@@ -19,19 +16,6 @@ AllocRealArray	../../src/common.c	/^real  *AllocRealArray(int n){$/;"	f
 AllocUCharArray	../../src/common.c	/^uchar *AllocUCharArray(int n)$/;"	f
 AllocUIntArray	../../src/common.c	/^uint *AllocUIntArray(int n)$/;"	f
 AllocUShortArray	../../src/common.c	/^ushort *AllocUShortArray(int n)$/;"	f
-BIN	../../Makefile	/^BIN=.\/bin$/;"	m
-BIN	../../demo/classify/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/diffwatershed/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/eucldist/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/filters/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/gradient/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/livewire/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/msskels/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/watergray/Makefile	/^BIN=.$/;"	m
-BIN	../../demo/watershed/Makefile	/^BIN=.$/;"	m
-BIN	Makefile	/^BIN=.$/;"	m
-BLACK	../../include/common.h	60;"	d
-BMap	../../include/set.h	/^} BMap;$/;"	t	typeref:struct:_bmap
 BMapCopy	../../src/set.c	/^void   BMapCopy(BMap *dest, BMap *src) {$/;"	f
 BMapDestroy	../../src/set.c	/^void   BMapDestroy(BMap *b) {$/;"	f
 BMapFill	../../src/set.c	/^void   BMapFill(BMap *b, int value) {$/;"	f
@@ -39,11 +23,7 @@ BMapGet	../../src/set.c	/^int    BMapGet(BMap *b, int n) {$/;"	f
 BMapNew	../../src/set.c	/^BMap * BMapNew(int n) {$/;"	f
 BMapSet	../../src/set.c	/^void BMapSet(BMap *b, int n, int value) {$/;"	f
 BMapToggle	../../src/set.c	/^void   BMapToggle(BMap *b, int n) {$/;"	f
-BOTH	../../include/common.h	57;"	d
 Box	../../src/adjacency.c	/^AdjRel *Box(int ncols, int nrows)$/;"	f
-C	../../include/cimage.h	/^  Image *C[3];$/;"	m	struct:cimage
-C	../../include/gqueue.h	/^  GCircularQueue C;$/;"	m	struct:_gqueue
-CImage	../../include/cimage.h	/^} CImage;$/;"	t	typeref:struct:cimage
 CTime	../../src/comptime.c	/^float CTime(timer *tic, timer *toc) \/* It computes the time difference *\/$/;"	f
 Change	../../src/common.c	/^void Change(int *a, int *b){ \/* It changes content between a and b *\/$/;"	f
 Circular	../../src/adjacency.c	/^AdjRel *Circular(float r)$/;"	f
@@ -53,9 +33,7 @@ Close	../../src/morphology.c	/^Image *Close(Image *img, AdjRel *A)$/;"	f
 CloseBasins	../../src/morphology.c	/^Image *CloseBasins(Image *img)$/;"	f
 CloseHoles	../../src/morphology.c	/^Image *CloseHoles(Image *img)$/;"	f
 CloseRec	../../src/morphology.c	/^Image *CloseRec(Image *I, AdjRel *A)$/;"	f
-CombineGradients	../../demo/gradient/gradient.c	/^Image *CombineGradients(Image *objgrad, Image *imggrad, float wobj)$/;"	f
 ComplAdj	../../src/adjacency.c	/^AdjRel *ComplAdj(AdjRel *A1, AdjRel *A2)$/;"	f
-ComputePath	../../demo/livewire/lwof.c	/^void ComputePath(Image *I, Image *V, Image *P, Image *O, GQueue **Q, AdjRel *A, AdjRel *L, AdjRel *R, int last)$/;"	f
 Convert2DisjointSets	../../src/set.c	/^void    Convert2DisjointSets(Set **S1,$/;"	f
 ConvertDImage2Image	../../src/dimage.c	/^Image *ConvertDImage2Image(DImage *dimg){$/;"	f
 CopyDImage	../../src/dimage.c	/^DImage *CopyDImage(DImage *dimg)$/;"	f
@@ -67,61 +45,30 @@ CreateAdjRel	../../src/adjacency.c	/^AdjRel *CreateAdjRel(int n)$/;"	f
 CreateCImage	../../src/cimage.c	/^CImage *CreateCImage(int ncols, int nrows)$/;"	f
 CreateDImage	../../src/dimage.c	/^DImage *CreateDImage(int ncols, int nrows)$/;"	f
 CreateFeatures	../../src/feature.c	/^Features* CreateFeatures(int ncols, int nrows, int nfeats)$/;"	f
-CreateForest	../../demo/eucldist/eucldist.c	/^Forest *CreateForest(int ncols, int nrows)$/;"	f
-CreateForest	../../demo/msskels/msgeodesicskels.c	/^Forest *CreateForest(int ncols, int nrows)$/;"	f
-CreateForest	../../demo/msskels/msskels.c	/^Forest *CreateForest(int ncols, int nrows)$/;"	f
 CreateGQueue	../../src/gqueue.c	/^GQueue *CreateGQueue(int nbuckets, int nelems, int *value)$/;"	f
 CreateImage	../../src/image.c	/^Image *CreateImage(int ncols, int nrows)$/;"	f
-CreateImageForest	../../demo/diffwatershed/diffwatershed.c	/^ImageForest *CreateImageForest(Image *img)$/;"	f
 CreateRealHeap	../../src/realheap.c	/^RealHeap *CreateRealHeap(int n, float *cost) {$/;"	f
 CreateSubgraph	../../src/subgraph.c	/^Subgraph *CreateSubgraph(int nnodes)$/;"	f
 Cross	../../src/adjacency.c	/^AdjRel *Cross(int ncols, int nrows)$/;"	f
-DECREASING	../../include/common.h	63;"	d
-DEMO	../../Makefile	/^DEMO=.\/demo$/;"	m
-DImage	../../include/dimage.h	/^} DImage;$/;"	t	typeref:struct:_DImage
 DImageThreshold	../../src/dimage.c	/^Image *DImageThreshold(DImage *img, double lower, double higher)$/;"	f
 DestroyAdjPxl	../../src/adjacency.c	/^void DestroyAdjPxl(AdjPxl **N)$/;"	f
 DestroyAdjRel	../../src/adjacency.c	/^void DestroyAdjRel(AdjRel **A)$/;"	f
 DestroyCImage	../../src/cimage.c	/^void    DestroyCImage(CImage **cimg)$/;"	f
 DestroyDImage	../../src/dimage.c	/^void DestroyDImage(DImage **dimg)$/;"	f
 DestroyFeatures	../../src/feature.c	/^void DestroyFeatures(Features **f)$/;"	f
-DestroyForest	../../demo/eucldist/eucldist.c	/^void DestroyForest(Forest **F)$/;"	f
-DestroyForest	../../demo/msskels/msgeodesicskels.c	/^void DestroyForest(Forest **F)$/;"	f
-DestroyForest	../../demo/msskels/msskels.c	/^void DestroyForest(Forest **F)$/;"	f
 DestroyGQueue	../../src/gqueue.c	/^void DestroyGQueue(GQueue **Q)$/;"	f
 DestroyImage	../../src/image.c	/^void DestroyImage(Image **img)$/;"	f
-DestroyImageForest	../../demo/diffwatershed/diffwatershed.c	/^void DestroyImageForest(ImageForest **fst)$/;"	f
 DestroyRealHeap	../../src/realheap.c	/^void DestroyRealHeap(RealHeap **H) {$/;"	f
 DestroySet	../../src/set.c	/^void DestroySet(Set **S)$/;"	f
 DestroySubgraph	../../src/subgraph.c	/^void DestroySubgraph(Subgraph **sg)$/;"	f
-DiffWatershed	../../demo/diffwatershed/diffwatershed.c	/^void DiffWatershed(Image *grad, ImageForest *fst, Set *Obj, Set *Bkg, Set *Rm)$/;"	f
 Dilate	../../src/morphology.c	/^Image *Dilate(Image *img, AdjRel *A)$/;"	f
-DisplayPath	../../demo/livewire/lwof.c	/^void DisplayPath(Image *img, Image *P, int p, int i, const char* origfile)$/;"	f
-DistTrans	../../demo/eucldist/eucldist.c	/^Forest *DistTrans(Image *I)$/;"	f
-DistTrans	../../demo/msskels/msgeodesicskels.c	/^Forest *DistTrans(Image *I)$/;"	f
-DistTrans	../../demo/msskels/msskels.c	/^Forest *DistTrans(Image *I)$/;"	f
 DrawLabeledRegions	../../src/cimage.c	/^CImage *DrawLabeledRegions(Image *img, Image *label){$/;"	f
-EXTERIOR	../../include/common.h	56;"	d
 EmptyGQueue	../../src/gqueue.c	/^int EmptyGQueue(GQueue *Q)$/;"	f
-Epsilon	../../include/common.h	64;"	d
 Erode	../../src/morphology.c	/^Image *Erode(Image *img, AdjRel *A)$/;"	f
 Error	../../src/common.c	/^void Error(char *msg,char *func){ \/* It prints error message and exits$/;"	f
 EuclDist	../../src/opf.c	/^float EuclDist(float *f1, float *f2, int n)$/;"	f
 EuclDistLog	../../src/opf.c	/^float EuclDistLog(float *f1, float *f2, int n)$/;"	f
 FChange	../../src/common.c	/^void FChange(float *a, float *b){ \/* It changes content between floats a and b *\/$/;"	f
-FElem	../../include/feature.h	/^} FElem;$/;"	t	typeref:struct:_felem
-FIFOBREAK	../../include/gqueue.h	8;"	d
-FLAGS	../../Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/classify/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/diffwatershed/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/eucldist/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/filters/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/gradient/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/livewire/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/msskels/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/watergray/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	../../demo/watershed/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	Makefile	/^FLAGS= -O3 -Wall$/;"	m
 FastCircular	../../src/adjacency.c	/^AdjRel *FastCircular(float r){$/;"	f
 FastClose	../../src/morphology.c	/^Image *FastClose(Image *I, float radius)$/;"	f
 FastCloseRec	../../src/morphology.c	/^Image *FastCloseRec(Image *I, float radius)$/;"	f
@@ -129,66 +76,20 @@ FastDilate	../../src/morphology.c	/^Image *FastDilate(Image *I,Set **S, float ra
 FastErode	../../src/morphology.c	/^Image *FastErode(Image *I,Set **S, float radius)$/;"	f
 FastOpen	../../src/morphology.c	/^Image *FastOpen(Image *I, float radius)$/;"	f
 FastOpenRec	../../src/morphology.c	/^Image *FastOpenRec(Image *I, float radius)$/;"	f
-Features	../../include/feature.h	/^} Features;$/;"	t	typeref:struct:_features
-FeaturesGradient	../../demo/gradient/gradient.c	/^Image *FeaturesGradient(Features *f, float radius)$/;"	f
-Forest	../../demo/eucldist/eucldist.c	/^} Forest;$/;"	t	typeref:struct:_forest	file:
-Forest	../../demo/msskels/msgeodesicskels.c	/^} Forest;$/;"	t	typeref:struct:_forest	file:
-Forest	../../demo/msskels/msskels.c	/^} Forest;$/;"	t	typeref:struct:_forest	file:
-ForestRemoval	../../demo/diffwatershed/diffwatershed.c	/^Set *ForestRemoval(ImageForest *fst, Set *Rm, AdjRel *A)$/;"	f
 FrameSize	../../src/adjacency.c	/^int FrameSize(AdjRel *A)$/;"	f
-FuzzyOPFClassifyImage	../../demo/gradient/gradient.c	/^DImage *FuzzyOPFClassifyImage(Subgraph *sgtrain, Features *feat)$/;"	f
-GCircularQueue	../../include/gqueue.h	/^} GCircularQueue;$/;"	t	typeref:struct:_gcircularqueue
-GDoublyLinkedLists	../../include/gqueue.h	/^} GDoublyLinkedLists; $/;"	t	typeref:struct:_gdoublylinkedlists
-GQNode	../../include/gqueue.h	/^} GQNode;$/;"	t	typeref:struct:_gqnode
-GQueue	../../include/gqueue.h	/^} GQueue;$/;"	t	typeref:struct:_gqueue
-GRAY	../../include/common.h	59;"	d
 GaussCImageFeats	../../src/feature.c	/^Features *GaussCImageFeats(CImage *cimg, int nscales)$/;"	f
 GaussImageFeats	../../src/feature.c	/^Features *GaussImageFeats(Image *img, int nscales)$/;"	f
-GeodesicPerimeter	../../demo/msskels/msgeodesicskels.c	/^DImage *GeodesicPerimeter(Image *bin)$/;"	f
 GetSetSize	../../src/set.c	/^int  GetSetSize(Set *S){$/;"	f
-Gmax	../../demo/livewire/lwof.c	/^int Gmax;$/;"	v
 GoDownRealHeap	../../src/realheap.c	/^void GoDownRealHeap(RealHeap *H, int i) {$/;"	f
 GoUpRealHeap	../../src/realheap.c	/^void GoUpRealHeap(RealHeap *H, int i) {$/;"	f
 GrowGQueue	../../src/gqueue.c	/^GQueue *GrowGQueue(GQueue **Q, int nbuckets)$/;"	f
-HEAP_DAD	../../include/realheap.h	8;"	d
-HEAP_LEFTSON	../../include/realheap.h	9;"	d
-HEAP_RIGHTSON	../../include/realheap.h	10;"	d
 Horizontal	../../src/adjacency.c	/^AdjRel *Horizontal(int r)$/;"	f
-INC	../../demo/classify/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/diffwatershed/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/eucldist/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/filters/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/gradient/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/livewire/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/msskels/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/watergray/Makefile	/^INC=..\/..\/include$/;"	m
-INC	../../demo/watershed/Makefile	/^INC=..\/..\/include$/;"	m
-INC	Makefile	/^INC=..\/..\/include$/;"	m
-INCLUDE	../../Makefile	/^INCLUDE=.\/include$/;"	m
-INCLUDES	../../Makefile	/^INCLUDES=-I$(INCLUDE)$/;"	m
-INCLUDES	../../demo/classify/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/diffwatershed/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/eucldist/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/filters/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/gradient/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/livewire/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/msskels/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/watergray/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	../../demo/watershed/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCLUDES	Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
-INCREASING	../../include/common.h	62;"	d
-INTERIOR	../../include/common.h	55;"	d
-Image	../../include/image.h	/^} Image;$/;"	t	typeref:struct:_image
 ImageBorder	../../src/morphology.c	/^Set *ImageBorder(Image *img)$/;"	f
-ImageForest	../../demo/diffwatershed/diffwatershed.c	/^} ImageForest;$/;"	t	typeref:struct:_ImageForest	file:
-Imax	../../include/feature.h	/^  int  Imax;$/;"	m	struct:_features
-Imax	../../include/subgraph.h	/^  int   Imax;    \/\/ Maximum image value;$/;"	m	struct:_subgraph
 InfRec	../../src/morphology.c	/^Image *InfRec(Image *img, Image *marker)$/;"	f
 InfRecMI	../../src/morphology.c	/^Image *InfRecMI(Image *img, Set **S)$/;"	f
 InsertGQueue	../../src/gqueue.c	/^void InsertGQueue(GQueue **Q, int elem)$/;"	f
 InsertRealHeap	../../src/realheap.c	/^char InsertRealHeap(RealHeap *H, int pixel) {$/;"	f
 InsertSet	../../src/set.c	/^void InsertSet(Set **S, int elem)$/;"	f
-IntSet	../../include/set.h	/^} IntSet;$/;"	t	typeref:struct:_intset
 IntSetAddUniqueElementToSet	../../src/set.c	/^void IntSetAddUniqueElementToSet(IntSet *S, int elem, void *elemprop) {$/;"	f
 IntSetBelongs	../../src/set.c	/^int  IntSetBelongs(IntSet *S, int elem) {$/;"	f
 IntSetDestroy	../../src/set.c	/^void IntSetDestroy(IntSet *S) {$/;"	f
@@ -211,42 +112,12 @@ IsEmptyRealHeap	../../src/realheap.c	/^char IsEmptyRealHeap(RealHeap *H) {$/;"	f
 IsFullRealHeap	../../src/realheap.c	/^char IsFullRealHeap(RealHeap *H) {$/;"	f
 IsInSet	../../src/set.c	/^bool IsInSet(Set *S, int elem){$/;"	f
 IsPowerOf2	../../src/common.c	/^int IsPowerOf2(int x)$/;"	f
-K	../../include/subgraph.h	/^  float K;  \/\/ Constant for PDF computation$/;"	m	struct:_subgraph
 KAdjacency	../../src/adjacency.c	/^AdjRel *KAdjacency()$/;"	f
-L	../../include/gqueue.h	/^  GDoublyLinkedLists L;$/;"	m	struct:_gqueue
-LIB	../../Makefile	/^LIB=.\/lib$/;"	m
-LIB	../../demo/classify/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/diffwatershed/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/eucldist/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/filters/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/gradient/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/livewire/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/msskels/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/watergray/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	../../demo/watershed/Makefile	/^LIB=..\/..\/lib$/;"	m
-LIB	Makefile	/^LIB=..\/..\/lib$/;"	m
-LIFOBREAK	../../include/gqueue.h	9;"	d
 Lab2RGB	../../src/color.c	/^void Lab2RGB(float* l, float* a, float* b)$/;"	f
 LabFeats	../../src/feature.c	/^Features* LabFeats(Features* rgb)$/;"	f
-LambdaContPixel	../../demo/msskels/msgeodesicskels.c	/^Image *LambdaContPixel(Image *bin)$/;"	f
-LambdaContPixel	../../demo/msskels/msskels.c	/^Image *LambdaContPixel(Image *bin)$/;"	f
-LambdaContour	../../demo/msskels/msgeodesicskels.c	/^Image *LambdaContour(Image *bin)$/;"	f
-LambdaContour	../../demo/msskels/msskels.c	/^Image *LambdaContour(Image *bin)$/;"	f
-LambdaGeodesicLength	../../demo/msskels/msgeodesicskels.c	/^DImage *LambdaGeodesicLength(Image *bin)$/;"	f
 LeftSide	../../src/adjacency.c	/^AdjRel *LeftSide(AdjRel *A)$/;"	f
 LeftSide2	../../src/adjacency.c	/^AdjRel *LeftSide2(AdjRel *A, float r)$/;"	f
-MAX	../../include/common.h	69;"	d
-MAXARCW	../../include/opf.h	9;"	d
-MAXGRAD	../../demo/gradient/gradient.c	71;"	d	file:
-MAXVALUE	../../include/gqueue.h	7;"	d
-MIN	../../include/common.h	73;"	d
-MINVALUE	../../include/gqueue.h	6;"	d
-MSG1	../../include/common.h	16;"	d
-MSG2	../../include/common.h	17;"	d
-MSG3	../../include/common.h	18;"	d
-MSGeodesicSkel	../../demo/msskels/msgeodesicskels.c	/^DImage *MSGeodesicSkel(Image *I)$/;"	f
-MSSkel	../../demo/msskels/msgeodesicskels.c	/^Image *MSSkel(Image *I)$/;"	f
-MSSkel	../../demo/msskels/msskels.c	/^Image *MSSkel(Image *I)$/;"	f
+MAX_SOURCE_SIZE	../../src/oclFunctions.c	2;"	d	file:
 MSTPrototypes	../../src/opf.c	/^void MSTPrototypes(Subgraph *sg)$/;"	f
 MaximumDImageValue	../../src/dimage.c	/^double  MaximumDImageValue(DImage *dimg)$/;"	f
 MaximumSetValue	../../src/set.c	/^int     MaximumSetValue(Set *S){$/;"	f
@@ -255,43 +126,21 @@ MergeSets	../../src/set.c	/^void MergeSets(Set **S, Set **T) {$/;"	f
 MinimumDImageValue	../../src/dimage.c	/^double  MinimumDImageValue(DImage *dimg)$/;"	f
 MinimumSetValue	../../src/set.c	/^int     MinimumSetValue(Set *S){$/;"	f
 MinimumValue	../../src/image.c	/^int MinimumValue(Image *img)$/;"	f
-N	../../include/set.h	/^  int N, VN;$/;"	m	struct:_bmap
 NCFgets	../../src/common.c	/^int NCFgets(char *s, int m, FILE *f) {$/;"	f
-NIL	../../include/common.h	61;"	d
-OBJ	../../Makefile	/^OBJ=.\/obj$/;"	m
 OPFClassify	../../src/opf.c	/^void OPFClassify(Subgraph *sgtrain, Subgraph *sg)$/;"	f
 OPFClassifyImage	../../src/opf.c	/^Image* OPFClassifyImage(Subgraph *sgtrain, Features* feat)$/;"	f
 OPFLearning	../../src/opf.c	/^void OPFLearning(Subgraph **sgtrain, Subgraph **sgeval)$/;"	f
 OPFTraining	../../src/opf.c	/^void OPFTraining(Subgraph *sg)$/;"	f
-OPF_BKG_LABEL	../../include/opf.h	16;"	d
-OPF_OBJ_LABEL	../../include/opf.h	15;"	d
-ObjectGradient	../../demo/gradient/gradient.c	/^Image *ObjectGradient(DImage *img, float radius)$/;"	f
 Open	../../src/morphology.c	/^Image *Open(Image *img, AdjRel *A)$/;"	f
 OpenDomes	../../src/morphology.c	/^Image *OpenDomes(Image *img)$/;"	f
 OpenRec	../../src/morphology.c	/^Image *OpenRec(Image *I, AdjRel *A)$/;"	f
-P	../../demo/eucldist/eucldist.c	/^  Image *P; \/\/ predecessor map$/;"	m	struct:_forest	file:
-P	../../demo/msskels/msgeodesicskels.c	/^  Image *P; \/\/ predecessor map$/;"	m	struct:_forest	file:
-P	../../demo/msskels/msskels.c	/^  Image *P; \/\/ predecessor map$/;"	m	struct:_forest	file:
-PI	../../include/common.h	54;"	d
-PROTOTYPE	../../include/opf.h	10;"	d
-Perimeter	../../demo/msskels/msgeodesicskels.c	/^Image *Perimeter(Image *bin)$/;"	f
-Perimeter	../../demo/msskels/msskels.c	/^Image *Perimeter(Image *bin)$/;"	f
-Pixel	../../include/image.h	/^} Pixel;$/;"	t	typeref:struct:_pixel
-QSIZE	../../include/gqueue.h	10;"	d
-R	../../demo/eucldist/eucldist.c	/^  Image *R; \/\/ root map$/;"	m	struct:_forest	file:
-R	../../demo/msskels/msgeodesicskels.c	/^  Image *R; \/\/ root map$/;"	m	struct:_forest	file:
-R	../../demo/msskels/msskels.c	/^  Image *R; \/\/ root map$/;"	m	struct:_forest	file:
-REAL_MAX	../../include/common.h	48;"	d
-REAL_MIN	../../include/common.h	49;"	d
 RGB2Lab	../../src/color.c	/^void RGB2Lab(float* r, float* g, float * b)$/;"	f
-ROUND	../../include/common.h	76;"	d
 RandomInteger	../../src/common.c	/^int RandomInteger (int low, int high){$/;"	f
 ReadCImage	../../src/cimage.c	/^CImage *ReadCImage(char *filename)$/;"	f
 ReadDImage	../../src/dimage.c	/^DImage  *ReadDImage(char *filename){$/;"	f
 ReadImage	../../src/image.c	/^Image *ReadImage(char *filename)$/;"	f
 ReadSeeds	../../src/seeds.c	/^void ReadSeeds(char *filename, Set **Obj, Set **Bkg)$/;"	f
 ReadSubgraph	../../src/subgraph.c	/^Subgraph *ReadSubgraph(char *file){$/;"	f
-RealHeap	../../include/realheap.h	/^} RealHeap;$/;"	t	typeref:struct:_realheap
 RemFrame	../../src/image.c	/^Image *RemFrame(Image *fimg, int sz)$/;"	f
 RemoveGQueue	../../src/gqueue.c	/^int RemoveGQueue(GQueue *Q)$/;"	f
 RemoveGQueueElem	../../src/gqueue.c	/^void RemoveGQueueElem(GQueue *Q, int elem)$/;"	f
@@ -303,199 +152,40 @@ ResetRealHeap	../../src/realheap.c	/^void ResetRealHeap(RealHeap *H)$/;"	f
 RightSide	../../src/adjacency.c	/^AdjRel *RightSide(AdjRel *A)$/;"	f
 RightSide2	../../src/adjacency.c	/^AdjRel *RightSide2(AdjRel *A, float r)$/;"	f
 Ring	../../src/adjacency.c	/^AdjRel *Ring(float inner_radius, float outer_radius)$/;"	f
-SIGN	../../include/common.h	78;"	d
-SNode	../../include/subgraph.h	/^} SNode;$/;"	t	typeref:struct:_snode
-SPROP_PTR	../../include/set.h	94;"	d
-SRC	../../Makefile	/^SRC=.\/src$/;"	m
 SafeMod	../../src/common.c	/^int SafeMod(int a, int n)$/;"	f
-Set	../../include/set.h	/^} Set;$/;"	t	typeref:struct:_set
 SetDImage	../../src/dimage.c	/^void SetDImage(DImage *dimg, double value)$/;"	f
 SetImage	../../src/image.c	/^void SetImage(Image *img, int value)$/;"	f
-SetRemovalPolicy	../../include/gqueue.h	13;"	d
 SetRemovalPolicyRealHeap	../../src/realheap.c	/^void SetRemovalPolicyRealHeap(RealHeap *H, char policy){$/;"	f
 SetSubgraphFeatures	../../src/opf.c	/^void SetSubgraphFeatures(Subgraph *sg, Features *f)$/;"	f
-SetTieBreak	../../include/gqueue.h	12;"	d
 ShearedBox	../../src/adjacency.c	/^AdjRel *ShearedBox(int xsize, int ysize, float Si, float Sj)$/;"	f
-Sl	../../include/set.h	/^  int   *Sl;$/;"	m	struct:_intset
 SplitSubgraph	../../src/opf.c	/^void SplitSubgraph(Subgraph *sg, Subgraph **sg1, Subgraph **sg2, float perc1)$/;"	f
 SplitSubgraphByTrueLabel	../../src/opf.c	/^Subgraph* SplitSubgraphByTrueLabel(Subgraph* sg, int label)$/;"	f
-Sprop	../../include/set.h	/^  void  *Sprop; \/* propriedades associadas a cada elemento *\/$/;"	m	struct:_intset
-Subgraph	../../include/subgraph.h	/^} Subgraph;$/;"	t	typeref:struct:_subgraph
 SubgraphFromSeeds	../../src/opf.c	/^Subgraph* SubgraphFromSeeds(Features* f, Set* Si, Set* Se)$/;"	f
 SupRec	../../src/morphology.c	/^Image *SupRec(Image *img, Image *marker)$/;"	f
 SupRecMI	../../src/morphology.c	/^Image *SupRecMI(Image *img, Set **S)$/;"	f
-Sv	../../include/set.h	/^  BMap  *Sv;$/;"	m	struct:_intset
 SwapErrorsbyNonPrototypes	../../src/opf.c	/^void SwapErrorsbyNonPrototypes(Subgraph **sgtrain, Subgraph **sgeval)$/;"	f
 SwapSNode	../../src/subgraph.c	/^void SwapSNode(SNode *a, SNode *b){$/;"	f
-TIMING_END	../../include/comptime.h	17;"	d
-TIMING_SECTION	../../include/comptime.h	14;"	d
-TIMING_START	../../include/comptime.h	10;"	d
 Threshold	../../src/image.c	/^Image *Threshold(Image *img, int lower, int higher)$/;"	f
 Tic	../../src/comptime.c	/^timer *Tic(){ \/* It marks the initial time *\/$/;"	f
 Toc	../../src/comptime.c	/^timer *Toc(){ \/* It marks the final time *\/$/;"	f
 UpdateGQueue	../../src/gqueue.c	/^void UpdateGQueue(GQueue **Q, int elem, int newvalue)$/;"	f
 UpdateRealHeap	../../src/realheap.c	/^void UpdateRealHeap(RealHeap *H, int p, float value){$/;"	f
-V	../../demo/eucldist/eucldist.c	/^  Image *V; \/\/ distance (cost or connectivity) map$/;"	m	struct:_forest	file:
-V	../../demo/msskels/msgeodesicskels.c	/^  Image *V; \/\/ distance (cost or connectivity) map$/;"	m	struct:_forest	file:
-V	../../demo/msskels/msskels.c	/^  Image *V; \/\/ distance (cost or connectivity) map$/;"	m	struct:_forest	file:
-VN	../../include/set.h	/^  int N, VN;$/;"	m	struct:_bmap
-ValidContPoint	../../demo/msskels/msgeodesicskels.c	/^bool ValidContPoint(Image *bin, AdjRel *L, AdjRel *R, int p)$/;"	f
-ValidContPoint	../../demo/msskels/msskels.c	/^bool ValidContPoint(Image *bin, AdjRel *L, AdjRel *R, int p)$/;"	f
 ValidDImagePixel	../../src/dimage.c	/^bool ValidDImagePixel(DImage *dimg, int x, int y)$/;"	f
 ValidPixel	../../src/image.c	/^bool ValidPixel(Image *img, int x, int y)$/;"	f
 Vertical	../../src/adjacency.c	/^AdjRel *Vertical(int r)$/;"	f
-WHITE	../../include/common.h	58;"	d
 Warning	../../src/common.c	/^void Warning(char *msg,char *func){ \/* It prints warning message and$/;"	f
-WaterGray	../../demo/watergray/watergray.c	/^Image *WaterGray(Image *img, Image *marker, AdjRel *A)$/;"	f
-Watershed	../../demo/watershed/watershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg)$/;"	f
 Watershed	watershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg)$/;"	f
 WriteCImage	../../src/cimage.c	/^void    WriteCImage(CImage *cimg, char *filename)$/;"	f
 WriteDImage	../../src/dimage.c	/^void    WriteDImage(DImage *dimg, char *filename){$/;"	f
 WriteImage	../../src/image.c	/^void WriteImage(Image *img,char *filename)$/;"	f
 WriteSubgraph	../../src/subgraph.c	/^void WriteSubgraph(Subgraph *g, char *file){$/;"	f
-_ADJACENCY_H_	../../include/adjacency.h	2;"	d
-_CIMAGE_H_	../../include/cimage.h	2;"	d
-_COLOR_H_	../../include/color.h	2;"	d
-_COMMON_H_	../../include/common.h	2;"	d
-_CTIME_H_	../../include/comptime.h	2;"	d
-_DIMAGE_H_	../../include/dimage.h	2;"	d
-_DImage	../../include/dimage.h	/^typedef struct _DImage{$/;"	s
-_FEATURE_H_	../../include/feature.h	2;"	d
-_GQUEUE_H_	../../include/gqueue.h	2;"	d
-_IFT_H_	../../include/ift.h	2;"	d
-_IMAGE_H_	../../include/image.h	2;"	d
-_ImageForest	../../demo/diffwatershed/diffwatershed.c	/^typedef struct _ImageForest {$/;"	s	file:
-_MORPHOLOGY_H_	../../include/morphology.h	2;"	d
-_OPF_H_	../../include/opf.h	2;"	d
-_REALHEAP_H_	../../include/realheap.h	2;"	d
-_SEEDS_H_	../../include/seeds.h	2;"	d
-_SET_H_	../../include/set.h	2;"	d
-_SUBGRAPH_H_	../../include/subgraph.h	2;"	d
-_adjpxl	../../include/adjacency.h	/^typedef struct _adjpxl {$/;"	s
-_adjrel	../../include/adjacency.h	/^typedef struct _adjrel {$/;"	s
-_bmap	../../include/set.h	/^typedef struct _bmap {$/;"	s
-_fast_BMapGet	../../include/set.h	45;"	d
-_fast_BMapSet	../../include/set.h	46;"	d
-_fast_BMapSet0	../../include/set.h	48;"	d
-_fast_BMapSet1	../../include/set.h	49;"	d
-_fast_BMapToggle	../../include/set.h	50;"	d
 _fast_Belongs	../../src/set.c	437;"	d	file:
-_features	../../include/feature.h	/^typedef struct _features {$/;"	s
-_felem	../../include/feature.h	/^typedef struct _felem {$/;"	s
-_forest	../../demo/eucldist/eucldist.c	/^typedef struct _forest {$/;"	s	file:
-_forest	../../demo/msskels/msgeodesicskels.c	/^typedef struct _forest {$/;"	s	file:
-_forest	../../demo/msskels/msskels.c	/^typedef struct _forest {$/;"	s	file:
-_gcircularqueue	../../include/gqueue.h	/^typedef struct _gcircularqueue { $/;"	s
-_gdoublylinkedlists	../../include/gqueue.h	/^typedef struct _gdoublylinkedlists {$/;"	s
-_gqnode	../../include/gqueue.h	/^typedef struct _gqnode { $/;"	s
-_gqueue	../../include/gqueue.h	/^typedef struct _gqueue { \/* Priority queue by Dial implemented as$/;"	s
-_image	../../include/image.h	/^typedef struct _image {$/;"	s
-_intset	../../include/set.h	/^typedef struct _intset {$/;"	s
-_pixel	../../include/image.h	/^typedef struct _pixel {$/;"	s
-_realheap	../../include/realheap.h	/^typedef struct _realheap {$/;"	s
-_set	../../include/set.h	/^typedef struct _set {$/;"	s
-_snode	../../include/subgraph.h	/^typedef struct _snode {$/;"	s
-_subgraph	../../include/subgraph.h	/^typedef struct _subgraph {$/;"	s
-adj	../../include/subgraph.h	/^  Set  *adj;     \/\/ list of adjacent nodes$/;"	m	struct:_snode
-ap_double	../../include/common.h	/^typedef double* ap_double;$/;"	t
-ap_int	../../include/common.h	/^typedef int* ap_int;$/;"	t
-bestk	../../include/subgraph.h	/^  int   bestk;   \/\/ number of adjacent nodes$/;"	m	struct:_subgraph
 bmap_reset	../../src/set.c	/^static char bmap_reset[8] = { 0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f };$/;"	v	file:
 bmap_set	../../src/set.c	/^static char bmap_set[8]   = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };$/;"	v	file:
-bool	../../include/common.h	/^typedef enum boolean {false,true} bool;$/;"	t	typeref:enum:boolean
-boolean	../../include/common.h	/^typedef enum boolean {false,true} bool;$/;"	g
-cimage	../../include/cimage.h	/^typedef struct cimage {$/;"	s
-color	../../include/gqueue.h	/^  char color; \/* WHITE=0, GRAY=1, BLACK=2 *\/ $/;"	m	struct:_gqnode
-color	../../include/realheap.h	/^  char *color;$/;"	m	struct:_realheap
-cost	../../demo/diffwatershed/diffwatershed.c	/^  Image *cost;$/;"	m	struct:_ImageForest	file:
-cost	../../include/realheap.h	/^  float *cost;$/;"	m	struct:_realheap
-count	../../include/set.h	/^  int count;$/;"	m	struct:_intset
-data	../../include/set.h	/^  char *data;$/;"	m	struct:_bmap
-dens	../../include/subgraph.h	/^  float dens;    \/\/ probability density value$/;"	m	struct:_snode
-df	../../include/subgraph.h	/^  float df;      \/\/ radius in the feature space for density computation$/;"	m	struct:_subgraph
-dp	../../include/adjacency.h	/^  int *dp;$/;"	m	struct:_adjpxl
-dx	../../include/adjacency.h	/^  int *dx;$/;"	m	struct:_adjrel
-dy	../../include/adjacency.h	/^  int *dy;$/;"	m	struct:_adjrel
-elem	../../include/feature.h	/^  FElem *elem;$/;"	m	struct:_features
-elem	../../include/gqueue.h	/^  GQNode *elem;  \/* all possible doubly-linked lists of the circular queue *\/$/;"	m	struct:_gdoublylinkedlists
-elem	../../include/set.h	/^  int elem;$/;"	m	struct:_set
-entropy	../../include/subgraph.h	/^  float entropy; \/\/ entropy of the pdf$/;"	m	struct:_subgraph
-false	../../include/common.h	/^typedef enum boolean {false,true} bool;$/;"	e	enum:boolean
-feat	../../include/feature.h	/^  float *feat;$/;"	m	struct:_felem
-feat	../../include/subgraph.h	/^  float *feat;    \/\/ feature vector$/;"	m	struct:_snode
-first	../../include/gqueue.h	/^  int  *first;   \/* list of the first elements of each doubly-linked list *\/$/;"	m	struct:_gcircularqueue
-label	../../demo/diffwatershed/diffwatershed.c	/^  Image *label;$/;"	m	struct:_ImageForest	file:
-label	../../include/subgraph.h	/^  int   label;   \/\/ node label$/;"	m	struct:_snode
-last	../../include/gqueue.h	/^  int  *last;    \/* list of the last  elements of each doubly-linked list  *\/$/;"	m	struct:_gcircularqueue
-last	../../include/realheap.h	/^  int last;$/;"	m	struct:_realheap
-main	../../demo/classify/classify.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/diffwatershed/diffwatershed.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/eucldist/eucldist.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/filters/morphfilters.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/gradient/gradient.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/livewire/lwof.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/msskels/msgeodesicskels.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/msskels/msskels.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/watergray/watergray.c	/^int main(int argc, char **argv)$/;"	f
-main	../../demo/watershed/watershed.c	/^int main(int argc, char **argv)$/;"	f
+checkErr	../../src/oclFunctions.c	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+contextCallback	../../src/oclFunctions.c	/^void CL_CALLBACK contextCallback ($/;"	f
+infoPlataforma	../../src/oclFunctions.c	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
 main	watershed.c	/^int main(int argc, char **argv)$/;"	f
-maxdens	../../include/subgraph.h	/^  float maxdens; \/\/ maximum density value$/;"	m	struct:_subgraph
-maxvalue	../../include/gqueue.h	/^  int  maxvalue;  \/* maximum value of a node in queue *\/$/;"	m	struct:_gcircularqueue
-mindens	../../include/subgraph.h	/^  float mindens; \/\/ minimum density value$/;"	m	struct:_subgraph
-minvalue	../../include/gqueue.h	/^  int  minvalue;  \/* minimum value of a node in queue *\/$/;"	m	struct:_gcircularqueue
-n	../../include/adjacency.h	/^  int n;$/;"	m	struct:_adjpxl
-n	../../include/adjacency.h	/^  int n;$/;"	m	struct:_adjrel
-n	../../include/realheap.h	/^  int n;$/;"	m	struct:_realheap
-n	../../include/set.h	/^  int n;$/;"	m	struct:_intset
-nbuckets	../../include/gqueue.h	/^  int  nbuckets; \/* number of buckets in the circular queue *\/$/;"	m	struct:_gcircularqueue
-ncols	../../include/dimage.h	/^  int ncols,nrows;$/;"	m	struct:_DImage
-ncols	../../include/feature.h	/^  int  nrows,ncols;$/;"	m	struct:_features
-ncols	../../include/image.h	/^  int ncols,nrows;$/;"	m	struct:_image
-nelems	../../include/feature.h	/^  int  nelems;$/;"	m	struct:_features
-nelems	../../include/gqueue.h	/^  int nelems;  \/* total number of elements *\/$/;"	m	struct:_gdoublylinkedlists
-next	../../include/gqueue.h	/^  int  next;  \/* next node *\/$/;"	m	struct:_gqnode
-next	../../include/set.h	/^  struct _set *next;$/;"	m	struct:_set	typeref:struct:_set::_set
-nfeats	../../include/feature.h	/^  int  nfeats;$/;"	m	struct:_features
-nfeats	../../include/subgraph.h	/^  int   nfeats;  \/\/ number of features$/;"	m	struct:_subgraph
-nlabels	../../include/subgraph.h	/^  int   nlabels; \/\/ number of clusters$/;"	m	struct:_subgraph
-nnodes	../../include/subgraph.h	/^  int   nnodes;  \/\/ number of nodes$/;"	m	struct:_subgraph
-node	../../include/subgraph.h	/^  SNode *node;   \/\/ nodes of the image\/scene subgraph$/;"	m	struct:_subgraph
-nplatadj	../../include/subgraph.h	/^  int nplatadj; \/\/holds the amount of adjacent nodes on plateaus$/;"	m	struct:_snode
-nrows	../../include/dimage.h	/^  int ncols,nrows;$/;"	m	struct:_DImage
-nrows	../../include/feature.h	/^  int  nrows,ncols;$/;"	m	struct:_features
-nrows	../../include/image.h	/^  int ncols,nrows;$/;"	m	struct:_image
-ordered_list_of_nodes	../../include/subgraph.h	/^  int  *ordered_list_of_nodes; \/\/ Store the list of nodes in the increasing\/decreasing order of pathval for speeding up classification.$/;"	m	struct:_subgraph
-pathval	../../include/subgraph.h	/^  float pathval; \/\/ path value$/;"	m	struct:_snode
-pixel	../../include/realheap.h	/^  int *pixel;$/;"	m	struct:_realheap
-pixel	../../include/subgraph.h	/^  int pixel;  \/\/ pixel index in the image\/scene$/;"	m	struct:_snode
-pos	../../include/realheap.h	/^  int *pos;$/;"	m	struct:_realheap
-position	../../include/subgraph.h	/^  int position;  \/\/ index in the pre-computed distance matrix$/;"	m	struct:_snode
-pred	../../demo/diffwatershed/diffwatershed.c	/^  Image *pred;$/;"	m	struct:_ImageForest	file:
-pred	../../include/subgraph.h	/^  int   pred;    \/\/ predecessor node$/;"	m	struct:_snode
-prev	../../include/gqueue.h	/^  int  prev;  \/* prev node *\/$/;"	m	struct:_gqnode
-propsize	../../include/set.h	/^  int    propsize;$/;"	m	struct:_intset
-radius	../../include/subgraph.h	/^  float radius;  \/\/ maximum distance among the k-nearest neighbors in$/;"	m	struct:_snode
-real	../../include/common.h	/^typedef float real;$/;"	t
-relevant	../../include/subgraph.h	/^  char  relevant; \/\/0 - irrelevant, 1 - relevant$/;"	m	struct:_snode
-removal_policy	../../include/gqueue.h	/^  char removal_policy; \/* 0 is MINVALUE and 1 is MAXVALUE *\/$/;"	m	struct:_gcircularqueue
-removal_policy	../../include/realheap.h	/^  char removal_policy; \/* 0 is MINVALUE and 1 is MAXVALUE *\/$/;"	m	struct:_realheap
-root	../../demo/diffwatershed/diffwatershed.c	/^  Image *root;$/;"	m	struct:_ImageForest	file:
-root	../../include/subgraph.h	/^  int   root;    \/\/ root node$/;"	m	struct:_snode
-slgrow	../../include/set.h	/^  int slsize, slgrow;$/;"	m	struct:_intset
-slsize	../../include/set.h	/^  int slsize, slgrow;$/;"	m	struct:_intset
+prepareAllDataForDevice	../../src/oclFunctions.c	/^void prepareAllDataForDevice (  cl_int errNum,$/;"	f
 sqrtreal	../../src/common.c	/^inline real sqrtreal(real x){$/;"	f
-status	../../include/subgraph.h	/^  char  status;  \/\/ 0 - nothing, 1 - prototype$/;"	m	struct:_snode
-tbrow	../../include/dimage.h	/^  int *tbrow;$/;"	m	struct:_DImage
-tbrow	../../include/image.h	/^  int *tbrow;$/;"	m	struct:_image
-tiebreak	../../include/gqueue.h	/^  char tiebreak; \/* 1 is LIFO, 0 is FIFO (default) *\/$/;"	m	struct:_gcircularqueue
-timer	../../include/common.h	/^typedef struct timeval timer;$/;"	t	typeref:struct:timeval
-true	../../include/common.h	/^typedef enum boolean {false,true} bool;$/;"	e	enum:boolean
-truelabel	../../include/subgraph.h	/^  int truelabel; \/\/ true label if it is known$/;"	m	struct:_snode
-uchar	../../include/common.h	/^typedef unsigned char uchar;$/;"	t
-uint	../../include/common.h	/^typedef unsigned int uint;$/;"	t
-ushort	../../include/common.h	/^typedef unsigned short ushort;$/;"	t
-val	../../include/dimage.h	/^  double *val;$/;"	m	struct:_DImage
-val	../../include/image.h	/^  int *val;$/;"	m	struct:_image
-value	../../include/gqueue.h	/^  int *value;   \/* the value of the nodes in the graph *\/$/;"	m	struct:_gdoublylinkedlists
-x	../../include/image.h	/^  int x,y;$/;"	m	struct:_pixel
-y	../../include/image.h	/^  int x,y;$/;"	m	struct:_pixel
+vazio	watershed.c	/^bool vazio (unsigned int M[], int n) {$/;"	f
