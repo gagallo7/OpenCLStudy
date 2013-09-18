@@ -41,7 +41,7 @@ Thumbs.db
 # Tests, Inputs and Outputs #
 *.in
 *.out
-*.swp
+*.sw*
 tst*
 test*
 tags

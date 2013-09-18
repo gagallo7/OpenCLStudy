@@ -92,10 +92,91 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     label = CreateImage(img->ncols,img->nrows);
     n     = img->ncols*img->nrows;
     Q     = CreateGQueue(Cmax+1,n,cost->val);
-    A     = Circular(1.5);
+
+    size_t Asize;
+    A     = Circular(1.5, &Asize);
 
     /* Trivial path initialization */
 
+    /* TODO */
+    /* Dijkstra mode */
+    /* Ignore GQueue, create a normal queue 
+     * remembering that mask and update are
+     * required for the OpenCL version of
+     * Dijkstra algorithm */
+
+    /* For Kernel's Buffer */
+
+    int* M, C, U = AllocIntArray(Cmax+1);
+    int semaforo = 0;
+
+	// Alocando Buffers
+	Vbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			sizeof(int) * g.vert.size(),
+            sizeof ( int ) * img->
+			g.vert.data(),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(V)");
+
+	Abuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			2*(A->n) + sizeof(A),
+			&A,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(A)");
+
+	Pbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			sizeof(int) * g.pesos.size(),
+			g.pesos.data(),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(P)");
+
+	Ubuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			Cmax+1,
+			&U,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(U)");
+
+	Mbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			Cmax+1,
+			&M,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(M)");
+
+	Cbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			Cmax+1,
+			&C,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(C)");
+
+	int semaforo = 0;
+	SEMbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			sizeof(int),
+			&semaforo,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(semaforo)");
+
+	int numV = g.vert.size();
+	numVbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			sizeof(int),
+			&numV,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(numero_de_vertices)");
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
     }
