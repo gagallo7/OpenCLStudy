@@ -2,6 +2,15 @@
 #define MAX(x,y) (((x) > (y))?(x):(y))
 #endif
 
+typedef struct _pixel {
+  int x,y;
+} Pixel;
+
+typedef struct _image {
+  int *val;
+  int ncols,nrows;
+  int *tbrow;
+} Image;
 bool ValidPixel(Image *img, int x, int y)
 {
     if ((x >= 0)&&(x < img->ncols)&&
@@ -41,6 +50,7 @@ __kernel void dijkstra (
     Pixel u, v;
     int tmp;
 
+    /*
 	if (M[tid]) {
 		M[tid] = false;
 		GetSemaphor(sem);
@@ -60,8 +70,10 @@ __kernel void dijkstra (
 			}
 		}
 	}
+    */
 
     if ( M [tid] ) {
+		M[tid] = false;
         u.x = tid % img->ncols;
         u.y = tid / img->ncols;
         for (i=1; i < A->n; i++) {

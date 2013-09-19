@@ -81,6 +81,23 @@ bool vazio (unsigned int M[], int n) {
 
 Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 {
+    /*--------------------------------------------------------*/
+    /* OpenCL variables --------------------------------------*/
+	cl_int errNum;
+	cl_uint nPlataformas;
+	cl_uint nDispositivos;
+	cl_platform_id *listaPlataformaID;
+	cl_device_id *listaDispositivoID;
+	cl_context contexto = NULL;
+	cl_command_queue fila;
+	cl_program programa, programa2;
+	cl_kernel kernel, kernel2;
+    
+    cl_mem  Ubuffer, Cbuffer, labelBuffer, numVbuffer, SEMbuffer,
+            Abuffer, Mbuffer;
+
+
+    /*--------------------------------------------------------*/
     AdjRel *A=NULL;
     GQueue *Q=NULL;
     Image  *cost=NULL,*label=NULL;
@@ -88,95 +105,21 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     int     i,p,q,n,tmp,Cmax=MaximumValue(img);
     Set    *S;
 
+
     cost  = CreateImage(img->ncols,img->nrows);
     label = CreateImage(img->ncols,img->nrows);
     n     = img->ncols*img->nrows;
     Q     = CreateGQueue(Cmax+1,n,cost->val);
 
     size_t Asize;
-    A     = Circular(1.5, &Asize);
+    A     = Circular(1.5);
+
+    /* Preparing device for OpenCL program */
+    //prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, listaPlataformaID, listaDispositivoID, contexto, fila, programa, programa2, kernel, kernel2);
+    prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, &contexto, fila, programa, programa2, &kernel, &kernel2);
 
     /* Trivial path initialization */
 
-    /* TODO */
-    /* Dijkstra mode */
-    /* Ignore GQueue, create a normal queue 
-     * remembering that mask and update are
-     * required for the OpenCL version of
-     * Dijkstra algorithm */
-
-    /* For Kernel's Buffer */
-
-    int* M, C, U = AllocIntArray(Cmax+1);
-    int semaforo = 0;
-
-	// Alocando Buffers
-	Vbuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			sizeof(int) * g.vert.size(),
-            sizeof ( int ) * img->
-			g.vert.data(),
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(V)");
-
-	Abuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			2*(A->n) + sizeof(A),
-			&A,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(A)");
-
-	Pbuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			sizeof(int) * g.pesos.size(),
-			g.pesos.data(),
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(P)");
-
-	Ubuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-			Cmax+1,
-			&U,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(U)");
-
-	Mbuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-			Cmax+1,
-			&M,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(M)");
-
-	Cbuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-			Cmax+1,
-			&C,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(C)");
-
-	int semaforo = 0;
-	SEMbuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-			sizeof(int),
-			&semaforo,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(semaforo)");
-
-	int numV = g.vert.size();
-	numVbuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			sizeof(int),
-			&numV,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(numero_de_vertices)");
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
     }
@@ -196,6 +139,75 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
         InsertGQueue(&Q,p);
         S = S->next;
     }
+
+    /* TODO */
+    /* Dijkstra mode */
+    /* Ignore GQueue, create a normal queue 
+     * remembering that mask and update are
+     * required for the OpenCL version of
+     * Dijkstra algorithm */
+
+    /* For Kernel's Buffer */
+
+    Image* M = CreateImage(img->ncols, img->nrows);
+    Image* U = CreateImage(img->ncols, img->nrows);
+    Image* C = CreateImage(img->ncols, img->nrows);
+    int semaforo = 0;
+
+
+	// Alocando Buffers
+	labelBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&label,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(A)");
+
+	Abuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			2*(A->n) + sizeof(A),
+			&A,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(A)");
+
+	Ubuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+	//		Cmax+1,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&U,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(U)");
+
+	Mbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+	//		Cmax+1,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&M,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(M)");
+
+	Cbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&C,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(C)");
+
+	SEMbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			sizeof(int),
+			&semaforo,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(semaforo)");
+
+
 
     /* Path propagation */
 
@@ -253,21 +265,6 @@ int main(int argc, char **argv)
     info = mallinfo();
     MemDinInicial = info.uordblks;
 
-    /*--------------------------------------------------------*/
-    /* OpenCL variables --------------------------------------*/
-	cl_int errNum;
-	cl_uint nPlataformas;
-	cl_uint nDispositivos;
-	cl_platform_id *listaPlataformaID;
-	cl_device_id *listaDispositivoID;
-	cl_context contexto = NULL;
-	cl_command_queue fila;
-	cl_program programa, programa2;
-	cl_kernel kernel, kernel2;
-    
-
-
-    /*--------------------------------------------------------*/
 
     if (argc!=4){
         fprintf(stderr,"Usage: watershed <image.pgm> <gradient.pgm> <seeds.txt>\n");
@@ -277,9 +274,6 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    /* Preparing device for OpenCL program */
-    //prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, listaPlataformaID, listaDispositivoID, contexto, fila, programa, programa2, kernel, kernel2);
-    prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, &contexto, fila, programa, programa2, &kernel, &kernel2);
 
     img   = ReadImage(argv[1]);
     grad  = ReadImage(argv[2]);
