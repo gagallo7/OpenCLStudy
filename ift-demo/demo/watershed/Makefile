@@ -23,3 +23,9 @@ run:
 	cd ../../; make ; cd -
 	make watershed
 	./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+
+
+rerun:
+	cd ../../; make clean && make ; cd -
+	make watershed
+	./watershed flower.pgm flower_grad.pgm flower-seeds.txt

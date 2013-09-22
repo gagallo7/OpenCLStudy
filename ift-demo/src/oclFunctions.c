@@ -157,6 +157,7 @@ void prepareAllDataForDevice (  cl_int errNum,
     programa = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
 (const size_t *)&source_size, &errNum);
 
+	free(source_str);
 	// Criando programa da fonte
 /*
 	programa = clCreateProgramWithSource (
@@ -233,19 +234,19 @@ void prepareAllDataForDevice (  cl_int errNum,
 				NULL);
 
 		//std::cerr << "Erro no kernel: " << std::endl;
-		printf ( " Kernel error : %s\n", logCompilacao );
+		printf ( " Build error : %s\n", logCompilacao );
 
 //		std::cerr << logCompilacao;
 		checkErr(errNum, "clBuildProgram");
 	}
 
+	printf ( "KERNEL 1\n" );
 	// Criando o objeto do Kernel
 	kernel = clCreateKernel (
 			programa,
 			"dijkstra",
 			&errNum);
-	checkErr(errNum, "clCreateKernel");
-
+	checkErr(errNum, "clCreateKernel1");
 
 	// Criando o objeto do Kernel2
 	kernel2 = clCreateKernel (

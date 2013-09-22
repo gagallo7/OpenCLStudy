@@ -1,0 +1,4 @@
+all:
+	g++ multM.cpp -o mm -lOpenCL
+
+run:
