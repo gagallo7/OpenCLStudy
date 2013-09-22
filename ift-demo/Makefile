@@ -6,7 +6,8 @@ OBJ=./obj
 DEMO=./demo
 #FLAGS= -g -Wall -D _DEBUG
 #FLAGS= -O3 -Wall
-FLAGS= -O3 -Wall -pg -g
+#FLAGS= -O3 -Wall -pg -g
+FLAGS= -O0 -Wall -pg -g
 
 INCLUDES=-I$(INCLUDE)
 
@@ -105,6 +106,7 @@ $(OBJ)/oclFunctions.o: $(SRC)/oclFunctions.c
 clean:
 	rm -f $(LIB)/lib*.a; rm -f $(OBJ)/*.o; rm -f $(BIN)/*
 
-
+run:
+	cd demo/watershed/; make run; cd -;
 
 

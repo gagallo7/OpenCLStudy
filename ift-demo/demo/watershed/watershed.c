@@ -162,7 +162,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			n * ( sizeof(int) ) + sizeof(Image),
 			&label,
 			&errNum);
-	checkErr(errNum, "clCreateBuffer(A)");
+	checkErr(errNum, "clCreateBuffer(Label)");
 
 	Abuffer = clCreateBuffer (
 			contexto,

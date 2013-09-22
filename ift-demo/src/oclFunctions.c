@@ -4,18 +4,21 @@
 void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {
 	cl_int err;
 	size_t size;
-	char * name = (char *)alloca(sizeof(char) * size);
-	char * vname = (char *)alloca(sizeof(char) * size);
 
 	err = clGetPlatformInfo(listaPlataformaID[i], CL_PLATFORM_NAME, 0, NULL, &size);
-	err = clGetPlatformInfo(listaPlataformaID[i], CL_PLATFORM_NAME, size, name, NULL);
+	char * name = (char *)alloca(sizeof(char) * size);
+
 	err = clGetPlatformInfo(listaPlataformaID[i], CL_PLATFORM_VENDOR, 0, NULL, &size);
+	char * vname = (char *)alloca(sizeof(char) * size);
+
+	err = clGetPlatformInfo(listaPlataformaID[i], CL_PLATFORM_NAME, size, name, NULL);
 	err = clGetPlatformInfo(listaPlataformaID[i], CL_PLATFORM_VENDOR, size, vname, NULL);
+
 /*
 	std::cout << "Platform name: " << name << std::endl
 		<< "Vendor name : " << vname << std::endl;
 */
-    printf ( "Platform name: %s\nVendor name: %s\n", name, vname );
+    printf ( "Platform Name: %s\nVendor Name: %s\n", name, vname );
 }
 
 // Checagem de erros
@@ -26,6 +29,7 @@ inline void checkErr(cl_int err, const char *name) {
 		exit(EXIT_FAILURE);
 	}
 }
+
 
 void CL_CALLBACK contextCallback (
 		const char *errInfo,
@@ -157,7 +161,7 @@ void prepareAllDataForDevice (  cl_int errNum,
     programa = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
 (const size_t *)&source_size, &errNum);
 
-	free(source_str);
+	//free(source_str);
 	// Criando programa da fonte
 /*
 	programa = clCreateProgramWithSource (
@@ -207,6 +211,7 @@ void prepareAllDataForDevice (  cl_int errNum,
 	*/
 
 	// Compilando programa
+    printf ( "Compiling the kernel1 ... \n" );
 	errNum = clBuildProgram (
 			programa,
 			nDispositivos,
@@ -214,6 +219,8 @@ void prepareAllDataForDevice (  cl_int errNum,
 			NULL,
 			NULL,
 			NULL);
+
+    printf ( "Compiling the kernel2 ... \n" );
 	errNum = clBuildProgram (
 			programa2,
 			nDispositivos,

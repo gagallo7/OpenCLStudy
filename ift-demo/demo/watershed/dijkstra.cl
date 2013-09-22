@@ -2,6 +2,17 @@
 #define MAX(x,y) (((x) > (y))?(x):(y))
 #endif
 
+typedef struct _adjrel {
+  int *dx;
+  int *dy;
+  int n;
+} AdjRel;
+
+typedef struct _adjpxl {
+  int *dp;
+  int n;
+} AdjPxl;
+
 typedef struct _pixel {
   int x,y;
 } Pixel;
@@ -11,7 +22,8 @@ typedef struct _image {
   int ncols,nrows;
   int *tbrow;
 } Image;
-bool ValidPixel(Image *img, int x, int y)
+
+bool ValidPixel(__global const Image *img, int x, int y)
 {
     if ((x >= 0)&&(x < img->ncols)&&
             (y >= 0)&&(y < img->nrows))
@@ -39,7 +51,7 @@ __kernel void dijkstra (
 		__global const Image *img,
 		__global Image *cost,
 		__global Image *label,
-		__global const int *A,
+		__global const AdjRel *A,
 		__global int *M,
 		__global int *C,
 		__global int *U,
@@ -72,17 +84,18 @@ __kernel void dijkstra (
 	}
     */
 
+    int i, q, p;
     if ( M [tid] ) {
 		M[tid] = false;
         u.x = tid % img->ncols;
         u.y = tid / img->ncols;
         for (i=1; i < A->n; i++) {
-            /* Finding neighbors of u */
+            // Finding neighbors of u 
             v.x = u.x + A->dx[i];
             v.y = u.y + A->dy[i];
-            /* If u is adjacent to v (into the image limits) */
+            // If u is adjacent to v (into the image limits) 
             if (ValidPixel(img,v.x,v.y)){
-                /* Now q has the spel form of the pixel v */
+                //* Now q has the spel form of the pixel v 
                 q   = v.x + img->tbrow[v.y];
                 if (cost->val[p] < cost->val[q]){
 
