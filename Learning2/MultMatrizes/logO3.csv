@@ -1,0 +1,47 @@
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+8,0,3.032e-05,1.484e-05,0,0
+16,0,5.708e-05,1.488e-05,0,0
+32,0,0.00011168,1.52e-05,0,0
+64,0,0.00017192,1.824e-05,0,0
+128,0,0.00042972,4.856e-05,0,0
+256,0,0.00261608,0.00027068,0,0
+512,40,0.0208591,0.00218136,1854.25551641016132022992,18475.75057736720554272517
+1024,371,0.178472,0.0180462,2065.22770530875154194365,20497.47936402415378649382
+2048,3478,2.17605,0.146408,1602.25100289044254994367,23953.81213659814920972893
+4096,26077,19.3876,1.08829,1346.25796100988882028112,23927.31240711518360193769
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+8192,202433,163.657,8.86556,1238.67342376711681935237,22754.76879226555868132243
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+8192,202633,192.55,8.87568,1043.86525311236076448919,22740.31580753880753869529
+16384,0,,,,
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+16384,1.98528e+06,,,,
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+16384,,,,,
+32768,,,333.333,,
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
+Tamanho da Entrada,Tempo Serial (ms),Tempo Paralelo (ms),Speedup
