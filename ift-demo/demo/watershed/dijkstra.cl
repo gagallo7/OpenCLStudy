@@ -23,7 +23,7 @@ typedef struct _image {
   int *tbrow;
 } Image;
 
-bool ValidPixel(__global const Image *img, int x, int y)
+bool ValidPixel(__global Image *img, int x, int y)
 {
     if ((x >= 0)&&(x < img->ncols)&&
             (y >= 0)&&(y < img->nrows))
@@ -48,15 +48,15 @@ void ReleaseSemaphor(__global int * semaphor)
 
 
 __kernel void dijkstra (
-		__global const Image *img,
+		__global Image *img,
 		__global Image *cost,
 		__global Image *label,
-		__global const AdjRel *A,
+		__global AdjRel *A,
 		__global int *M,
 		__global int *C,
 		__global int *U,
-		__global int *sem,
-		__global int *numV
+		__global int *sem//,
+//		__global int *numV
 		) {
 	int tid = get_global_id(0);
     Pixel u, v;
@@ -95,7 +95,7 @@ __kernel void dijkstra (
             v.y = u.y + A->dy[i];
             // If u is adjacent to v (into the image limits) 
             if (ValidPixel(img,v.x,v.y)){
-                //* Now q has the spel form of the pixel v 
+                //* Now q has the spel form of the pixel v *
                 q   = v.x + img->tbrow[v.y];
                 if (cost->val[p] < cost->val[q]){
 

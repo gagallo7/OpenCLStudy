@@ -46,7 +46,7 @@ void prepareAllDataForDevice (  cl_int errNum,
                                 cl_uint nPlataformas,
                                 cl_uint nDispositivos,
                   //              cl_platform_id *listaPlataformaID,
-                //                cl_device_id *listaDispositivoID,
+                                cl_device_id *listaDispositivoID,
                                 cl_context* pContexto,
                                 cl_command_queue fila,
                                 cl_program programa, cl_program programa2,
@@ -56,7 +56,7 @@ void prepareAllDataForDevice (  cl_int errNum,
     FILE* fp;
     char* source_str; 
     size_t source_size;
-    cl_device_id* listaDispositivoID;
+//    cl_device_id* listaDispositivoID;
     cl_platform_id* listaPlataformaID;
     cl_kernel kernel = *pKernel;
     cl_kernel kernel2 = *pKernel2;
@@ -255,6 +255,7 @@ void prepareAllDataForDevice (  cl_int errNum,
 			&errNum);
 	checkErr(errNum, "clCreateKernel1");
 
+	printf ( "KERNEL 2\n" );
 	// Criando o objeto do Kernel2
 	kernel2 = clCreateKernel (
 			programa2,

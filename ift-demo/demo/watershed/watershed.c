@@ -93,8 +93,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	cl_program programa, programa2;
 	cl_kernel kernel, kernel2;
     
-    cl_mem  Ubuffer, Cbuffer, labelBuffer, numVbuffer, SEMbuffer,
-            Abuffer, Mbuffer;
+    cl_mem  costBuffer, Ubuffer, Cbuffer, labelBuffer, numVbuffer, SEMbuffer,
+            Abuffer, Mbuffer, imgBuffer;
 
 
     /*--------------------------------------------------------*/
@@ -114,9 +114,10 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     size_t Asize;
     A     = Circular(1.5);
 
+
     /* Preparing device for OpenCL program */
     //prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, listaPlataformaID, listaDispositivoID, contexto, fila, programa, programa2, kernel, kernel2);
-    prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, &contexto, fila, programa, programa2, &kernel, &kernel2);
+    prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, listaDispositivoID, &contexto, fila, programa, programa2, &kernel, &kernel2);
 
     /* Trivial path initialization */
 
@@ -156,6 +157,22 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 
 
 	// Alocando Buffers
+	imgBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&img,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(Label)");
+
+	costBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&cost,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(Label)");
+
 	labelBuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -207,6 +224,51 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(semaforo)");
 
+    
+    /*
+		__global Image *img,
+		__global Image *cost,
+		__global Image *label,
+		__global AdjRel *A,
+		__global int *M,
+		__global int *C,
+		__global int *U,
+		__global int *sem,
+*/
+    
+	// Escolhendo o primeiro dispositivo e criando a fila de comando
+	fila = clCreateCommandQueue (
+			contexto, 
+			listaDispositivoID[0],
+			CL_QUEUE_PROFILING_ENABLE,
+			&errNum);
+	checkErr(errNum, "clCreateCommandQueue");
+
+	// Setando os argumentos da função do Kernel
+	errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &imgBuffer);
+	errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &costBuffer);
+	errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &labelBuffer);
+	errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Mbuffer);
+	errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Cbuffer);
+	errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Ubuffer);
+	errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &SEMbuffer);
+//	errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &numVbuffer);
+	/*
+	*/
+	// Setando os argumentos da função do Kernel2
+	errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Abuffer);
+	errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Abuffer);
+	errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Abuffer);
+	errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Mbuffer);
+	errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Cbuffer);
+	errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &Ubuffer);
+	errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &SEMbuffer);
+//	errNum |= clSetKernelArg(kernel2, 7, sizeof(cl_mem), &numVbuffer);
+	checkErr(errNum, "clSetKernelArg");
+
+	// Definindo o número de work-items globais e locais
+	const size_t globalWorkSize[1] = { Cmax };
+	const size_t localWorkSize[1] = { 1 };
 
 
     /* Path propagation */

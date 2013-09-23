@@ -29,10 +29,10 @@ __kernel void dijkstra2 (
 		__global int *C,
 		__global int *U,
 		__global int *sem,
-		__global int *numV
+		//__global int *numV
 		) {
 	int tid = get_global_id(0);
-
+    int numV = 5;
 	// Garantindo que o work-item nao ultrapasse
 	// o tamanho do vetor
 	if (tid < numV) {

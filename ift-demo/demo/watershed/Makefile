@@ -21,12 +21,12 @@ $(LIB)/libift.a:
 
 run:
 	cd ../../; make ; cd -
+	rm watershed
 	make watershed
 	./watershed flower.pgm flower_grad.pgm flower-seeds.txt
 
 
 rerun:
 	cd ../../; make clean && make ; cd -
-	rm watershed
 	make watershed
 	./watershed flower.pgm flower_grad.pgm flower-seeds.txt
