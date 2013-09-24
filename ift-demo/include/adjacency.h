@@ -4,14 +4,14 @@
 #include "image.h"
 
 typedef struct _adjrel {
-  int *dx;
-  int *dy;
-  int n;
+  cl_int *dx;
+  cl_int *dy;
+  cl_int n;
 } AdjRel;
 
 typedef struct _adjpxl {
-  int *dp;
-  int n;
+  cl_int *dp;
+  cl_int n;
 } AdjPxl;
 
 
@@ -36,13 +36,13 @@ AdjPxl *AdjPixels(Image *img,AdjRel *A);
 void    DestroyAdjPxl(AdjPxl **N);
 int     FrameSize(AdjRel *A);
 AdjRel *ComplAdj(AdjRel *A1, AdjRel *A2);
-AdjRel *Horizontal(int r);
-AdjRel *Vertical(int r);
-AdjRel *Box(int ncols, int nrows);
-AdjRel *ShearedBox(int xsize, int ysize, float Si, float Sj);
+AdjRel *Horizontal(cl_int r);
+AdjRel *Vertical(cl_int r);
+AdjRel *Box(cl_int ncols, cl_int nrows);
+AdjRel *ShearedBox(cl_int xsize, cl_int ysize, float Si, float Sj);
 AdjRel *Ring(float inner_radius, float outer_radius);
 AdjRel *KAdjacency(); // for image compression
 
-AdjRel *Cross(int ncols, int nrows); 
+AdjRel *Cross(cl_int ncols, cl_int nrows); 
 
 #endif

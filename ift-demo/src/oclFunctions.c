@@ -30,7 +30,8 @@ inline void checkErr(cl_int err, const char *name) {
 	}
 }
 
-
+/*
+*/
 void CL_CALLBACK contextCallback (
 		const char *errInfo,
 		const void *private_info,
@@ -46,8 +47,9 @@ void prepareAllDataForDevice (  cl_int errNum,
                                 cl_uint nPlataformas,
                                 cl_uint nDispositivos,
                   //              cl_platform_id *listaPlataformaID,
-                                cl_device_id *listaDispositivoID,
+                                cl_device_id **PlistaDispositivoID,
                                 cl_context* pContexto,
+                                void CL_CALLBACK *pContextCallback,
                                 cl_command_queue fila,
                                 cl_program programa, cl_program programa2,
                                 cl_kernel* pKernel, cl_kernel* pKernel2
@@ -56,7 +58,7 @@ void prepareAllDataForDevice (  cl_int errNum,
     FILE* fp;
     char* source_str; 
     size_t source_size;
-//    cl_device_id* listaDispositivoID;
+    cl_device_id* listaDispositivoID = *PlistaDispositivoID;
     cl_platform_id* listaPlataformaID;
     cl_kernel kernel = *pKernel;
     cl_kernel kernel2 = *pKernel2;
@@ -103,8 +105,8 @@ void prepareAllDataForDevice (  cl_int errNum,
 
 			errNum = clGetDeviceIDs (	
 					listaPlataformaID[i],
-				//					CL_DEVICE_TYPE_ALL,
-					CL_DEVICE_TYPE_CPU,
+									CL_DEVICE_TYPE_ALL,
+			//		CL_DEVICE_TYPE_CPU,
 			//				CL_DEVICE_TYPE_GPU,
 					nDispositivos,
 					&listaDispositivoID[0],
@@ -158,6 +160,8 @@ void prepareAllDataForDevice (  cl_int errNum,
     source_size = fread(source_str, 1, MAX_SOURCE_SIZE, fp);
     fclose(fp);
 
+    printf ( "Source code of kernel 1:\n%s\n\n", source_str );
+
     programa = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
 (const size_t *)&source_size, &errNum);
 
@@ -173,6 +177,7 @@ void prepareAllDataForDevice (  cl_int errNum,
 	checkErr(errNum, "clCreateProgramWithSource");
 
 */
+    /*
     fp = fopen("kernel2.cl", "r");
     if (!fp) {
         fprintf(stderr, "Failed to load kernel.\n");
@@ -184,7 +189,7 @@ void prepareAllDataForDevice (  cl_int errNum,
 
     programa2 = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
 (const size_t *)&source_size, &errNum);
-
+*/
 /*
 	// Criando programa da fonte do kernel2 TODO
 	// Carregando o arquivo-fonte cl para póstuma compilação feita em runtime
@@ -211,7 +216,7 @@ void prepareAllDataForDevice (  cl_int errNum,
 	*/
 
 	// Compilando programa
-    printf ( "Compiling the kernel1 ... \n" );
+    printf ( "Compiling the kernel 1 ... \n" );
 	errNum = clBuildProgram (
 			programa,
 			nDispositivos,
@@ -220,6 +225,26 @@ void prepareAllDataForDevice (  cl_int errNum,
 			NULL,
 			NULL);
 
+    printf ( "kernel1 compiled! \n" );
+
+	if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
+		// Determinando o motivo do erro
+		char logCompilacao[16384];
+		clGetProgramBuildInfo (
+				programa,
+				listaDispositivoID[0],
+				CL_PROGRAM_BUILD_LOG,
+				sizeof(logCompilacao),
+				logCompilacao,
+				NULL);
+
+		//std::cerr << "Erro no kernel: " << std::endl;
+		printf ( " Build error : %s\n", logCompilacao );
+
+//		std::cerr << logCompilacao;
+		checkErr(errNum, "clBuildProgram");
+	}
+/*
     printf ( "Compiling the kernel2 ... \n" );
 	errNum = clBuildProgram (
 			programa2,
@@ -246,6 +271,7 @@ void prepareAllDataForDevice (  cl_int errNum,
 //		std::cerr << logCompilacao;
 		checkErr(errNum, "clBuildProgram");
 	}
+    */
 
 	printf ( "KERNEL 1\n" );
 	// Criando o objeto do Kernel
@@ -254,7 +280,7 @@ void prepareAllDataForDevice (  cl_int errNum,
 			"dijkstra",
 			&errNum);
 	checkErr(errNum, "clCreateKernel1");
-
+/*
 	printf ( "KERNEL 2\n" );
 	// Criando o objeto do Kernel2
 	kernel2 = clCreateKernel (
@@ -262,4 +288,5 @@ void prepareAllDataForDevice (  cl_int errNum,
 			"dijkstra2",
 			&errNum);
 	checkErr(errNum, "clCreateKernel2");
+    */
 }

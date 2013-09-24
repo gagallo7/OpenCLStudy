@@ -17,14 +17,15 @@ void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i);
 
 // Checagem de erros
 inline void checkErr(cl_int err, const char *name);
-void CL_CALLBACK contextCallback ();
+//void CL_CALLBACK contextCallback ();
 
 void prepareAllDataForDevice (  cl_int errNum,
                                 cl_uint nPlataformas,
                                 cl_uint nDispositivos,
     //                            cl_platform_id *listaPlataformaID,
-                                cl_device_id *listaDispositivoID,
+                                cl_device_id **listaDispositivoID,
                                 cl_context* contexto,
+                                void CL_CALLBACK *pContextCallback, 
                                 cl_command_queue fila,
                                 cl_program programa, cl_program programa2,
                                 cl_kernel *, cl_kernel *

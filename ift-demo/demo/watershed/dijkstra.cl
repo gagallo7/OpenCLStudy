@@ -17,13 +17,13 @@ typedef struct _pixel {
   int x,y;
 } Pixel;
 
-typedef struct _image {
+typedef struct _figure {
   int *val;
   int ncols,nrows;
   int *tbrow;
-} Image;
+} ImageIFT;
 
-bool ValidPixel(__global Image *img, int x, int y)
+bool ValidPixel(__global ImageIFT *img, int x, int y)
 {
     if ((x >= 0)&&(x < img->ncols)&&
             (y >= 0)&&(y < img->nrows))
@@ -48,9 +48,9 @@ void ReleaseSemaphor(__global int * semaphor)
 
 
 __kernel void dijkstra (
-		__global Image *img,
-		__global Image *cost,
-		__global Image *label,
+		__global ImageIFT *img,
+		__global ImageIFT *cost,
+		__global ImageIFT *label,
 		__global AdjRel *A,
 		__global int *M,
 		__global int *C,

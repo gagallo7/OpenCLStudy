@@ -77,6 +77,17 @@ bool vazio (unsigned int M[], int n) {
 	return true;
 }
 
+void CL_CALLBACK contextCallback (
+		const char *errInfo,
+		const void *private_info,
+		size_t cb,
+		void *user_data			) {
+//	std::cout << "Ocorreu um erro durante o uso do context: " << errInfo << std::endl;
+    printf ( "An error happenned during context use: %s\n", errInfo );
+	// Ignorando limpeza de memória e saindo diretamente
+	exit(1);
+}
+
 // Watershed from binary marker
 
 Image *Watershed(Image *img, Set *Obj, Set *Bkg)
@@ -117,7 +128,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 
     /* Preparing device for OpenCL program */
     //prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, listaPlataformaID, listaDispositivoID, contexto, fila, programa, programa2, kernel, kernel2);
-    prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, listaDispositivoID, &contexto, fila, programa, programa2, &kernel, &kernel2);
+    prepareAllDataForDevice(errNum, nPlataformas, nDispositivos, &listaDispositivoID, &contexto, &contextCallback, fila, programa, programa2, &kernel, &kernel2);
 
     /* Trivial path initialization */
 
@@ -163,7 +174,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			n * ( sizeof(int) ) + sizeof(Image),
 			&img,
 			&errNum);
-	checkErr(errNum, "clCreateBuffer(Label)");
+	checkErr(errNum, "clCreateBuffer(img)");
 
 	costBuffer = clCreateBuffer (
 			contexto,
@@ -171,7 +182,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			n * ( sizeof(int) ) + sizeof(Image),
 			&cost,
 			&errNum);
-	checkErr(errNum, "clCreateBuffer(Label)");
+	checkErr(errNum, "clCreateBuffer(cost)");
 
 	labelBuffer = clCreateBuffer (
 			contexto,
