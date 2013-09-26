@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define INF 1 << 30
-
+#define MAX_SOURCE_SIZE (0x100000)
 
 void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i);
 

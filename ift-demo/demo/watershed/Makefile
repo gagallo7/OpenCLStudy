@@ -30,3 +30,9 @@ rerun:
 	cd ../../; make clean && make ; cd -
 	make watershed
 	./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+
+gdb:
+	gdb --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+
+sf:
+	gdb --batch -x dbg --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt

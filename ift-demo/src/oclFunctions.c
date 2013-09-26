@@ -1,5 +1,4 @@
 #include <oclFunctions.h>
-#define MAX_SOURCE_SIZE (0x100000)
 
 void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {
 	cl_int err;
@@ -31,7 +30,6 @@ inline void checkErr(cl_int err, const char *name) {
 }
 
 /*
-*/
 void CL_CALLBACK contextCallback (
 		const char *errInfo,
 		const void *private_info,
@@ -42,6 +40,7 @@ void CL_CALLBACK contextCallback (
 	// Ignorando limpeza de memória e saindo diretamente
 	exit(1);
 }
+*/
 
 void prepareAllDataForDevice (  cl_int errNum,
                                 cl_uint nPlataformas,
@@ -130,7 +129,8 @@ void prepareAllDataForDevice (  cl_int errNum,
 			propContexto,
 			nDispositivos,
 			listaDispositivoID,
-			&contextCallback,
+			//&contextCallback,
+			pContextCallback,
 			NULL,
 			&errNum			);
 
