@@ -108,8 +108,14 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	cl_kernel kernel, kernel2;
 	cl_event evento;
     
-    cl_mem  costBuffer, Ubuffer, Cbuffer, labelBuffer, numVbuffer, SEMbuffer,
-            Abuffer, Mbuffer, imgBuffer;
+    cl_mem  costBuffer, costvalBuffer, costtbrowBuffer,
+            numVbuffer, SEMbuffer,
+            Abuffer, 
+            labelBuffer, labelvalBuffer, labeltbrowBuffer,
+            Mbuffer, MvalBuffer, MtbrowBuffer,
+            Ubuffer, UvalBuffer, UtbrowBuffer,
+            Cbuffer, CtbrowBuffer, CvalBuffer, 
+            imgBuffer, imgvalBuffer, imgtbrowBuffer;
 
 
     /*--------------------------------------------------------*/
@@ -404,29 +410,86 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     /*
     */
     printf ( "\n-------------------\nTamanho Image: %d\n", sizeof(Image) );
+    printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
 	imgBuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			(img->nrows + img->nrows*img->ncols) * ( sizeof(int) ) + sizeof(Image),
+			sizeof(Image),
 			&img,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(img)");
 
+	imgvalBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ),
+			&(img->val),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(M_valBuffer)");
+
+	imgtbrowBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			img->nrows * ( sizeof(int) ),
+			&(img->tbrow),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(img_tbrowBuffer)");
+
+
 	costBuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			n * ( sizeof(int) ) + sizeof(Image),
+			sizeof(Image),
 			&cost,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(cost)");
 
+	costvalBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ),
+			&(cost->val),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(cost_valBuffer)");
+
+	costtbrowBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			cost->nrows * ( sizeof(int) ),
+			&(cost->tbrow),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(cost_tbrowBuffer)");
+
 	labelBuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			n * ( sizeof(int) ) + sizeof(Image),
+			sizeof(Image),
 			&label,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(Label)");
+
+	labelvalBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ),
+			&(label->val),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(label_valBuffer)");
+
+	labeltbrowBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			label->nrows * ( sizeof(int) ),
+			&(label->tbrow),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(label_tbrowBuffer)");
+
 
 	Abuffer = clCreateBuffer (
 			contexto,
@@ -436,30 +499,84 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(A)");
 
-	Ubuffer = clCreateBuffer (
-			contexto,
-			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-	//		Cmax+1,
-			n * ( sizeof(int) ) + sizeof(Image),
-			&U,
-			&errNum);
-	checkErr(errNum, "clCreateBuffer(U)");
-
 	Mbuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-	//		Cmax+1,
-			n * ( sizeof(int) ) + sizeof(Image),
+			//Cmax+1,
+			sizeof(Image),
 			&M,
 			&errNum);
-	checkErr(errNum, "clCreateBuffer(M)");
+	checkErr(errNum, "clCreateBuffer(M_buffer)");
+
+	MvalBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ),
+			&(M->val),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(M_valBuffer)");
+
+	MtbrowBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			M->nrows * ( sizeof(int) ),
+			&(M->tbrow),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(M_tbrowBuffer)");
+
+	Ubuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			sizeof(Image),
+			&M,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(U_buffer)");
+
+	UvalBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ),
+			&(U->val),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(U_valBuffer)");
+
+	UtbrowBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			M->nrows * ( sizeof(int) ),
+			&(U->tbrow),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(U_tbrowBuffer)");
 
 	Cbuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 			//Cmax+1,
-			n * ( sizeof(int) ) + sizeof(Image),
+			sizeof(Image),
 			&C,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(C)");
+
+	CvalBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&(C->val),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(C)");
+
+	CtbrowBuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * ( sizeof(int) ) + sizeof(Image),
+			&(C->tbrow),
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(C)");
 
