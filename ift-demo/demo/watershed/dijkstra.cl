@@ -3,24 +3,24 @@
 #endif
 
 typedef struct _adjrel {
-  int *dx;
-  int *dy;
-  int n;
+    int *dx;
+    int *dy;
+    int n;
 } AdjRel;
 
 typedef struct _adjpxl {
-  int *dp;
-  int n;
+    int *dp;
+    int n;
 } AdjPxl;
 
 typedef struct _pixel {
-  int x,y;
+    int x,y;
 } Pixel;
 
 typedef struct _figure {
-  int *val;
-  int ncols,nrows;
-  int *tbrow;
+    int *val;
+    int ncols,nrows;
+    int *tbrow;
 } ImageIFT;
 
 bool ValidPixel(__global ImageIFT *img, int x, int y)
@@ -33,60 +33,44 @@ bool ValidPixel(__global ImageIFT *img, int x, int y)
 }
 
 void GetSemaphor(__global int * semaphor) {
-	int occupied = atom_xchg (semaphor, 1);
-	while(occupied > 0)
-	{
-		occupied = atom_xchg (semaphor, 1);
-	}
+    int occupied = atom_xchg (semaphor, 1);
+    while(occupied > 0)
+    {
+        occupied = atom_xchg (semaphor, 1);
+    }
 }
 
 
 void ReleaseSemaphor(__global int * semaphor)
 {
-	int prevVal = atom_xchg (semaphor, 0);
+    int prevVal = atom_xchg (semaphor, 0);
 }
 
 
 __kernel void dijkstra (
-		__global ImageIFT *img,
-		__global ImageIFT *cost,
-		__global ImageIFT *label,
-		__global AdjRel *A,
-		__global int *M,
-		__global int *C,
-		__global int *U,
-		__global int *sem//,
-//		__global int *numV
-		) {
-	int tid = get_global_id(0);
+        __global ImageIFT *img,
+        __global int *ival,
+        __global int *itbrow,
+        __global ImageIFT *cost,
+        __global int *cval,
+        __global ImageIFT *label,
+        __global int *lval,
+        __global AdjRel *A,
+        __global int *M,
+        __global int *C,
+        __global int *U,
+/*10*/  __global int *sem//,
+        //		__global int *numV
+        ) {
+    int tid = get_global_id(0);
     Pixel u, v;
     int tmp;
 
-    /*
-	if (M[tid]) {
-		M[tid] = false;
-		GetSemaphor(sem);
-		int first, last;
-		first = V[tid];
-		// Garantindo que o work-item nao ultrapasse
-		// o tamanho do vetor
-		if ( tid + 0 < numV  ) 
-					// TODO
-			last = V[tid+1]; // Non-coalesced access - Review
-		ReleaseSemaphor(sem);
-
-		for (int nid = first; nid < last; nid++) {
-			int edge = A[nid];
-			if (U[edge] > C[tid]+W[nid]) {
-				U[edge] = C[tid]+W[nid];
-			}
-		}
-	}
-    */
-
     int i, q, p;
     if ( M [tid] ) {
-		M[tid] = false;
+        M[tid] = false;
+        //u.x = tid % img->ncols;
+        //u.y = tid / img->ncols;
         u.x = tid % img->ncols;
         u.y = tid / img->ncols;
         for (i=1; i < A->n; i++) {
@@ -96,18 +80,18 @@ __kernel void dijkstra (
             // If u is adjacent to v (into the image limits) 
             if (ValidPixel(img,v.x,v.y)){
                 //* Now q has the spel form of the pixel v *
-                q   = v.x + img->tbrow[v.y];
-                if (cost->val[p] < cost->val[q]){
+                q   = v.x + itbrow[v.y];
+                if (cval[p] < cval[q]){
 
-                    tmp = MAX(cost->val[p] , img->val[q]);
-                    if (tmp < cost->val[q]){
-                        if (cost->val[q]!=INT_MAX)
-                     //       RemoveGQueueElem(Q,q);
+                    tmp = MAX(cval[p] , ival[q]);
+                    if (tmp < cval[q]){
+                        if (cval[q]!=INT_MAX)
+                            //       RemoveGQueueElem(Q,q);
                             M[q] = false;
-                        cost->val[q] =tmp;
-                        label->val[q]=label->val[p];
+                        cval[q] =tmp;
+                        lval[q]=lval[p];
                         M[q] = true;
-                    //    InsertGQueue(&Q,q);
+                        //    InsertGQueue(&Q,q);
                     }
                 }
 
