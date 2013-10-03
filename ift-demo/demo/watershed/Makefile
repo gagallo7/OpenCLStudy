@@ -18,6 +18,12 @@ $(LIB)/libift.a:
 	make
 	gcc $(FLAGS) $@.c -o $(BIN)/$@ $(INCLUDES) -L$(LIB) -lift -lm -lOpenCL
 
+all:
+	cd ../../; make clean && make ; cd -
+	make watershed
+
+clean:
+	rm watershed
 
 run:
 	cd ../../; make ; cd -

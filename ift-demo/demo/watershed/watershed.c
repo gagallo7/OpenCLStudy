@@ -110,11 +110,11 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     
     cl_mem  costBuffer, costvalBuffer, costtbrowBuffer,
             numVbuffer, SEMbuffer,
-            Abuffer, 
+            Abuffer, Adxbuffer, Adybuffer,
             labelBuffer, labelvalBuffer, labeltbrowBuffer,
             Mbuffer, MvalBuffer, MtbrowBuffer,
-            Ubuffer, UvalBuffer, UtbrowBuffer,
-            Cbuffer, CtbrowBuffer, CvalBuffer, 
+            Ubuffer, Ulabelbuffer,
+            Cbuffer, Clabelbuffer,
             imgBuffer, imgvalBuffer, imgtbrowBuffer;
 
 
@@ -257,7 +257,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	checkErr(errNum, "clCreateProgramWithSource");
 
 */
-    /*
     fp = fopen("kernel2.cl", "r");
     if (!fp) {
         fprintf(stderr, "Failed to load kernel.\n");
@@ -269,7 +268,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 
     programa2 = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
 (const size_t *)&source_size, &errNum);
-*/
 /*
 	// Criando programa da fonte do kernel2 TODO
 	// Carregando o arquivo-fonte cl para póstuma compilação feita em runtime
@@ -291,7 +289,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			&tamanho,
 			&errNum);
 	checkErr(errNum, "clCreateProgramWithSource");
-*/
 	/*
 	*/
 
@@ -324,7 +321,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 //		std::cerr << logCompilacao;
 		checkErr(errNum, "clBuildProgram");
 	}
-/*
     printf ( "Compiling the kernel2 ... \n" );
 	errNum = clBuildProgram (
 			programa2,
@@ -334,6 +330,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			NULL,
 			NULL);
 
+/*
 	if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
 		// Determinando o motivo do erro
 		char logCompilacao[16384];
@@ -360,7 +357,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			"dijkstra",
 			&errNum);
 	checkErr(errNum, "clCreateKernel1");
-/*
 	printf ( "KERNEL 2\n" );
 	// Criando o objeto do Kernel2
 	kernel2 = clCreateKernel (
@@ -368,28 +364,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			"dijkstra2",
 			&errNum);
 	checkErr(errNum, "clCreateKernel2");
-    */
-    /* Trivial path initialization */
-
-    for (p=0; p < n; p++){
-        cost->val[p] =INT_MAX;
-    }
-    S = Obj;
-    while(S != NULL){
-        p=S->elem;
-        label->val[p]=1;
-        cost->val[p]=0;
-        InsertGQueue(&Q,p);
-        S = S->next;
-    }
-    S = Bkg;
-    while(S != NULL){
-        p=S->elem;
-        label->val[p]=0;
-        cost->val[p]=0;
-        InsertGQueue(&Q,p);
-        S = S->next;
-    }
 
     /* TODO */
     /* Dijkstra mode */
@@ -408,7 +382,35 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     int* M = (int *) calloc (n, sizeof ( int ) );
     int* C = (int *) malloc (n * sizeof ( int ) );
     int* U = (int *) malloc (n * sizeof ( int ) );
+    int* Clabel = (int *) malloc (n * sizeof ( int ) );
+    int* Ulabel = (int *) malloc (n * sizeof ( int ) );
     int semaforo = 0;
+/*
+    */
+    /* Trivial path initialization */
+
+    for (p=0; p < n; p++){
+        cost->val[p] =INT_MAX;
+    }
+    S = Obj;
+    while(S != NULL){
+        p=S->elem;
+        label->val[p]=1;
+        cost->val[p]=0;
+        InsertGQueue(&Q,p);
+        M[p] = true;
+        S = S->next;
+    }
+    S = Bkg;
+    while(S != NULL){
+        p=S->elem;
+        label->val[p]=0;
+        cost->val[p]=0;
+        InsertGQueue(&Q,p);
+        M[p] = true;
+        S = S->next;
+    }
+
 
 
 	// Alocando Buffers
@@ -416,13 +418,14 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     */
     printf ( "\n-------------------\nTamanho Image: %d\n", sizeof(Image) );
     printf ( "\n-------------------\nn Image: %d == %dB\n", n, n * sizeof(int) );
-    printf ( "\n-------------------\nM: %d\n", malloc_usable_size (M) );
+    printf ( "\n-------------------\nM: %d   A->n:%d\n", 
+                    malloc_usable_size (M), A->n);
     printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
 	imgBuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 			sizeof(Image),
-			&img,
+			img,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(img)");
 
@@ -509,10 +512,44 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	Abuffer = clCreateBuffer (
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			2*(A->n) + sizeof(A),
-			&A,
+			sizeof( int * ),
+			&(A->n),
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(A)");
+
+	Adxbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			A->n * sizeof( int ),
+			&(A->dx),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(A)");
+
+	Adybuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			A->n * sizeof( int ),
+			&(A->dy),
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(A)");
+
+	Ulabelbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * sizeof(int),
+			Ulabel,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(Ulabel_buffer)");
+
+	Clabelbuffer = clCreateBuffer (
+			contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+			//Cmax+1,
+			n * sizeof(int),
+			Clabel,
+			&errNum);
+	checkErr(errNum, "clCreateBuffer(Clabel)");
 
 
 	Ubuffer = clCreateBuffer (
@@ -569,28 +606,105 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &costvalBuffer);
 	errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &labelBuffer);
 	errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &labelvalBuffer);
-	errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &Mbuffer);
-	errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Cbuffer);
-	errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Ubuffer);
-	errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &SEMbuffer);
-	checkErr(errNum, "clSetKernelArg");
-	/*
+	errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &Abuffer);
+	errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Adxbuffer);
+	errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Adybuffer);
+	errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &Mbuffer);
+	errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &Cbuffer);
+	errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &Ubuffer);
+	errNum |= clSetKernelArg(kernel, 13, sizeof(cl_mem), &Ulabelbuffer);
+	errNum |= clSetKernelArg(kernel, 14, sizeof(cl_mem), &SEMbuffer);
+	checkErr(errNum, "clSetKernelArg at Kernel 1");
+
 	// Setando os argumentos da função do Kernel2
-	errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Abuffer);
-	errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Abuffer);
-	errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Abuffer);
-	errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Mbuffer);
-	errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Cbuffer);
-	errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &Ubuffer);
-	errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &SEMbuffer);
-//	errNum |= clSetKernelArg(kernel2, 7, sizeof(cl_mem), &numVbuffer);
-	checkErr(errNum, "clSetKernelArg");
+	errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Mbuffer);
+	errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Cbuffer);
+	errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Ubuffer);
+	errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Clabelbuffer);
+	errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Ulabelbuffer);
+	errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &SEMbuffer);
+	checkErr(errNum, "clSetKernelArg at Kernel 2");
+	/*
 	*/
 
 	// Definindo o número de work-items globais e locais
 	const size_t globalWorkSize[1] = { n };
 	const size_t localWorkSize[1] = { 1 };
 
+	// releituraFeita e um evento que sincroniza a atualizacao feita
+	// por cada chamada aos kernels
+	
+	cl_event releituraFeita;
+	errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
+                    sizeof(int) * n, M, 0, NULL, &releituraFeita);
+        checkErr(errNum, CL_SUCCESS);
+        clWaitForEvents(1, &releituraFeita);
+
+    printf ( "Entering in loop...\n" );
+//	while(!vazio(M, n)) {
+
+/*
+		std::cout << endl << "Mask: " << std::endl;
+		for(int i=0; i<M.size(); i++) {
+			cout << M[i] << " ";
+		}
+        for (i = 0; i < n; i++) {
+            printf ( "%d ", M[i] );
+        }
+        printf("\n");
+*/
+
+		// Enfileirando o Kernel para execução através da matriz
+		errNum = clEnqueueNDRangeKernel (
+				fila,
+				kernel,
+				1,
+				NULL,
+				globalWorkSize,
+				localWorkSize,
+				0,
+				NULL,
+				&evento);
+		checkErr(errNum, "clEnqueueNDRangeKernel");
+
+
+        /*
+		// Enfileirando o Kernel2 para execução através da matriz
+		errNum = clEnqueueNDRangeKernel (
+				fila,
+				kernel2,
+				1,
+				NULL,
+				globalWorkSize,
+				localWorkSize,
+				0,
+				NULL,
+                &evento);
+        checkErr(errNum, "clEnqueueNDRangeKernel2");
+        */
+
+        errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
+                sizeof(int) * n, M, 0, NULL, &releituraFeita);
+        checkErr(errNum, CL_SUCCESS);
+        clWaitForEvents(1, &releituraFeita);
+	//}
+
+	cl_ulong ev_start_time=(cl_ulong)0;     
+	cl_ulong ev_end_time=(cl_ulong)0;
+
+	clFinish(fila);
+	errNum = clWaitForEvents(1, &evento);
+	errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
+	errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
+
+	double run_time_gpu = (double)(ev_end_time - ev_start_time); // in usec
+
+
+        for (i = 0; i < n; i++) {
+            if (M[i])
+                printf ( "%d ", M[i] );
+        }
+        printf("\n");
 
     /* Path propagation */
 
