@@ -62,85 +62,57 @@ __kernel void dijkstra (
         __global int *Ccostval,
         __global int *Ucostval,
         __global int *Ulval,
-/*13*/  __global int *sem//,
+        /*13*/  __global int *sem,
+        __global int *extra
         //		__global int *numV
         ) {
     int tid = get_global_id(0);
     Pixel u, v;
     int tmp;
 
-    int i, q, p;
+    int i, q=0;
 
-//    if ( M [tid] ) {
-        M[tid] = false;
-        //u.x = tid % img->ncols;
-        //u.y = tid / img->ncols;
+    if ( M [tid] ) {
+        GetSemaphor(sem);
+        //M[tid] = false;
+        atom_xchg(&M[tid], false);
+
         u.x = tid % img->ncols;
         u.y = tid / img->ncols;
-        
-        //for (i=1; i < *An; i++) {
+
+        ReleaseSemaphor(sem);
+        for (i=1; i < *An; i++) {
+        GetSemaphor(sem);
             // Finding neighbors of u 
+            /*
+             */
             v.x = u.x + dx[i];
             v.y = u.y + dy[i];
+        ReleaseSemaphor(sem);
             // If u is adjacent to v (into the image limits) 
-            if (ValidPixel(img,v.x,v.y)){
-                //* Now q has the spel form of the pixel v *
+            barrier (CLK_GLOBAL_MEM_FENCE);
+            if (ValidPixel(img,v.x,v.y)) {
+                // Now q has the spel form of the pixel v 
                 q   = v.x + itbrow[v.y];
-                //if (cval[p] < cval[q]){
-                if (Ucostval[p] < Ucostval[q]){
-                    //tmp = MAX(cval[p] , ival[q]);
-                    tmp = MAX(Ucostval[p] , ival[q]);
-                    if (tmp < Ucostval[q]){
-                    //if (tmp < cval[q]){
-                        //if (cval[q]!=INT_MAX)
+
+                barrier ( CLK_GLOBAL_MEM_FENCE );
+                if (Ucostval[tid] < Ucostval[q]) {
+                    tmp = max(Ucostval[tid] , ival[q]);
+                    barrier (CLK_GLOBAL_MEM_FENCE);
+                    if (tmp < Ucostval[q]) {
+                        barrier (CLK_GLOBAL_MEM_FENCE);
                         if (Ucostval[q]!=INT_MAX)
-                            //       RemoveGQueueElem(Q,q);
-                            M[q] = false;
-                        Ucostval[q] = tmp;
-                        //cval[q] = tmp;
+                            atom_xchg(&M[q], false);
+                        atom_xchg(&Ucostval[q], tmp);
 
                         // TODO: Verify if label array will
                         // require a Update and Cost arrays
-                        Ulval[q]=Ulval[p];
-                        M[q] = true;
-                        //    InsertGQueue(&Q,q);
+                        atom_xchg(&M[q], true);
+                        atom_xchg(&Ulval[q], Ulval[tid]);
                     }
                 }
-
-            }
-       // }
-
-  //  }
-//    M[tid] = ( v.x < img->ncols ) | ( v.y < img->nrows ) ;
-      M[tid] = *An;
-    
-    /* Path propagation */
-    /*
-
-    while (!EmptyGQueue(Q)){
-        p   = RemoveGQueue(Q);
-        u.x = p%img->ncols;
-        u.y = p/img->ncols;
-        for (i=1; i < An; i++) {
-            v.x = u.x + dx[i];
-            v.y = u.y + dy[i];
-            if (ValidPixel(img,v.x,v.y)){
-                q   = v.x + img->tbrow[v.y];
-                if (cost->val[p] < cost->val[q]){
-
-                    tmp = MAX(cost->val[p] , img->val[q]);
-                    if (tmp < cost->val[q]){
-                        if (cost->val[q]!=INT_MAX)
-                            RemoveGQueueElem(Q,q);
-                        cost->val[q] =tmp;
-                        label->val[q]=label->val[p];
-                        InsertGQueue(&Q,q);
-                    }
-                }
-
             }
         }
-    }
-*/
-}
 
+    }
+}

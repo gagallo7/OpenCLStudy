@@ -109,7 +109,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	cl_event evento;
     
     cl_mem  costBuffer, costvalBuffer, costtbrowBuffer,
-            numVbuffer, SEMbuffer,
+            numVbuffer, SEMbuffer, extraBuffer,
             Abuffer, Adxbuffer, Adybuffer,
             labelBuffer, labelvalBuffer, labeltbrowBuffer,
             Mbuffer, MvalBuffer, MtbrowBuffer,
@@ -379,24 +379,28 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     Image* U = CreateImage(img->ncols, img->nrows);
     Image* C = CreateImage(img->ncols, img->nrows);
     */
-    int* M = (int *) calloc (n, sizeof ( int ) );
-    int* C = (int *) malloc (n * sizeof ( int ) );
-    int* U = (int *) malloc (n * sizeof ( int ) );
-    int* Clabel = (int *) malloc (n * sizeof ( int ) );
-    int* Ulabel = (int *) malloc (n * sizeof ( int ) );
+    int* M = (int *) alloca (n * sizeof ( int ) );
+    int* C = (int *) alloca (n * sizeof ( int ) );
+    int* U = (int *) alloca (n * sizeof ( int ) );
+    int* Clabel = (int *) alloca (n * sizeof ( int ) );
+    int* Ulabel = (int *) alloca (n * sizeof ( int ) );
     int semaforo = 0;
+    int extra = 0;
 /*
     */
     /* Trivial path initialization */
 
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
+        C[p] = INT_MAX;
     }
     S = Obj;
     while(S != NULL){
         p=S->elem;
         label->val[p]=1;
+        Ulabel[p]=1;
         cost->val[p]=0;
+        C[p] = 0;
         InsertGQueue(&Q,p);
         M[p] = true;
         S = S->next;
@@ -405,7 +409,9 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     while(S != NULL){
         p=S->elem;
         label->val[p]=0;
+        Ulabel[p]=0;
         cost->val[p]=0;
+        C[p] = 0;
         InsertGQueue(&Q,p);
         M[p] = true;
         S = S->next;
@@ -434,7 +440,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 			//Cmax+1,
 			n * ( sizeof(int) ),
-			&(img->val),
+			img->val,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(M_valBuffer)");
 
@@ -443,7 +449,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 			//Cmax+1,
 			img->nrows * ( sizeof(int) ),
-			&(img->tbrow),
+			img->tbrow,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(img_tbrowBuffer)");
 
@@ -461,7 +467,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 			//Cmax+1,
 			n * ( sizeof(int) ),
-			&(cost->val),
+			(cost->val),
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(cost_valBuffer)");
 
@@ -470,7 +476,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 			//Cmax+1,
 			cost->nrows * ( sizeof(int) ),
-			&(cost->tbrow),
+			cost->tbrow,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(cost_tbrowBuffer)");
 
@@ -487,7 +493,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 			//Cmax+1,
 			n * ( sizeof(int) ),
-			&(label->val),
+			label->val,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(label_valBuffer)");
 
@@ -521,7 +527,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 			A->n * sizeof( int ),
-			&(A->dx),
+			A->dx,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(A)");
 
@@ -529,7 +535,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			contexto,
 			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 			A->n * sizeof( int ),
-			&(A->dy),
+			A->dy,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(A)");
 
@@ -557,7 +563,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 			//Cmax+1,
 			n * sizeof(int),
-			U,
+			cost->val,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(U_buffer)");
 
@@ -577,6 +583,14 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 			&semaforo,
 			&errNum);
 	checkErr(errNum, "clCreateBuffer(semaforo)");
+
+    extraBuffer = clCreateBuffer (
+            contexto,
+			CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+            sizeof(int),
+            &extra,
+            &errNum);
+	checkErr(errNum, "clCreateBuffer(extra)");
 
     
     /*
@@ -614,6 +628,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &Ubuffer);
 	errNum |= clSetKernelArg(kernel, 13, sizeof(cl_mem), &Ulabelbuffer);
 	errNum |= clSetKernelArg(kernel, 14, sizeof(cl_mem), &SEMbuffer);
+	errNum |= clSetKernelArg(kernel, 15, sizeof(cl_mem), &extraBuffer);
 	checkErr(errNum, "clSetKernelArg at Kernel 1");
 
 	// Setando os argumentos da função do Kernel2
@@ -641,7 +656,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
         clWaitForEvents(1, &releituraFeita);
 
     printf ( "Entering in loop...\n" );
-//	while(!vazio(M, n)) {
+    int vez = 0;
+	while(!vazio(M, n)) {
 
 /*
 		std::cout << endl << "Mask: " << std::endl;
@@ -687,38 +703,67 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
                 sizeof(int) * n, M, 0, NULL, &releituraFeita);
         checkErr(errNum, CL_SUCCESS);
         clWaitForEvents(1, &releituraFeita);
-	//}
+
+
+        /*
+        printf("\n#%d\n", vez++);
+        if ( vez <  3 )
+        for (i = 0; i < n; i++) {
+            if (M[i])
+                //printf ( "%d: %d ", i, M[i] );
+                printf ( "%d ", M[i] );
+        }
+        printf("\n");
+*/
+	}
 
 	cl_ulong ev_start_time=(cl_ulong)0;     
 	cl_ulong ev_end_time=(cl_ulong)0;
 
-	clFinish(fila);
 	errNum = clWaitForEvents(1, &evento);
 	errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
 	errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
 
-	double run_time_gpu = (double)(ev_end_time - ev_start_time); // in usec
+	double run_time_gpu = (double)(ev_end_time - ev_start_time)/1000; // in usec
 
 
         for (i = 0; i < n; i++) {
             if (M[i])
+                //printf ( "%d: %d ", i, M[i] );
                 printf ( "%d ", M[i] );
         }
         printf("\n");
 
+    errNum = clEnqueueReadBuffer(   fila, 
+                                    Ulabelbuffer, 
+                                    CL_FALSE, 
+                                    0, 
+                                    sizeof(int) * n, 
+                                    label->val, 
+                                    0, 
+                                    NULL, 
+                                    NULL    );
+
+	clFinish(fila);
+
+        for (i = 0; i < n; i++) {
+            if (label->val[i])
+                printf ( "%d ", label->val[i] );
+        }
+        printf("\n");
+
+        printf ( "Parallel Execution time: %ldms\n", run_time_gpu);
     /* Path propagation */
 
+        /*
     while (!EmptyGQueue(Q)){
         p   = RemoveGQueue(Q);
         u.x = p%img->ncols;
         u.y = p/img->ncols;
         for (i=1; i < A->n; i++) {
-            /* Finding neighbors of u */
             v.x = u.x + A->dx[i];
             v.y = u.y + A->dy[i];
-            /* If u is adjacent to v (into the image limits) */
             if (ValidPixel(img,v.x,v.y)){
-                /* Now q has the spel form of the pixel v */
                 q   = v.x + img->tbrow[v.y];
                 if (cost->val[p] < cost->val[q]){
 
@@ -735,11 +780,14 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
             }
         }
     }
+*/
+    printf ( "\n~~~~~~~%d %d %d~~~~~~~\n", *(&A->dx), A->dx[0], *A->dx );
 
 
     DestroyGQueue(&Q);
     DestroyImage(&cost);
     DestroyAdjRel(&A);
+
 
     return(label);
 }
