@@ -67,52 +67,51 @@ __kernel void dijkstra (
         //		__global int *numV
         ) {
     int tid = get_global_id(0);
+        GetSemaphor(sem);
     Pixel u, v;
     int tmp;
 
     int i, q=0;
 
     if ( M [tid] ) {
-        GetSemaphor(sem);
-        //M[tid] = false;
-        atom_xchg(&M[tid], false);
+        M[tid] = false;
+ //       atom_xchg(&M[tid], false);
 
         u.x = tid % img->ncols;
         u.y = tid / img->ncols;
 
-        ReleaseSemaphor(sem);
         for (i=1; i < *An; i++) {
-        GetSemaphor(sem);
             // Finding neighbors of u 
             /*
              */
             v.x = u.x + dx[i];
             v.y = u.y + dy[i];
-        ReleaseSemaphor(sem);
             // If u is adjacent to v (into the image limits) 
             barrier (CLK_GLOBAL_MEM_FENCE);
             if (ValidPixel(img,v.x,v.y)) {
                 // Now q has the spel form of the pixel v 
                 q   = v.x + itbrow[v.y];
 
-                barrier ( CLK_GLOBAL_MEM_FENCE );
-                if (Ucostval[tid] < Ucostval[q]) {
-                    tmp = max(Ucostval[tid] , ival[q]);
-                    barrier (CLK_GLOBAL_MEM_FENCE);
+                if (Ccostval[tid] < Ucostval[q]) {
+                    tmp = max(Ccostval[tid] , ival[q]);
                     if (tmp < Ucostval[q]) {
-                        barrier (CLK_GLOBAL_MEM_FENCE);
                         if (Ucostval[q]!=INT_MAX)
-                            atom_xchg(&M[q], false);
-                        atom_xchg(&Ucostval[q], tmp);
+                            M[tid] = false;
+   //                         atom_xchg(&M[q], false);
+//                        atom_xchg(&Ucostval[q], tmp);
+                        Ucostval[q] = tmp;
 
                         // TODO: Verify if label array will
                         // require a Update and Cost arrays
-                        atom_xchg(&M[q], true);
-                        atom_xchg(&Ulval[q], Ulval[tid]);
+    //                    atom_xchg(&M[q], true);
+                        M[tid] = true;
+     //                   atom_xchg(&Ulval[q], Ulval[tid]);
+                        Ulval[q] = Ulval[tid];
                     }
                 }
             }
         }
 
     }
+        ReleaseSemaphor(sem);
 }

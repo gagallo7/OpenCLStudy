@@ -42,3 +42,7 @@ gdb:
 
 sf:
 	gdb --batch -x dbg --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+
+view:
+	make run
+	eog flower_result.ppm

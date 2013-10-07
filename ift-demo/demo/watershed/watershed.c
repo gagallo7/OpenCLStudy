@@ -163,8 +163,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 	for (j=0; j < nPlataformas; j++) {
 		// Atribuindo o número de dispositivos de GPU a nDispositivos
 		errNum = clGetDeviceIDs (	listaPlataformaID[j],
-								//CL_DEVICE_TYPE_ALL,
-				CL_DEVICE_TYPE_CPU,
+								CL_DEVICE_TYPE_ALL,
+				//CL_DEVICE_TYPE_CPU,
 				//			CL_DEVICE_TYPE_GPU,
 				0,
 				NULL,
@@ -393,14 +393,19 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
         C[p] = INT_MAX;
+        U[p] = INT_MAX;
     }
     S = Obj;
     while(S != NULL){
         p=S->elem;
+
         label->val[p]=1;
         Ulabel[p]=1;
+
         cost->val[p]=0;
         C[p] = 0;
+        U[p] = 0;
+        
         InsertGQueue(&Q,p);
         M[p] = true;
         S = S->next;
@@ -408,10 +413,14 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     S = Bkg;
     while(S != NULL){
         p=S->elem;
+        
         label->val[p]=0;
         Ulabel[p]=0;
+        
         cost->val[p]=0;
         C[p] = 0;
+        U[p] = 0;
+
         InsertGQueue(&Q,p);
         M[p] = true;
         S = S->next;
@@ -684,7 +693,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 		checkErr(errNum, "clEnqueueNDRangeKernel");
 
 
-        /*
 		// Enfileirando o Kernel2 para execução através da matriz
 		errNum = clEnqueueNDRangeKernel (
 				fila,
@@ -697,6 +705,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 				NULL,
                 &evento);
         checkErr(errNum, "clEnqueueNDRangeKernel2");
+        /*
         */
 
         errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 

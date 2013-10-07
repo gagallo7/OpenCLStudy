@@ -38,11 +38,12 @@ __kernel void dijkstra2 (
 	int tid = get_global_id(0);
 	// Garantindo que o work-item nao ultrapasse
 	// o tamanho do vetor
-    if (C[tid] < U[tid]) {
-        U[tid] = C[tid];
-        ClabelVal[tid] = UlabelVal[tid];
+    if (C[tid] > U[tid]) {
+        C[tid] = U[tid];
+       // ClabelVal[tid] = UlabelVal[tid];
         M[tid] = true;
     }
     U[tid] = C[tid];
+    Ulval[q] = Ulval[tid];
 }
 
