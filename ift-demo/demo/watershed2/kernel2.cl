@@ -28,13 +28,13 @@ __kernel void dijkstra2 (
 //        (CostCost[tid] == UpdateCost[tid] && UpdatePred[tid] != CostPred[tid]) 
     ) {
         CostCost[tid] = UpdateCost[tid];
-        CostLabel[tid] = UpdateLabel[tid];
+//        CostLabel[tid] = UpdateLabel[tid];
         CostPred[tid] = UpdatePred[tid];
         Mask[tid] = true;
     }
 //        if (CostLabel[tid] != UpdateLabel[tid]) {}
     UpdatePred[tid] = CostPred[tid];
     UpdateCost[tid] = CostCost[tid];
-    UpdateLabel[tid] = CostLabel[tid];
+  //  UpdateLabel[tid] = CostLabel[tid];
 }
 

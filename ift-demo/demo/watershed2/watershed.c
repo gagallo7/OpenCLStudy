@@ -98,10 +98,11 @@ void CL_CALLBACK contextCallback (
 
 // Watershed from binary marker
 
-Image *Watershed(Image *img, Set *Obj, Set *Bkg)
+        Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 {
     /*--------------------------------------------------------*/
     /* OpenCL variables --------------------------------------*/
+    timer    *tS1=NULL,*tS2=NULL;
     FILE* fp;
     char* source_str; 
     size_t source_size;
@@ -695,14 +696,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 
     }
 
-    cl_ulong ev_start_time=(cl_ulong)0;     
-    cl_ulong ev_end_time=(cl_ulong)0;
-
-    errNum = clWaitForEvents(1, &evento);
-    errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
-    errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
-
-    double run_time_gpu = (double)(ev_end_time - ev_start_time)/1000; // in usec
 
 
     /*
@@ -734,13 +727,27 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
             NULL    );
 
 
+    cl_ulong ev_start_time=(cl_ulong)0;     
+    cl_ulong ev_end_time=(cl_ulong)0;
     clFinish(fila);
 
+    errNum = clWaitForEvents(1, &evento);
+    errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
+    errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
+
+    checkErr(errNum, "Error Profiling");
+    double run_time_gpu = (double)(ev_end_time - ev_start_time)/1000; // in usec
+
+    tS1 = (timer *)malloc(sizeof(timer));
+    gettimeofday(tS1, NULL);
     printf("\nEnd of parallel code. Labelling correction started.\n");
     for (i=0; i<n; i++) {
         label->val[i] = SetLabel (CostPred, label->val, n, i);
     }
+    tS2 = (timer *)malloc(sizeof(timer));
+    gettimeofday(tS2, NULL);
 
+    /*
     printf("\nLabel\n");
     for (i = 0; i < n; i++) {
         if (label->val[i])
@@ -748,8 +755,9 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
     }
     printf("\nLabel\n");
     printf("\n");
-
-    printf ( "Parallel Execution time: %ldms\n", run_time_gpu);
+*/
+    printf ( "\nRecursion time (Serial): %fms\nParallel Execution time: %lfms\n",
+                CTime(tS1, tS2), run_time_gpu);
 
 
     /*

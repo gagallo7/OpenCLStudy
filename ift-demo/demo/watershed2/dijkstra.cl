@@ -86,11 +86,13 @@ __kernel void dijkstra (
 //                     (UpdateCost [q] == tmp && UpdatePred[q] == tid )
                      ) {
  //               if ( UpdateCost [q] > tmp ) {
+                    /*
                     if ( UpdateCost [q] != INT_MAX ) {
                         M [tid] = false;
                     }
+                    */
                     UpdateCost [q] = tmp;
-                    UpdateLabel [q] = Clval [tid];
+//                    UpdateLabel [q] = Clval [tid];
                     UpdatePred[q] = tid;
                 }
                 //}
