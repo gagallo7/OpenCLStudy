@@ -29,6 +29,8 @@
 /* Including OpenCL framework for parallelizing */
 #include "oclFunctions.h"
 
+#define NUM_LOOP 1
+
 /* Papers related to this program:
 
    @incollection{Lotufo00,
@@ -245,7 +247,7 @@ void CL_CALLBACK contextCallback (
     source_size = fread(source_str, 1, MAX_SOURCE_SIZE, fp);
     fclose(fp);
 
-    printf ( "Source code of kernel 1:\n%s\n\n", source_str );
+    //printf ( "Source code of kernel 1:\n%s\n\n", source_str );
 
     programa = clCreateProgramWithSource(
             contexto, 
@@ -299,7 +301,6 @@ void CL_CALLBACK contextCallback (
     &tamanho,
     &errNum);
     checkErr(errNum, "clCreateProgramWithSource");
-    /*
     */
 
     // Compilando programa
@@ -393,8 +394,10 @@ void CL_CALLBACK contextCallback (
     cl_int* Mask = (cl_int *) alloca (n * sizeof ( cl_int ) );
     cl_int* CostCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
     cl_int* UpdateCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
+    /*
     cl_int* Clabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
     cl_int* Ulabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
+    */
     cl_int* UpdatePred = (cl_int *) alloca (n * sizeof ( cl_int ) );
     cl_int* CostPred = (cl_int *) alloca (n * sizeof ( cl_int ) );
     static volatile cl_int semaforo = 0;
@@ -403,20 +406,23 @@ void CL_CALLBACK contextCallback (
     */
     /* Trivial path initialization */
 
+    memset (label->val, -1, 4*n);
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
         CostCost[p] = INT_MAX;
         UpdateCost[p] = INT_MAX;
         Mask[p] = false;
+//        label->val[p] = -1;
     }
     S = Obj;
     while(S != NULL){
         p=S->elem;
 
         label->val[p]=1;
+        /*
         Ulabel[p]=1;
         Clabel[p]=1;
-
+*/
         cost->val[p]=0;
         CostCost[p] = 0;
         UpdateCost[p] = 0;
@@ -424,7 +430,7 @@ void CL_CALLBACK contextCallback (
         UpdatePred[p] = -1;
         CostPred[p] = -1;
 
-        InsertGQueue(&Q,p);
+  //      InsertGQueue(&Q,p);
         Mask[p] = true;
         S = S->next;
     }
@@ -433,8 +439,10 @@ void CL_CALLBACK contextCallback (
         p=S->elem;
 
         label->val[p]=0;
-        Ulabel[p]=0;
+  /*
+   *    Ulabel[p]=0;
         Clabel[p]=0;
+        */
 
         cost->val[p]=0;
         CostCost[p] = 0;
@@ -443,7 +451,7 @@ void CL_CALLBACK contextCallback (
         UpdatePred[p] = -1;
         CostPred[p] = -1;
 
-        InsertGQueue(&Q,p);
+//        InsertGQueue(&Q,p);
         Mask[p] = true;
         S = S->next;
     }
@@ -452,12 +460,12 @@ void CL_CALLBACK contextCallback (
 
     // Alocando Buffers
     /*
-    */
     printf ( "\n-------------------\nTamanho Image: %d\n", sizeof(Image) );
     printf ( "\n-------------------\nn Image: %d == %dB\n", n, n * sizeof(cl_int) );
     printf ( "\n-------------------\nM: %d   A->n:%d\n", 
             malloc_usable_size (Mask), A->n);
     printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
+    */
     imgBuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -517,6 +525,7 @@ void CL_CALLBACK contextCallback (
             &errNum);
     checkErr(errNum, "clCreateBuffer(A)");
 
+    /*
     Ulabelbuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
@@ -534,6 +543,7 @@ void CL_CALLBACK contextCallback (
             Clabel,
             &errNum);
     checkErr(errNum, "clCreateBuffer(Clabel)");
+*/
 
     Ubuffer = clCreateBuffer (
             contexto,
@@ -621,23 +631,27 @@ void CL_CALLBACK contextCallback (
     errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &Cbuffer);
     errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Ubuffer);
+    /*
     errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Ulabelbuffer);
     errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &Clabelbuffer);
-    errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel, 13, sizeof(cl_mem), &SEMbuffer);
-    errNum |= clSetKernelArg(kernel, 14, sizeof(cl_mem), &extraBuffer);
+    */
+    errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &UPredbuffer);
+    errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &CPredbuffer);
+    errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &SEMbuffer);
+    errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &extraBuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 1");
 
     // Setando os argumentos da função do Kernel2
     errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Cbuffer);
     errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Ubuffer);
+    /*
     errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Clabelbuffer);
     errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Ulabelbuffer);
-    errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel2, 7, sizeof(cl_mem), &SEMbuffer);
+    */
+    errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &UPredbuffer);
+    errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &CPredbuffer);
+    errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &SEMbuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 2");
     /*
     */
@@ -656,9 +670,10 @@ void CL_CALLBACK contextCallback (
     clWaitForEvents(1, &releituraFeita);
 
     printf ( "Entering in loop...\n" );
-    cl_int vez = 0;
+    cl_int optLoop;
     while(!vazio(Mask, n)) {
 
+        for (optLoop = 0; optLoop < NUM_LOOP; optLoop++) {
         // Enfileirando o Kernel para execução através da matriz
         errNum = clEnqueueNDRangeKernel (
                 fila,
@@ -674,7 +689,6 @@ void CL_CALLBACK contextCallback (
 
 
         /*
-        */
         // Enfileirando o Kernel2 para execução através da matriz
         errNum = clEnqueueNDRangeKernel (
                 fila,
@@ -687,6 +701,8 @@ void CL_CALLBACK contextCallback (
                 NULL,
                 &evento);
         checkErr(errNum, "clEnqueueNDRangeKernel2");
+        */
+        }
 
         errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
                 sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
@@ -741,8 +757,11 @@ void CL_CALLBACK contextCallback (
     tS1 = (timer *)malloc(sizeof(timer));
     gettimeofday(tS1, NULL);
     printf("\nEnd of parallel code. Labelling correction started.\n");
+    /*
+    */
     for (i=0; i<n; i++) {
-        label->val[i] = SetLabel (CostPred, label->val, n, i);
+        if (label->val[i] < 0)
+            label->val[i] = SetLabel (CostPred, label->val, n, i);
     }
     tS2 = (timer *)malloc(sizeof(timer));
     gettimeofday(tS2, NULL);
@@ -769,30 +788,30 @@ void CL_CALLBACK contextCallback (
     /* Path propagation */
 
     /*
-       while (!EmptyGQueue(Q)){
-       p   = RemoveGQueue(Q);
-       u.x = p%img->ncols;
-       u.y = p/img->ncols;
-       for (i=1; i < A->n; i++) {
-       v.x = u.x + A->dx[i];
-       v.y = u.y + A->dy[i];
-       if (ValidPixel(img,v.x,v.y)){
-       q   = v.x + img->tbrow[v.y];
-       if (cost->val[p] < cost->val[q]){
+    while (!EmptyGQueue(Q)){
+        p   = RemoveGQueue(Q);
+        u.x = p%img->ncols;
+        u.y = p/img->ncols;
+        for (i=1; i < A->n; i++) {
+            v.x = u.x + A->dx[i];
+            v.y = u.y + A->dy[i];
+            if (ValidPixel(img,v.x,v.y)){
+                q   = v.x + img->tbrow[v.y];
+                if (cost->val[p] < cost->val[q]){
 
-       tmp = MAX(cost->val[p] , img->val[q]);
-       if (tmp < cost->val[q]){
-       if (cost->val[q]!=INT_MAX)
-       RemoveGQueueElem(Q,q);
-       cost->val[q] =tmp;
-       label->val[q]=label->val[p];
-       InsertGQueue(&Q,q);
-       }
-       }
+                    tmp = MAX(cost->val[p] , img->val[q]);
+                    if (tmp < cost->val[q]){
+                        if (cost->val[q]!=INT_MAX)
+                            RemoveGQueueElem(Q,q);
+                        cost->val[q] =tmp;
+                        label->val[q]=label->val[p];
+                        InsertGQueue(&Q,q);
+                    }
+                }
 
-       }
-       }
-       }
+            }
+        }
+    }
        */
     printf ( "\n~~~~~~~%d %d %d~~~~~~~\n", *(&A->dx), A->dx[0], *A->dx );
 

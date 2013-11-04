@@ -15,8 +15,10 @@ __kernel void dijkstra2 (
 		__global int *Mask,
 		__global int *CostCost,
 		__global int *UpdateCost,
+        /*
 		__global int *CostLabel,
 		__global int *UpdateLabel,
+        */
         __global int *UpdatePred,
         __global int *CostPred,
 		__global volatile int *sem

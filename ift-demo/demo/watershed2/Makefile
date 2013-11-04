@@ -41,8 +41,11 @@ gdb:
 	gdb --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
 
 sf:
-	gdb --batch -x dbg --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+	gdb --batch -x .dbg --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
 
 view:
 	make run
 	eog flower_result*.ppm
+
+comp:
+	gwenview fr.ppm flower_result.ppm
