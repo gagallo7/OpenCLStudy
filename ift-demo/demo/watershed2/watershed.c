@@ -29,7 +29,7 @@
 /* Including OpenCL framework for parallelizing */
 #include "oclFunctions.h"
 
-#define NUM_LOOP 1
+#define NUM_LOOP 50
 
 /* Papers related to this program:
 
@@ -392,7 +392,7 @@ void CL_CALLBACK contextCallback (
        Image* CostCost = CreateImage(img->ncols, img->nrows);
        */
     cl_int* Mask = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    cl_int* CostCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
+    cl_int* CostCost = (cl_int *) malloc (n * sizeof ( cl_int ) );
     cl_int* UpdateCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
     /*
     cl_int* Clabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
@@ -409,8 +409,8 @@ void CL_CALLBACK contextCallback (
     memset (label->val, -1, 4*n);
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
-        CostCost[p] = INT_MAX;
-        UpdateCost[p] = INT_MAX;
+//        CostCost[p] = INT_MAX;
+ //       UpdateCost[p] = INT_MAX;
         Mask[p] = false;
 //        label->val[p] = -1;
     }
@@ -424,10 +424,10 @@ void CL_CALLBACK contextCallback (
         Clabel[p]=1;
 */
         cost->val[p]=0;
-        CostCost[p] = 0;
-        UpdateCost[p] = 0;
+ //       CostCost[p] = 0;
+    //    UpdateCost[p] = 0;
 
-        UpdatePred[p] = -1;
+       // UpdatePred[p] = -1;
         CostPred[p] = -1;
 
   //      InsertGQueue(&Q,p);
@@ -445,10 +445,10 @@ void CL_CALLBACK contextCallback (
         */
 
         cost->val[p]=0;
-        CostCost[p] = 0;
-        UpdateCost[p] = 0;
+   //     CostCost[p] = 0;
+  //      UpdateCost[p] = 0;
 
-        UpdatePred[p] = -1;
+     //   UpdatePred[p] = -1;
         CostPred[p] = -1;
 
 //        InsertGQueue(&Q,p);
@@ -543,7 +543,6 @@ void CL_CALLBACK contextCallback (
             Clabel,
             &errNum);
     checkErr(errNum, "clCreateBuffer(Clabel)");
-*/
 
     Ubuffer = clCreateBuffer (
             contexto,
@@ -553,16 +552,18 @@ void CL_CALLBACK contextCallback (
             UpdateCost,
             &errNum);
     checkErr(errNum, "clCreateBuffer(U_buffer)");
+*/
 
     Cbuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
             //Cmax+1,
             n * sizeof(cl_int),
-            CostCost,
+            cost->val,
             &errNum);
     checkErr(errNum, "clCreateBuffer(CostCost)");
 
+    /*
     UPredbuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
@@ -571,6 +572,7 @@ void CL_CALLBACK contextCallback (
             UpdatePred,
             &errNum);
     checkErr(errNum, "clCreateBuffer(CostCost)");
+*/
 
     CPredbuffer = clCreateBuffer (
             contexto,
@@ -630,28 +632,28 @@ void CL_CALLBACK contextCallback (
     errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Adybuffer);
     errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &Cbuffer);
-    errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Ubuffer);
     /*
+    errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Ubuffer);
     errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Ulabelbuffer);
     errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &Clabelbuffer);
-    */
     errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &SEMbuffer);
-    errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &extraBuffer);
+    */
+    errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &CPredbuffer);
+    errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &SEMbuffer);
+    errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &extraBuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 1");
 
     // Setando os argumentos da função do Kernel2
     errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Cbuffer);
-    errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Ubuffer);
     /*
+    errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Ubuffer);
     errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Clabelbuffer);
     errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Ulabelbuffer);
-    */
     errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &SEMbuffer);
+    */
+    errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &CPredbuffer);
+    errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &SEMbuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 2");
     /*
     */

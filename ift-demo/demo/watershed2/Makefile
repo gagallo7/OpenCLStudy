@@ -7,8 +7,8 @@ BIN=.
 INCLUDES= -I$(INC) -I$(OPF_DIR)/include
 
 #FLAGS= -g -Wall 
-#FLAGS= -O3 -Wall
-FLAGS= -O0 -g -pg
+FLAGS= -O3 -Wall
+#FLAGS= -O0 -g -pg
 
 $(LIB)/libift.a:
 	cd ../../; make ; cd -
@@ -48,4 +48,4 @@ view:
 	eog flower_result*.ppm
 
 comp:
-	gwenview fr.ppm flower_result.ppm
+	gwenview fr.ppm flower_result.ppm &
