@@ -397,21 +397,22 @@ void CL_CALLBACK contextCallback (
     /*
     cl_int* Clabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
     cl_int* Ulabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    */
     cl_int* UpdatePred = (cl_int *) alloca (n * sizeof ( cl_int ) );
+    */
     cl_int* CostPred = (cl_int *) alloca (n * sizeof ( cl_int ) );
     static volatile cl_int semaforo = 0;
     cl_int extra = 0;
     /*
     */
+
     /* Trivial path initialization */
 
     memset (label->val, -1, 4*n);
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
+        Mask[p] = false;
 //        CostCost[p] = INT_MAX;
  //       UpdateCost[p] = INT_MAX;
-        Mask[p] = false;
 //        label->val[p] = -1;
     }
     S = Obj;
@@ -419,20 +420,19 @@ void CL_CALLBACK contextCallback (
         p=S->elem;
 
         label->val[p]=1;
+        cost->val[p]=0;
+        CostPred[p] = -1;
+        Mask[p] = true;
+        S = S->next;
         /*
         Ulabel[p]=1;
         Clabel[p]=1;
-*/
-        cost->val[p]=0;
- //       CostCost[p] = 0;
+        */
+ //      CostCost[p] = 0;
     //    UpdateCost[p] = 0;
-
        // UpdatePred[p] = -1;
-        CostPred[p] = -1;
 
   //      InsertGQueue(&Q,p);
-        Mask[p] = true;
-        S = S->next;
     }
     S = Bkg;
     while(S != NULL){
@@ -456,16 +456,6 @@ void CL_CALLBACK contextCallback (
         S = S->next;
     }
 
-
-
-    // Alocando Buffers
-    /*
-    printf ( "\n-------------------\nTamanho Image: %d\n", sizeof(Image) );
-    printf ( "\n-------------------\nn Image: %d == %dB\n", n, n * sizeof(cl_int) );
-    printf ( "\n-------------------\nM: %d   A->n:%d\n", 
-            malloc_usable_size (Mask), A->n);
-    printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
-    */
     imgBuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -619,6 +609,7 @@ void CL_CALLBACK contextCallback (
             &errNum);
     checkErr(errNum, "clCreateCommandQueue");
 
+
     // Setando os argumentos da função do Kernel
     errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &imgBuffer);
     errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &imgvalBuffer);
@@ -644,18 +635,12 @@ void CL_CALLBACK contextCallback (
     checkErr(errNum, "clSetKernelArg at Kernel 1");
 
     // Setando os argumentos da função do Kernel2
+    /*
     errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Cbuffer);
-    /*
-    errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Ubuffer);
-    errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Clabelbuffer);
-    errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Ulabelbuffer);
-    errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &UPredbuffer);
-    */
     errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &CPredbuffer);
     errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &SEMbuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 2");
-    /*
     */
 
     // Definindo o número de work-items globais e locais
@@ -777,8 +762,7 @@ void CL_CALLBACK contextCallback (
     printf("\nLabel\n");
     printf("\n");
 */
-    printf ( "\nRecursion time (Serial): %fms\nParallel Execution time: %lfms\n",
-                CTime(tS1, tS2), run_time_gpu);
+    printf ( "\nRecursion time (Serial): %fms\nParallel Execution time: %lfms\n", CTime(tS1, tS2), run_time_gpu);
 
 
     /*
