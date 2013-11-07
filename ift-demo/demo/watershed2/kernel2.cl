@@ -14,9 +14,9 @@ void ReleaseSemaphor(__global int * semaphor)
 __kernel void dijkstra2 (
 		__global int *Mask,
 		__global int *CostCost,
-        /*
-		__global int *UpdateCost,
 		__global int *CostLabel,
+		__global int *Sets,
+        /*
 		__global int *UpdateLabel,
         __global int *UpdatePred,
         */
@@ -25,6 +25,29 @@ __kernel void dijkstra2 (
 		//__global int *numV
 		) {
 	int tid = get_global_id(0);
+
+
+    CostLabel[tid] = -1;
+    CostCost[tid] =  INT_MAX;
+    Mask[tid] = false;
+
+    /*
+    if ( Sets [tid] == 1) {
+        CostLabel[tid] = 0;
+        CostCost[tid] =  0;
+        CostPred[tid] = -1;
+        Mask[tid] = true;
+    }
+
+    
+    else if (Sets[tid] == 2) {
+        CostLabel[tid] = 1;
+        CostCost[tid] =  0;
+        CostPred[tid] = -1;
+        Mask[tid] = true;
+    }
+    */
+
     /*
     //if (CostCost[tid] > UpdateCost[tid]) {
     if ( CostCost[tid] > UpdateCost[tid] //||

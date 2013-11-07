@@ -4,6 +4,6 @@
 #include "common.h"
 #include "set.h"
 
-void ReadSeeds(char *filename, Set **Obj, Set **Bkg);
+void ReadSeeds(char *filename, Set **Obj, Set **Bkg, int* S);
 
 #endif
