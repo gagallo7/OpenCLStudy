@@ -174,8 +174,9 @@ void CL_CALLBACK contextCallback (
         // Atribuindo o número de dispositivos de GPU a nDispositivos
         errNum = clGetDeviceIDs (	listaPlataformaID[j],
                 //								CL_DEVICE_TYPE_ALL,
-                CL_DEVICE_TYPE_CPU,
-                //			CL_DEVICE_TYPE_GPU,
+                //CL_DEVICE_TYPE_CPU,
+                
+                CL_DEVICE_TYPE_GPU,
                 0,
                 NULL,
                 &nDispositivos		);
@@ -191,8 +192,8 @@ void CL_CALLBACK contextCallback (
             errNum = clGetDeviceIDs (	
                     listaPlataformaID[j],
                     //									CL_DEVICE_TYPE_ALL,
-                    CL_DEVICE_TYPE_CPU,
-                    //				CL_DEVICE_TYPE_GPU,
+                    //CL_DEVICE_TYPE_CPU,
+                    				CL_DEVICE_TYPE_GPU,
                     nDispositivos,
                     &listaDispositivoID[0],
                     NULL);
@@ -736,7 +737,7 @@ void CL_CALLBACK contextCallback (
     errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
 
     checkErr(errNum, "Error Profiling");
-    double run_time_gpu = (double)(ev_end_time - ev_start_time)/1000; // in usec
+    double run_time_gpu = (double)(ev_end_time - ev_start_time)/1e6; // in msec
 
     tS1 = (timer *)malloc(sizeof(timer));
     gettimeofday(tS1, NULL);
