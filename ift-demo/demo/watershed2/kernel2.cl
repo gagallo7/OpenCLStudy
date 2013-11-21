@@ -1,3 +1,7 @@
+#pragma OPENCL EXTENSION cl_khr_global_int32_base_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_local_int32_base_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_global_int32_extended_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_local_int32_extended_atomics : enable
 void GetSemaphor(__global int * semaphor) {
 	int occupied = atom_xchg (semaphor, 1);
 	while(occupied > 0)
@@ -23,18 +27,13 @@ __kernel void dijkstra2 (
 		//__global int *numV
 		) {
 	int tid = get_global_id(0);
-    //if (CostCost[tid] > UpdateCost[tid]) {
     if ( CostCost[tid] > UpdateCost[tid] //||
-//        (CostCost[tid] == UpdateCost[tid] && UpdatePred[tid] != CostPred[tid]) 
     ) {
         CostCost[tid] = UpdateCost[tid];
-//        CostLabel[tid] = UpdateLabel[tid];
         CostPred[tid] = UpdatePred[tid];
         Mask[tid] = true;
     }
-//        if (CostLabel[tid] != UpdateLabel[tid]) {}
     UpdatePred[tid] = CostPred[tid];
     UpdateCost[tid] = CostCost[tid];
-  //  UpdateLabel[tid] = CostLabel[tid];
 }
 

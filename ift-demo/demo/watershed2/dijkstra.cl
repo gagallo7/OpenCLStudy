@@ -1,17 +1,11 @@
+#pragma OPENCL EXTENSION cl_khr_global_int32_base_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_local_int32_base_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_global_int32_extended_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_local_int32_extended_atomics : enable
 #ifndef MAX
 #define MAX(x,y) (((x) > (y))?(x):(y))
 #endif
 
-typedef struct _adjrel {
-    int *dx;
-    int *dy;
-    int n;
-} AdjRel;
-
-typedef struct _adjpxl {
-    int *dp;
-    int n;
-} AdjPxl;
 
 typedef struct _pixel {
     int x,y;
@@ -19,8 +13,8 @@ typedef struct _pixel {
 
 typedef struct _figure {
     int *val;
-    int ncols,nrows;
     int *tbrow;
+    int ncols,nrows;
 } ImageIFT;
 
 bool ValidPixel(__global ImageIFT *img, int x, int y)
@@ -74,6 +68,7 @@ __kernel void dijkstra (
         u.x = tid % img->ncols;
         u.y = tid / img->ncols;
 
+//        barrier(CLK_GLOBAL_MEM_FENCE);
         for ( i = 1; i < *An; i++ ) {
             v.x = u.x + dx[i];
             v.y = u.y + dy[i];
@@ -97,6 +92,7 @@ __kernel void dijkstra (
                 }
                 //}
             }                   
+//        barrier(CLK_GLOBAL_MEM_FENCE);
         }
     }
 } 

@@ -174,8 +174,8 @@ void CL_CALLBACK contextCallback (
         // Atribuindo o número de dispositivos de GPU a nDispositivos
         errNum = clGetDeviceIDs (	listaPlataformaID[j],
                 //								CL_DEVICE_TYPE_ALL,
-                CL_DEVICE_TYPE_CPU,
-                //			CL_DEVICE_TYPE_GPU,
+               // CL_DEVICE_TYPE_CPU,
+                			CL_DEVICE_TYPE_GPU,
                 0,
                 NULL,
                 &nDispositivos		);
@@ -191,8 +191,8 @@ void CL_CALLBACK contextCallback (
             errNum = clGetDeviceIDs (	
                     listaPlataformaID[j],
                     //									CL_DEVICE_TYPE_ALL,
-                    CL_DEVICE_TYPE_CPU,
-                    //				CL_DEVICE_TYPE_GPU,
+                   // CL_DEVICE_TYPE_CPU,
+                    				CL_DEVICE_TYPE_GPU,
                     nDispositivos,
                     &listaDispositivoID[0],
                     NULL);
@@ -468,7 +468,7 @@ void CL_CALLBACK contextCallback (
 
     imgvalBuffer = clCreateBuffer (
             contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+            CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
             //Cmax+1,
             n * ( sizeof(cl_int) ),
             img->val,
@@ -477,7 +477,7 @@ void CL_CALLBACK contextCallback (
 
     imgtbrowBuffer = clCreateBuffer (
             contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+            CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
             //Cmax+1,
             img->nrows * ( sizeof(cl_int) ),
             img->tbrow,
@@ -673,6 +673,7 @@ void CL_CALLBACK contextCallback (
         checkErr(errNum, "clEnqueueNDRangeKernel");
 
 
+//        clWaitForEvents(1, &evento);
         /*
         */
         // Enfileirando o Kernel2 para execução através da matriz
@@ -706,6 +707,9 @@ void CL_CALLBACK contextCallback (
     }
     printf("\n");
     */
+    cl_ulong ev_start_time=(cl_ulong)0;     
+    cl_ulong ev_end_time=(cl_ulong)0;
+    clFinish(fila);
     errNum = clEnqueueReadBuffer(   fila, 
             Clabelbuffer, 
             CL_FALSE, 
@@ -727,16 +731,13 @@ void CL_CALLBACK contextCallback (
             NULL    );
 
 
-    cl_ulong ev_start_time=(cl_ulong)0;     
-    cl_ulong ev_end_time=(cl_ulong)0;
-    clFinish(fila);
 
     errNum = clWaitForEvents(1, &evento);
     errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
     errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
 
     checkErr(errNum, "Error Profiling");
-    double run_time_gpu = (double)(ev_end_time - ev_start_time)/1000; // in usec
+    double run_time_gpu = (double)(ev_end_time - ev_start_time)/1e6; // in msec
 
     tS1 = (timer *)malloc(sizeof(timer));
     gettimeofday(tS1, NULL);

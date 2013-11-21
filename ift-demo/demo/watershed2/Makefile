@@ -8,7 +8,7 @@ INCLUDES= -I$(INC) -I$(OPF_DIR)/include
 
 #FLAGS= -g -Wall 
 #FLAGS= -O3 -Wall
-FLAGS= -O0 -g -pg
+FLAGS= -O3 -g -pg
 
 $(LIB)/libift.a:
 	cd ../../; make ; cd -
@@ -46,3 +46,6 @@ sf:
 view:
 	make run
 	eog flower_result*.ppm
+
+serial:
+	gcc watershed.c.serial -o watershed -L../../lib -I../../include -lift -lm
