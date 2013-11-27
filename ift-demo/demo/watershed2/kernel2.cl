@@ -29,8 +29,6 @@ __kernel void dijkstra2 (
 		//__global int *numV
 		) {
 	int tid = get_global_id(0);
-<<<<<<< HEAD
-=======
 
 
     CostLabel[tid] = -1;
@@ -53,22 +51,5 @@ __kernel void dijkstra2 (
         Mask[tid] = true;
     }
     */
-
-    /*
-    //if (CostCost[tid] > UpdateCost[tid]) {
->>>>>>> f52f5c5666372d78a2e73ea9d5317ccd8255e9b7
-    if ( CostCost[tid] > UpdateCost[tid] //||
-    ) {
-        CostCost[tid] = UpdateCost[tid];
-        CostPred[tid] = UpdatePred[tid];
-        Mask[tid] = true;
-    }
-    UpdatePred[tid] = CostPred[tid];
-    UpdateCost[tid] = CostCost[tid];
-<<<<<<< HEAD
-=======
-  //  UpdateLabel[tid] = CostLabel[tid];
-  */
->>>>>>> f52f5c5666372d78a2e73ea9d5317ccd8255e9b7
 }
 

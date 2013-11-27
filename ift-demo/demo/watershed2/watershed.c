@@ -766,8 +766,6 @@ void CL_CALLBACK contextCallback (
 
 
 
-    /*
-<<<<<<< HEAD
     cl_ulong ev_start_time=(cl_ulong)0;     
     cl_ulong ev_end_time=(cl_ulong)0;
     clFinish(fila);
@@ -781,10 +779,7 @@ void CL_CALLBACK contextCallback (
             NULL, 
             NULL    );
 
-=======
->>>>>>> f52f5c5666372d78a2e73ea9d5317ccd8255e9b7
-    */
-    errNum = clEnqueueReadBuffer(   fila, 
+    errNum |= clEnqueueReadBuffer(   fila, 
             CPredbuffer, 
             CL_FALSE, 
             0, 
