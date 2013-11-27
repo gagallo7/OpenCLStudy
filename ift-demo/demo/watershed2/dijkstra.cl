@@ -2,25 +2,14 @@
 #define MAX(x,y) (((x) > (y))?(x):(y))
 #endif
 
-typedef struct _adjrel {
-    int *dx;
-    int *dy;
-    int n;
-} AdjRel;
-
-typedef struct _adjpxl {
-    int *dp;
-    int n;
-} AdjPxl;
-
 typedef struct _pixel {
     int x,y;
 } Pixel;
 
 typedef struct _figure {
     int *val;
-    int ncols,nrows;
     int *tbrow;
+    int ncols,nrows;
 } ImageIFT;
 
 bool ValidPixel(__global ImageIFT *img, int x, int y)
@@ -80,22 +69,12 @@ __kernel void dijkstra (
 
             if ( ValidPixel ( img, v.x, v.y ) ) {
                 q = v.x + itbrow [v.y];
-                //                if ( CostCost [tid] < CostCost [q] ) {
                 tmp = max ( CostCost [tid], ival [q] );
                 if ( UpdateCost [q] > tmp //||
-//                     (UpdateCost [q] == tmp && UpdatePred[q] == tid )
                      ) {
- //               if ( UpdateCost [q] > tmp ) {
-                    /*
-                    if ( UpdateCost [q] != INT_MAX ) {
-                        M [tid] = false;
-                    }
-                    */
                     UpdateCost [q] = tmp;
-//                    UpdateLabel [q] = Clval [tid];
                     UpdatePred[q] = tid;
                 }
-                //}
             }                   
         }
     }

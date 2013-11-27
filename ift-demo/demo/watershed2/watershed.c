@@ -174,8 +174,8 @@ void CL_CALLBACK contextCallback (
         // Atribuindo o número de dispositivos de GPU a nDispositivos
         errNum = clGetDeviceIDs (	listaPlataformaID[j],
                 //								CL_DEVICE_TYPE_ALL,
-                CL_DEVICE_TYPE_CPU,
-                //			CL_DEVICE_TYPE_GPU,
+               /// CL_DEVICE_TYPE_CPU,
+                			CL_DEVICE_TYPE_GPU,
                 0,
                 NULL,
                 &nDispositivos		);
@@ -191,8 +191,8 @@ void CL_CALLBACK contextCallback (
             errNum = clGetDeviceIDs (	
                     listaPlataformaID[j],
                     //									CL_DEVICE_TYPE_ALL,
-                    CL_DEVICE_TYPE_CPU,
-                    //				CL_DEVICE_TYPE_GPU,
+            //        CL_DEVICE_TYPE_CPU,
+                    				CL_DEVICE_TYPE_GPU,
                     nDispositivos,
                     &listaDispositivoID[0],
                     NULL);
