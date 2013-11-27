@@ -70,8 +70,7 @@ __kernel void dijkstra (
             if ( ValidPixel ( img, v.x, v.y ) ) {
                 q = v.x + itbrow [v.y];
                 tmp = max ( CostCost [tid], ival [q] );
-                if ( UpdateCost [q] > tmp //||
-                     ) {
+                if ( UpdateCost [q] > tmp ) {
                     UpdateCost [q] = tmp;
                     UpdatePred[q] = tid;
                 }
