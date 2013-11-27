@@ -50,10 +50,12 @@ __kernel void dijkstra (
         __global int *dy,
         __global int *M,
         __global int *CostCost,
+        /*
         __global int *UpdateCost,
         __global int *UpdateLabel,
         __global int *Clval,
         __global int *UpdatePred,
+        */
         __global int *CostPred,
         __global volatile int *sem,
         __global int *extra)
@@ -77,18 +79,20 @@ __kernel void dijkstra (
                 q = v.x + itbrow [v.y];
                 //                if ( CostCost [tid] < CostCost [q] ) {
                 tmp = max ( CostCost [tid], ival [q] );
-                if ( UpdateCost [q] > tmp //||
+                if ( CostCost [q] > tmp 
+      //          if ( UpdateCost [q] > tmp //||
 //                     (UpdateCost [q] == tmp && UpdatePred[q] == tid )
                      ) {
- //               if ( UpdateCost [q] > tmp ) {
                     /*
                     if ( UpdateCost [q] != INT_MAX ) {
                         M [tid] = false;
                     }
                     */
-                    UpdateCost [q] = tmp;
-//                    UpdateLabel [q] = Clval [tid];
-                    UpdatePred[q] = tid;
+//                    UpdateCost [q] = tmp;
+                    atom_xchg(&CostCost[q], tmp);
+//                    UpdatePred [q] = tid;
+                    atom_xchg(&CostPred[q], tid);
+                    atom_xchg(&M[q],true);
                 }
                 //}
             }                   

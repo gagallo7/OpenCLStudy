@@ -7,8 +7,8 @@ BIN=.
 INCLUDES= -I$(INC) -I$(OPF_DIR)/include
 
 #FLAGS= -g -Wall 
-#FLAGS= -O3 -Wall
-FLAGS= -O3 -g -pg
+FLAGS= -O3 -Wall
+#FLAGS= -O0 -g -pg
 
 $(LIB)/libift.a:
 	cd ../../; make ; cd -
@@ -41,7 +41,7 @@ gdb:
 	gdb --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
 
 sf:
-	gdb --batch -x dbg --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+	gdb --batch -x .dbg --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
 
 view:
 	make run
@@ -49,3 +49,5 @@ view:
 
 serial:
 	gcc watershed.c.serial -o watershed -L../../lib -I../../include -lift -lm
+comp:
+	gwenview fr.ppm flower_result.ppm &

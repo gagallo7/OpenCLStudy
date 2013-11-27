@@ -26,7 +26,7 @@
 
 #include "seeds.h"
 
-void ReadSeeds(char *filename, Set **Obj, Set **Bkg)
+void ReadSeeds(char *filename, Set **Obj, Set **Bkg, int* S)
 {
   FILE *fp=fopen(filename,"r");
   int i,x,y,l,mk,nseeds, ncols, nrows;
@@ -35,10 +35,14 @@ void ReadSeeds(char *filename, Set **Obj, Set **Bkg)
 
   for (i=0; i < nseeds; i++){
     if(fscanf(fp,"%d %d %d %d",&x,&y,&mk,&l)!=0);
-    if (l==0)
+    if (l==0) {
       InsertSet(Bkg, x + ncols*y);
-    else
+      S[x + ncols*y] = 1;
+    }
+    else {
       InsertSet(Obj, x + ncols*y);
+      S[x + ncols*y] = 2;
+    }
   }
   fclose(fp);
 }
