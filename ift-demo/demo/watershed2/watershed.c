@@ -174,8 +174,8 @@ void CL_CALLBACK contextCallback (
         // Atribuindo o número de dispositivos de GPU a nDispositivos
         errNum = clGetDeviceIDs (	listaPlataformaID[j],
                 //								CL_DEVICE_TYPE_ALL,
-                CL_DEVICE_TYPE_CPU,
-                //CL_DEVICE_TYPE_GPU,
+    //            CL_DEVICE_TYPE_CPU,
+                CL_DEVICE_TYPE_GPU,
                 0,
                 NULL,
                 &nDispositivos		);
@@ -191,8 +191,8 @@ void CL_CALLBACK contextCallback (
             errNum = clGetDeviceIDs (	
                     listaPlataformaID[j],
                     //									CL_DEVICE_TYPE_ALL,
-                    CL_DEVICE_TYPE_CPU,
-                    //				CL_DEVICE_TYPE_GPU,
+                //    CL_DEVICE_TYPE_CPU,
+                    				CL_DEVICE_TYPE_GPU,
                     nDispositivos,
                     &listaDispositivoID[0],
                     NULL);
@@ -245,7 +245,7 @@ void CL_CALLBACK contextCallback (
     source_size = fread(source_str, 1, MAX_SOURCE_SIZE, fp);
     fclose(fp);
 
-    printf ( "Source code of kernel 1:\n%s\n\n", source_str );
+//    printf ( "Source code of kernel 1:\n%s\n\n", source_str );
 
     programa = clCreateProgramWithSource(
             contexto, 
@@ -452,12 +452,12 @@ void CL_CALLBACK contextCallback (
 
     // Alocando Buffers
     /*
-    */
     printf ( "\n-------------------\nTamanho Image: %d\n", sizeof(Image) );
     printf ( "\n-------------------\nn Image: %d == %dB\n", n, n * sizeof(cl_int) );
     printf ( "\n-------------------\nM: %d   A->n:%d\n", 
             malloc_usable_size (Mask), A->n);
     printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
+    */
     imgBuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
