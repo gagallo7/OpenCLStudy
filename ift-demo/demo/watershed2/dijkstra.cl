@@ -46,11 +46,13 @@ __kernel void dijkstra (
         __global int *M,
         __global int *CostCost,
         __global int *UpdateCost,
+        /*
         __global int *UpdateLabel,
         __global int *Clval,
+        */
         __global int *UpdatePred,
         __global int *CostPred,
-        __global volatile int *sem,
+        __global int *sem,
         __global int *extra)
 {
     Pixel u, v;

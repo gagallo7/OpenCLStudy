@@ -69,6 +69,7 @@
 */
 
 cl_int SetLabel (cl_int* pred, cl_int* label, cl_int n, cl_int pos) {
+    // If the pixel does not has a predecessor
     if ( pred [pos] == -1 ) {
         return label[pos];
     }
@@ -113,8 +114,8 @@ void CL_CALLBACK contextCallback (
     cl_device_id *listaDispositivoID;
     cl_context contexto = NULL;
     cl_command_queue fila;
-    cl_program programa, programa2;
-    cl_kernel kernel, kernel2;
+    cl_program programa, programa2, programa3;
+    cl_kernel kernel, kernel2, kernel3;
     cl_event evento;
 
     cl_mem  costBuffer, costvalBuffer, costtbrowBuffer,
@@ -255,21 +256,9 @@ void CL_CALLBACK contextCallback (
             &errNum);
     checkErr(errNum, "clCreateProgramWithSource");
 
-    //free(source_str);
-    // Criando programa da fonte
-    /*
-       programa = clCreateProgramWithSource (
-       contexto,
-       1,
-       &fonte,
-       &tamanho,
-       &errNum);
-       checkErr(errNum, "clCreateProgramWithSource");
-
-*/
     fp = fopen("kernel2.cl", "r");
     if (!fp) {
-        fprintf(stderr, "Failed to load kernel.\n");
+        fprintf(stderr, "Failed to load kernel2.\n");
         exit(1);
     }
     source_str = (char*)alloca(MAX_SOURCE_SIZE);
@@ -277,6 +266,18 @@ void CL_CALLBACK contextCallback (
     fclose(fp);
 
     programa2 = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
+            (const size_t *)&source_size, &errNum);
+
+    fp = fopen("kernel3.cl", "r");
+    if (!fp) {
+        fprintf(stderr, "Failed to load kernel3.\n");
+        exit(1);
+    }
+    source_str = (char*)alloca(MAX_SOURCE_SIZE);
+    source_size = fread(source_str, 1, MAX_SOURCE_SIZE, fp);
+    fclose(fp);
+
+    programa3 = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
             (const size_t *)&source_size, &errNum);
     /*
     // Criando programa da fonte do kernel2 TODO
@@ -340,6 +341,35 @@ void CL_CALLBACK contextCallback (
             NULL,
             NULL);
 
+
+    printf ( "Compiling the kernel 3 ... \n" );
+    errNum = clBuildProgram (
+            programa3,
+            nDispositivos,
+            listaDispositivoID,
+            NULL,
+            NULL,
+            NULL);
+
+    printf ( "kernel3 compiled! \n" );
+
+    if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
+        // Determinando o motivo do erro
+        char logCompilacao[16384];
+        clGetProgramBuildInfo (
+                programa,
+                listaDispositivoID[0],
+                CL_PROGRAM_BUILD_LOG,
+                sizeof(logCompilacao),
+                logCompilacao,
+                NULL);
+
+        //std::cerr << "Erro no kernel: " << std::endl;
+        printf ( " Build error : %s\n", logCompilacao );
+
+        //		std::cerr << logCompilacao;
+        checkErr(errNum, "clBuildProgram");
+    }
     /*
        if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
     // Determinando o motivo do erro
@@ -375,6 +405,14 @@ void CL_CALLBACK contextCallback (
             "dijkstra2",
             &errNum);
     checkErr(errNum, "clCreateKernel2");
+
+    printf ( "KERNEL 3\n" );
+    // Criando o objeto do Kernel3
+    kernel3 = clCreateKernel (
+            programa3,
+            "dijkstra3",
+            &errNum);
+    checkErr(errNum, "clCreateKernel3");
 
     /* TODO */
     /* Dijkstra mode */
@@ -621,12 +659,14 @@ void CL_CALLBACK contextCallback (
     errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &Cbuffer);
     errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Ubuffer);
+    /*
     errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Ulabelbuffer);
     errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &Clabelbuffer);
-    errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel, 13, sizeof(cl_mem), &SEMbuffer);
-    errNum |= clSetKernelArg(kernel, 14, sizeof(cl_mem), &extraBuffer);
+    */
+    errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &UPredbuffer);
+    errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &CPredbuffer);
+    errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &SEMbuffer);
+    errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &extraBuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 1");
 
     // Setando os argumentos da função do Kernel2
@@ -639,6 +679,17 @@ void CL_CALLBACK contextCallback (
     errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &CPredbuffer);
     errNum |= clSetKernelArg(kernel2, 7, sizeof(cl_mem), &SEMbuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 2");
+
+    // Setando os argumentos da função do Kernel3
+    errNum = clSetKernelArg(kernel3, 0, sizeof(cl_mem), &Mbuffer);
+    errNum |= clSetKernelArg(kernel3, 1, sizeof(cl_mem), &Cbuffer);
+    errNum |= clSetKernelArg(kernel3, 2, sizeof(cl_mem), &Ubuffer);
+    errNum |= clSetKernelArg(kernel3, 3, sizeof(cl_mem), &Clabelbuffer);
+    errNum |= clSetKernelArg(kernel3, 4, sizeof(cl_mem), &Ulabelbuffer);
+    errNum |= clSetKernelArg(kernel3, 5, sizeof(cl_mem), &UPredbuffer);
+    errNum |= clSetKernelArg(kernel3, 6, sizeof(cl_mem), &CPredbuffer);
+    errNum |= clSetKernelArg(kernel3, 7, sizeof(cl_mem), &SEMbuffer);
+    checkErr(errNum, "clSetKernelArg at Kernel 3");
     /*
     */
 
@@ -655,7 +706,7 @@ void CL_CALLBACK contextCallback (
     checkErr(errNum, CL_SUCCESS);
     clWaitForEvents(1, &releituraFeita);
 
-    printf ( "Entering in loop...\n" );
+    printf ( "sssEntering in loop...\n" );
     cl_int vez = 0;
     while(!vazio(Mask, n)) {
 
@@ -673,8 +724,6 @@ void CL_CALLBACK contextCallback (
         checkErr(errNum, "clEnqueueNDRangeKernel");
 
 
-        /*
-        */
         // Enfileirando o Kernel2 para execução através da matriz
         errNum = clEnqueueNDRangeKernel (
                 fila,
@@ -691,11 +740,26 @@ void CL_CALLBACK contextCallback (
         errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
                 sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
         checkErr(errNum, CL_SUCCESS);
-        clWaitForEvents(1, &releituraFeita);
-
+        clWaitForEvents(1, &evento);
 
     }
 
+    printf ( "Parallel Recursion started.\n");
+    for ( i = 0; i < 9; i++ ) {
+        errNum = clEnqueueNDRangeKernel (
+                fila,
+                kernel3,
+                1,
+                NULL,
+                globalWorkSize,
+                localWorkSize,
+                0,
+                NULL,
+                &evento);
+        checkErr(errNum, "clEnqueueNDRangeKernel3");
+    }
+    /*
+    */
 
 
     /*
@@ -731,7 +795,7 @@ void CL_CALLBACK contextCallback (
     cl_ulong ev_end_time=(cl_ulong)0;
     clFinish(fila);
 
-    errNum = clWaitForEvents(1, &evento);
+   // errNum = clWaitForEvents(1, &evento);
     errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
     errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
 
@@ -757,7 +821,7 @@ void CL_CALLBACK contextCallback (
     printf("\n");
 */
     printf ( "\nRecursion time (Serial): %fms\nParallel Execution time: %lfms\n",
-                CTime(tS1, tS2), run_time_gpu);
+                CTime(tS1,tS2), run_time_gpu);
 
 
     /*

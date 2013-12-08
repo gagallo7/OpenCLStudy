@@ -22,8 +22,7 @@ __kernel void dijkstra2 (
 		__global volatile int *sem
 		) {
 	int tid = get_global_id(0);
-    if ( CostCost[tid] > UpdateCost[tid] //||
-    ) {
+    if ( CostCost[tid] > UpdateCost[tid] ) {
         CostCost[tid] = UpdateCost[tid];
         CostPred[tid] = UpdatePred[tid];
         Mask[tid] = true;
