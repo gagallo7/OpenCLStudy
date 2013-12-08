@@ -620,13 +620,15 @@ void CL_CALLBACK contextCallback (
     errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Adybuffer);
     errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &Cbuffer);
+    /*
     errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Ubuffer);
     errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Ulabelbuffer);
     errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &Clabelbuffer);
     errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel, 13, sizeof(cl_mem), &SEMbuffer);
-    errNum |= clSetKernelArg(kernel, 14, sizeof(cl_mem), &extraBuffer);
+    */
+    errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &CPredbuffer);
+    errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &SEMbuffer);
+    errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &extraBuffer);
     checkErr(errNum, "clSetKernelArg at Kernel 1");
 
     // Setando os argumentos da função do Kernel2
@@ -674,7 +676,6 @@ void CL_CALLBACK contextCallback (
 
 
         /*
-        */
         // Enfileirando o Kernel2 para execução através da matriz
         errNum = clEnqueueNDRangeKernel (
                 fila,
@@ -687,6 +688,7 @@ void CL_CALLBACK contextCallback (
                 NULL,
                 &evento);
         checkErr(errNum, "clEnqueueNDRangeKernel2");
+        */
 
         errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
                 sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);

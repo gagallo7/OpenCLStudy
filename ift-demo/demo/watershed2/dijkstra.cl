@@ -1,6 +1,11 @@
+#pragma OPENCL EXTENSION cl_khr_global_int32_base_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_local_int32_base_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_global_int32_extended_atomics : enable
+#pragma OPENCL EXTENSION cl_khr_local_int32_extended_atomics : enable
 #ifndef MAX
 #define MAX(x,y) (((x) > (y))?(x):(y))
 #endif
+
 
 typedef struct _pixel {
     int x,y;
@@ -45,10 +50,6 @@ __kernel void dijkstra (
         __global int *dy,
         __global int *M,
         __global int *CostCost,
-        __global int *UpdateCost,
-        __global int *UpdateLabel,
-        __global int *Clval,
-        __global int *UpdatePred,
         __global int *CostPred,
         __global volatile int *sem,
         __global int *extra)
@@ -58,6 +59,7 @@ __kernel void dijkstra (
     int i, q, tmp;
 
 
+        GetSemaphor(sem);
     if ( M[tid] ) {
         M [tid] = false;
         u.x = tid % img->ncols;
@@ -70,11 +72,14 @@ __kernel void dijkstra (
             if ( ValidPixel ( img, v.x, v.y ) ) {
                 q = v.x + itbrow [v.y];
                 tmp = max ( CostCost [tid], ival [q] );
-                if ( UpdateCost [q] > tmp ) {
-                    UpdateCost [q] = tmp;
-                    UpdatePred[q] = tid;
+                if ( CostCost [q] > tmp 
+                     ) {
+                    atom_xchg(&CostCost[q], tmp);
+                    atom_xchg(&CostPred[q], tid);
+                    atom_xchg(&M[q],true);
                 }
             }                   
         }
+        ReleaseSemaphor(sem);
     }
 } 
