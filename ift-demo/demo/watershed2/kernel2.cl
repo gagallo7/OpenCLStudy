@@ -27,7 +27,5 @@ __kernel void dijkstra2 (
         CostPred[tid] = UpdatePred[tid];
         Mask[tid] = true;
     }
-    UpdatePred[tid] = CostPred[tid];
-    UpdateCost[tid] = CostCost[tid];
 }
 

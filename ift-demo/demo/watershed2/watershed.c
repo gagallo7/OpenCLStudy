@@ -28,6 +28,7 @@
 
 /* Including OpenCL framework for parallelizing */
 #include "oclFunctions.h"
+#define NLOOP 2
 
 /* Papers related to this program:
 
@@ -116,7 +117,7 @@ void CL_CALLBACK contextCallback (
     cl_command_queue fila;
     cl_program programa, programa2, programa3;
     cl_kernel kernel, kernel2, kernel3;
-    cl_event evento;
+    cl_event evento, evento1, evento2, evento3;
 
     cl_mem  costBuffer, costvalBuffer, costtbrowBuffer,
             numVbuffer, SEMbuffer, extraBuffer,
@@ -175,7 +176,7 @@ void CL_CALLBACK contextCallback (
         // Atribuindo o número de dispositivos de GPU a nDispositivos
         errNum = clGetDeviceIDs (	listaPlataformaID[j],
                 //								CL_DEVICE_TYPE_ALL,
-    //            CL_DEVICE_TYPE_CPU,
+                //CL_DEVICE_TYPE_CPU,
                 CL_DEVICE_TYPE_GPU,
                 0,
                 NULL,
@@ -309,7 +310,7 @@ void CL_CALLBACK contextCallback (
             programa,
             nDispositivos,
             listaDispositivoID,
-            NULL,
+            "-cl-fast-relaxed-math -cl-mad-enable",
             NULL,
             NULL);
 
@@ -428,7 +429,21 @@ void CL_CALLBACK contextCallback (
        Image* UpdateCost = CreateImage(img->ncols, img->nrows);
        Image* CostCost = CreateImage(img->ncols, img->nrows);
        */
-    cl_int* Mask = (cl_int *) alloca (n * sizeof ( cl_int ) );
+
+    // Calculating the next 2 power of n
+    int N = n;
+    int t = 0;
+    while ( N > 0 ) {
+        N >>= 1;
+        t++;
+    }
+
+    N = 1 << t;
+
+    printf ("n=%d ... N=%d (2^%d)\n", n, N, t);
+
+
+    cl_int* Mask = (cl_int *) alloca (N * sizeof ( cl_int ) );
     cl_int* CostCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
     cl_int* UpdateCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
     cl_int* Clabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
@@ -441,11 +456,12 @@ void CL_CALLBACK contextCallback (
     */
     /* Trivial path initialization */
 
+        //Mask[p] = false;
+    memset (Mask, 0, N*4);
     for (p=0; p < n; p++){
         cost->val[p] =INT_MAX;
         CostCost[p] = INT_MAX;
         UpdateCost[p] = INT_MAX;
-        Mask[p] = false;
     }
     S = Obj;
     while(S != NULL){
@@ -526,7 +542,7 @@ void CL_CALLBACK contextCallback (
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
             //Cmax+1,
-            n * (sizeof(cl_int)),
+            N * (sizeof(cl_int)),
             Mask,
             &errNum);
     checkErr(errNum, "clCreateBuffer(M_buffer)");
@@ -694,8 +710,8 @@ void CL_CALLBACK contextCallback (
     */
 
     // Definindo o número de work-items globais e locais
-    const size_t globalWorkSize[1] = { n };
-    const size_t localWorkSize[1] = { 1 };
+    const size_t globalWorkSize[1] = { N };
+    const size_t localWorkSize[1] = { 512 };
 
     // releituraFeita e um evento que sincroniza a atualizacao feita
     // por cada chamada aos kernels
@@ -708,8 +724,14 @@ void CL_CALLBACK contextCallback (
 
     printf ( "sssEntering in loop...\n" );
     cl_int vez = 0;
+    double run_time_gpu = 0;
+    cl_ulong ev_start_time=(cl_ulong)0;     
+    cl_ulong ev_end_time=(cl_ulong)0;
+    gettimeofday(tS1, NULL);
+
     while(!vazio(Mask, n)) {
 
+        for ( i = 0; i < NLOOP; i++) {
         // Enfileirando o Kernel para execução através da matriz
         errNum = clEnqueueNDRangeKernel (
                 fila,
@@ -720,8 +742,14 @@ void CL_CALLBACK contextCallback (
                 localWorkSize,
                 0,
                 NULL,
-                &evento);
+                &evento1);
         checkErr(errNum, "clEnqueueNDRangeKernel");
+
+        errNum = clEnqueueReadBuffer(fila, extraBuffer, CL_FALSE, 0, 
+                sizeof(cl_int), &extra, 0, NULL, &releituraFeita);
+        checkErr(errNum, CL_SUCCESS);
+        clWaitForEvents(1, &releituraFeita);
+        //printf ("%d\n", extra);
 
 
         // Enfileirando o Kernel2 para execução através da matriz
@@ -734,13 +762,22 @@ void CL_CALLBACK contextCallback (
                 localWorkSize,
                 0,
                 NULL,
-                &evento);
+                &evento2);
         checkErr(errNum, "clEnqueueNDRangeKernel2");
+        /*
+        */
+    clFinish(fila);
+    errNum |= clGetEventProfilingInfo(evento1, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
+    errNum |= clGetEventProfilingInfo(evento1, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
+
+    checkErr(errNum, "Error Profiling");
+    run_time_gpu += (double)(ev_end_time - ev_start_time)/1e6; // in msec
+        }
 
         errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
                 sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
         checkErr(errNum, CL_SUCCESS);
-        clWaitForEvents(1, &evento);
+        clWaitForEvents(1, &releituraFeita);
 
     }
 
@@ -755,9 +792,21 @@ void CL_CALLBACK contextCallback (
                 localWorkSize,
                 0,
                 NULL,
-                &evento);
+                &evento3);
         checkErr(errNum, "clEnqueueNDRangeKernel3");
     }
+    clFinish(fila);
+    /*
+    */
+    gettimeofday(tS2, NULL);
+    float transTime = CTime(tS1, tS2);
+
+    errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
+    errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
+    /*
+*/
+    checkErr(errNum, "Error Profiling");
+    double run_time_gpu2 = (double)(ev_end_time - ev_start_time)/1e6; // in msec
     /*
     */
 
@@ -791,16 +840,7 @@ void CL_CALLBACK contextCallback (
             NULL    );
 
 
-    cl_ulong ev_start_time=(cl_ulong)0;     
-    cl_ulong ev_end_time=(cl_ulong)0;
-    clFinish(fila);
-
    // errNum = clWaitForEvents(1, &evento);
-    errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
-    errNum |= clGetEventProfilingInfo(evento, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
-
-    checkErr(errNum, "Error Profiling");
-    double run_time_gpu = (double)(ev_end_time - ev_start_time)/1e6; // in msec
 
     tS1 = (timer *)malloc(sizeof(timer));
     gettimeofday(tS1, NULL);
@@ -820,8 +860,8 @@ void CL_CALLBACK contextCallback (
     printf("\nLabel\n");
     printf("\n");
 */
-    printf ( "\nRecursion time (Serial): %fms\nParallel Execution time: %lfms\n",
-                CTime(tS1,tS2), run_time_gpu);
+    printf ( "\nRecursion time (Serial): %fms\nRecursion Time (Parallel): %lfms\nParallel Execution time: %lfms\nTransfer CPU<->GPU Time: %f\n",
+               CTime(tS1,tS2) , run_time_gpu2, run_time_gpu, transTime);
 
 
     /*
@@ -858,7 +898,7 @@ void CL_CALLBACK contextCallback (
        }
        }
        */
-    printf ( "\n~~~~~~~%d %d %d~~~~~~~\n", *(&A->dx), A->dx[0], *A->dx );
+    //printf ( "\n~~~~~~~%d %d %d~~~~~~~\n", *(&A->dx), A->dx[0], *A->dx );
 
 
     DestroyGQueue(&Q);
