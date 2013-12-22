@@ -37,12 +37,14 @@ void ReleaseSemaphor(__global int * semaphor)
 
 
 __kernel void dijkstra (
-        __global ImageIFT *img,
+        //__global ImageIFT *img,
         __global int *ival,
-        __global int *itbrow,
+//        __global int *itbrow,
+        /*
         __global int *An,
         __global int *dx,
         __global int *dy,
+        */
         __global int *M,
         __global int *CostCost,
         __global int *UpdateCost,
@@ -53,13 +55,15 @@ __kernel void dijkstra (
         __global int *UpdatePred,
         __global int *CostPred,
         __global int *sem,
-        __global int *extra)
+        __global int *extra,
+        __global int *cache)
 {
     Pixel u, v;
     int tid = get_global_id(0);
     int gid = get_local_id(0);
     int i, q, tmp;
 
+    /*
     __local int cache[512*8];
     u.x = tid % img->ncols;
     u.y = tid / img->ncols;
@@ -76,7 +80,7 @@ __kernel void dijkstra (
     }
 
     barrier (CLK_LOCAL_MEM_FENCE);
-
+*/
     if ( M[tid] ) {
         M [tid] = false;
         /*
@@ -91,7 +95,7 @@ __kernel void dijkstra (
         //                q = v.x + itbrow [v.y];
          */
         for ( i = 0; i < 8; i++ ) {
-            q = cache [ gid*8 + i ];
+            q = cache [ tid*8 + i ];
             if ( q >= 0 ) {
                 tmp = max ( CostCost [tid], ival [q] );
                 if ( UpdateCost [q] > tmp ) {
