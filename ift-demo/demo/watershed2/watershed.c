@@ -28,7 +28,7 @@
 
 /* Including OpenCL framework for parallelizing */
 #include "oclFunctions.h"
-#define NLOOP 2
+#define NLOOP 1
 
 /* Papers related to this program:
 
@@ -100,7 +100,7 @@ void CL_CALLBACK contextCallback (
 
 // Watershed from binary marker
 
-        Image *Watershed(Image *img, Set *Obj, Set *Bkg)
+Image *Watershed(Image *img, Set *Obj, Set *Bkg)
 {
     /*--------------------------------------------------------*/
     /* OpenCL variables --------------------------------------*/
@@ -115,9 +115,9 @@ void CL_CALLBACK contextCallback (
     cl_device_id *listaDispositivoID;
     cl_context contexto = NULL;
     cl_command_queue fila;
-    cl_program programa, programa2, programa3;
-    cl_kernel kernel, kernel2, kernel3;
-    cl_event evento, evento1, evento2, evento3;
+    cl_program programa0, programa, programa2, programa3;
+    cl_kernel kernel0, kernel, kernel2, kernel3;
+    cl_event evento, evento0, evento1, evento2, evento3;
 
     cl_mem  costBuffer, costvalBuffer, costtbrowBuffer,
             numVbuffer, SEMbuffer, extraBuffer,
@@ -127,7 +127,8 @@ void CL_CALLBACK contextCallback (
             Ubuffer, Ulabelbuffer,
             Cbuffer, Clabelbuffer,
             UPredbuffer, CPredbuffer,
-            imgBuffer, imgvalBuffer, imgtbrowBuffer;
+            imgBuffer, imgvalBuffer, imgtbrowBuffer,
+            cacheBuffer;
 
 
     /*--------------------------------------------------------*/
@@ -193,8 +194,8 @@ void CL_CALLBACK contextCallback (
             errNum = clGetDeviceIDs (	
                     listaPlataformaID[j],
                     //									CL_DEVICE_TYPE_ALL,
-                //    CL_DEVICE_TYPE_CPU,
-                    				CL_DEVICE_TYPE_GPU,
+                    //    CL_DEVICE_TYPE_CPU,
+                    CL_DEVICE_TYPE_GPU,
                     nDispositivos,
                     &listaDispositivoID[0],
                     NULL);
@@ -238,6 +239,24 @@ void CL_CALLBACK contextCallback (
     size_t tamanho = srcProg.length();
     */
     /* Load the source code containing the kernel*/
+
+    fp = fopen("init.cl", "r");
+    if (!fp) {
+        fprintf(stderr, "Failed to load kernel.\n");
+        exit(1);
+    }
+    source_str = (char*)alloca(MAX_SOURCE_SIZE);
+    source_size = fread(source_str, 1, MAX_SOURCE_SIZE, fp);
+    fclose(fp);
+
+    programa0 = clCreateProgramWithSource(
+            contexto, 
+            1, 
+            (const char **)&source_str,
+            (const size_t *)&source_size, 
+            &errNum);
+    checkErr(errNum, "clCreateProgramWithSource 0");
+
     fp = fopen("dijkstra.cl", "r");
     if (!fp) {
         fprintf(stderr, "Failed to load kernel.\n");
@@ -247,7 +266,7 @@ void CL_CALLBACK contextCallback (
     source_size = fread(source_str, 1, MAX_SOURCE_SIZE, fp);
     fclose(fp);
 
-//    printf ( "Source code of kernel 1:\n%s\n\n", source_str );
+    //    printf ( "Source code of kernel 1:\n%s\n\n", source_str );
 
     programa = clCreateProgramWithSource(
             contexto, 
@@ -305,7 +324,19 @@ void CL_CALLBACK contextCallback (
     */
 
     // Compilando programa
-    printf ( "Compiling the kernel 1 ... \n" );
+
+    printf ( "Compiling the kernel 0 ... \r" );
+    errNum = clBuildProgram (
+            programa0,
+            nDispositivos,
+            listaDispositivoID,
+            "-cl-fast-relaxed-math -cl-mad-enable",
+            NULL,
+            NULL);
+
+    printf ( "kernel0 compiled!          \n" );
+
+    printf ( "Compiling the kernel 1 ... \r" );
     errNum = clBuildProgram (
             programa,
             nDispositivos,
@@ -314,7 +345,7 @@ void CL_CALLBACK contextCallback (
             NULL,
             NULL);
 
-    printf ( "kernel1 compiled! \n" );
+    printf ( "kernel1 compiled!         \n" );
 
     if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
         // Determinando o motivo do erro
@@ -373,365 +404,435 @@ void CL_CALLBACK contextCallback (
     }
     /*
        if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
-    // Determinando o motivo do erro
-    char logCompilacao[16384];
-    clGetProgramBuildInfo (
-    programa,
-    listaDispositivoID[0],
-    CL_PROGRAM_BUILD_LOG,
-    sizeof(logCompilacao),
-    logCompilacao,
-    NULL);
+// Determinando o motivo do erro
+char logCompilacao[16384];
+clGetProgramBuildInfo (
+programa,
+listaDispositivoID[0],
+CL_PROGRAM_BUILD_LOG,
+sizeof(logCompilacao),
+logCompilacao,
+NULL);
 
-    //std::cerr << "Erro no kernel: " << std::endl;
-    printf ( " Build error : %s\n", logCompilacao );
+//std::cerr << "Erro no kernel: " << std::endl;
+printf ( " Build error : %s\n", logCompilacao );
 
-    //		std::cerr << logCompilacao;
-    checkErr(errNum, "clBuildProgram");
-    }
-    */
+//		std::cerr << logCompilacao;
+checkErr(errNum, "clBuildProgram");
+}
+*/
 
-    printf ( "KERNEL 1\n" );
-    // Criando o objeto do Kernel
-    kernel = clCreateKernel (
-            programa,
-            "dijkstra",
-            &errNum);
-    checkErr(errNum, "clCreateKernel1");
+printf ( "KERNEL 0\n" );
+// Criando o objeto do Kernel
+kernel0 = clCreateKernel (
+        programa0,
+        "initCache",
+        &errNum);
+checkErr(errNum, "clCreateKernel0");
 
-    printf ( "KERNEL 2\n" );
-    // Criando o objeto do Kernel2
-    kernel2 = clCreateKernel (
-            programa2,
-            "dijkstra2",
-            &errNum);
-    checkErr(errNum, "clCreateKernel2");
+printf ( "KERNEL 1\n" );
+// Criando o objeto do Kernel
+kernel = clCreateKernel (
+        programa,
+        "dijkstra",
+        &errNum);
+checkErr(errNum, "clCreateKernel1");
 
-    printf ( "KERNEL 3\n" );
-    // Criando o objeto do Kernel3
-    kernel3 = clCreateKernel (
-            programa3,
-            "dijkstra3",
-            &errNum);
-    checkErr(errNum, "clCreateKernel3");
+printf ( "KERNEL 2\n" );
+// Criando o objeto do Kernel2
+kernel2 = clCreateKernel (
+        programa2,
+        "dijkstra2",
+        &errNum);
+checkErr(errNum, "clCreateKernel2");
 
-    /* TODO */
-    /* Dijkstra mode */
-    /* Ignore GQueue, create a normal queue 
-     * remembering that mask and update arrays are
-     * required for the OpenCL version of
-     * Dijkstra algorithm */
+printf ( "KERNEL 3\n" );
+// Criando o objeto do Kernel3
+kernel3 = clCreateKernel (
+        programa3,
+        "dijkstra3",
+        &errNum);
+checkErr(errNum, "clCreateKernel3");
 
-    /* For Kernel's Buffer */
+/* TODO */
+/* Dijkstra mode */
+/* Ignore GQueue, create a normal queue 
+ * remembering that mask and update arrays are
+ * required for the OpenCL version of
+ * Dijkstra algorithm */
 
-    /*
-       Image* Mask = CreateImage(img->ncols, img->nrows);
-       Image* UpdateCost = CreateImage(img->ncols, img->nrows);
-       Image* CostCost = CreateImage(img->ncols, img->nrows);
-       */
+/* For Kernel's Buffer */
 
-    // Calculating the next 2 power of n
-    int N = n;
-    int t = 0;
-    while ( N > 0 ) {
-        N >>= 1;
-        t++;
-    }
+/*
+   Image* Mask = CreateImage(img->ncols, img->nrows);
+   Image* UpdateCost = CreateImage(img->ncols, img->nrows);
+   Image* CostCost = CreateImage(img->ncols, img->nrows);
+   */
 
-    N = 1 << t;
+// Calculating the next 2 power of n
+int N = n;
+int t = 0;
+while ( N > 0 ) {
+    N >>= 1;
+    t++;
+}
 
-    printf ("n=%d ... N=%d (2^%d)\n", n, N, t);
+N = 1 << t;
 
-
-    cl_int* Mask = (cl_int *) alloca (N * sizeof ( cl_int ) );
-    cl_int* CostCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    cl_int* UpdateCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    cl_int* Clabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    cl_int* Ulabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    cl_int* UpdatePred = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    cl_int* CostPred = (cl_int *) alloca (n * sizeof ( cl_int ) );
-    static volatile cl_int semaforo = 0;
-    cl_int extra = 0;
-    /*
-    */
-    /* Trivial path initialization */
-
-        //Mask[p] = false;
-    memset (Mask, 0, N*4);
-    for (p=0; p < n; p++){
-        cost->val[p] =INT_MAX;
-        CostCost[p] = INT_MAX;
-        UpdateCost[p] = INT_MAX;
-    }
-    S = Obj;
-    while(S != NULL){
-        p=S->elem;
-
-        label->val[p]=1;
-        Ulabel[p]=1;
-        Clabel[p]=1;
-
-        cost->val[p]=0;
-        CostCost[p] = 0;
-        UpdateCost[p] = 0;
-
-        UpdatePred[p] = -1;
-        CostPred[p] = -1;
-
-        InsertGQueue(&Q,p);
-        Mask[p] = true;
-        S = S->next;
-    }
-    S = Bkg;
-    while(S != NULL){
-        p=S->elem;
-
-        label->val[p]=0;
-        Ulabel[p]=0;
-        Clabel[p]=0;
-
-        cost->val[p]=0;
-        CostCost[p] = 0;
-        UpdateCost[p] = 0;
-
-        UpdatePred[p] = -1;
-        CostPred[p] = -1;
-
-        InsertGQueue(&Q,p);
-        Mask[p] = true;
-        S = S->next;
-    }
+printf ("n=%d ... N=%d (2^%d)\n", n, N, t);
 
 
+cl_int* Mask = (cl_int *) alloca (N * sizeof ( cl_int ) );
+cl_int* CostCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
+cl_int* UpdateCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
+cl_int* Clabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
+cl_int* Ulabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
+cl_int* UpdatePred = (cl_int *) alloca (n * sizeof ( cl_int ) );
+cl_int* CostPred = (cl_int *) alloca (n * sizeof ( cl_int ) );
+static volatile cl_int semaforo = 0;
+cl_int extra = 0;
+/*
+*/
+/* Trivial path initialization */
 
-    // Alocando Buffers
-    /*
-    printf ( "\n-------------------\nTamanho Image: %d\n", sizeof(Image) );
-    printf ( "\n-------------------\nn Image: %d == %dB\n", n, n * sizeof(cl_int) );
-    printf ( "\n-------------------\nM: %d   A->n:%d\n", 
-            malloc_usable_size (Mask), A->n);
-    printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
-    */
-    imgBuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-            sizeof(Image),
-            img,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(img)");
+//Mask[p] = false;
+memset (Mask, 0, N*4);
+for (p=0; p < n; p++){
+    cost->val[p] =INT_MAX;
+    CostCost[p] = INT_MAX;
+    UpdateCost[p] = INT_MAX;
+}
+S = Obj;
+while(S != NULL){
+    p=S->elem;
 
-    imgvalBuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            n * ( sizeof(cl_int) ),
-            img->val,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(M_valBuffer)");
+    label->val[p]=1;
+    Ulabel[p]=1;
+    Clabel[p]=1;
 
-    imgtbrowBuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            img->nrows * ( sizeof(cl_int) ),
-            img->tbrow,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(img_tbrowBuffer)");
+    cost->val[p]=0;
+    CostCost[p] = 0;
+    UpdateCost[p] = 0;
 
-    Mbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            N * (sizeof(cl_int)),
-            Mask,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(M_buffer)");
+    UpdatePred[p] = -1;
+    CostPred[p] = -1;
 
-    Abuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-            sizeof( cl_int * ),
-            &(A->n),
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(A)");
+    InsertGQueue(&Q,p);
+    Mask[p] = true;
+    S = S->next;
+}
+S = Bkg;
+while(S != NULL){
+    p=S->elem;
 
-    Adxbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-            A->n * sizeof( cl_int ),
-            A->dx,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(A)");
+    label->val[p]=0;
+    Ulabel[p]=0;
+    Clabel[p]=0;
 
-    Adybuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-            A->n * sizeof( cl_int ),
-            A->dy,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(A)");
+    cost->val[p]=0;
+    CostCost[p] = 0;
+    UpdateCost[p] = 0;
 
-    Ulabelbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            n * sizeof(cl_int),
-            Ulabel,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(Ulabel_buffer)");
+    UpdatePred[p] = -1;
+    CostPred[p] = -1;
 
-    Clabelbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            n * sizeof(cl_int),
-            Clabel,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(Clabel)");
-
-    Ubuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            n * sizeof(cl_int),
-            UpdateCost,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(U_buffer)");
-
-    Cbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            n * sizeof(cl_int),
-            CostCost,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(CostCost)");
-
-    UPredbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            n * sizeof(cl_int),
-            UpdatePred,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(CostCost)");
-
-    CPredbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            //Cmax+1,
-            n * sizeof(cl_int),
-            CostPred,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(CostCost)");
-
-    SEMbuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            sizeof(cl_int),
-            (void *)&semaforo,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(semaforo)");
-
-    extraBuffer = clCreateBuffer (
-            contexto,
-            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-            sizeof(cl_int),
-            &extra,
-            &errNum);
-    checkErr(errNum, "clCreateBuffer(extra)");
+    InsertGQueue(&Q,p);
+    Mask[p] = true;
+    S = S->next;
+}
 
 
-    /*
-       __global Image *img,
-       __global Image *cost,
-       __global Image *label,
-       __global AdjRel *A,
-       __global cl_int *Mask,
-       __global cl_int *CostCost,
-       __global cl_int *UpdateCost,
-       __global cl_int *sem,
-       */
 
-    // Escolhendo o primeiro dispositivo e criando a fila de comando
-    fila = clCreateCommandQueue (
-            contexto, 
-            listaDispositivoID[0],
-            CL_QUEUE_PROFILING_ENABLE,
-            &errNum);
-    checkErr(errNum, "clCreateCommandQueue");
+// Alocando Buffers
+/*
+   printf ( "\n-------------------\nTamanho Image: %d\n", sizeof(Image) );
+   printf ( "\n-------------------\nn Image: %d == %dB\n", n, n * sizeof(cl_int) );
+   printf ( "\n-------------------\nM: %d   A->n:%d\n", 
+   malloc_usable_size (Mask), A->n);
+   printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
+   */
+int cache [N*8];
+cacheBuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, // TEST ALLOC_HOST !!! Its pinned!
+        sizeof(cl_int) * N * 8,
+        cache,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(cache)");
 
-    // Setando os argumentos da função do Kernel
-    errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &imgBuffer);
-    errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &imgvalBuffer);
-    errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &imgtbrowBuffer);
-    //	errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &costBuffer);
-    //errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &costvalBuffer);
-    //errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &labelBuffer);
-    //errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &labelvalBuffer);
-    errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Abuffer);
-    errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Adxbuffer);
-    errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Adybuffer);
-    errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &Mbuffer);
-    errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &Cbuffer);
-    errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &Ubuffer);
-    /*
-    errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Ulabelbuffer);
-    errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &Clabelbuffer);
-    */
-    errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &SEMbuffer);
-    errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &extraBuffer);
-    checkErr(errNum, "clSetKernelArg at Kernel 1");
+imgBuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+        sizeof(Image),
+        img,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(img)");
 
-    // Setando os argumentos da função do Kernel2
-    errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Mbuffer);
-    errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Cbuffer);
-    errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Ubuffer);
-    errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Clabelbuffer);
-    errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Ulabelbuffer);
-    errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel2, 7, sizeof(cl_mem), &SEMbuffer);
-    checkErr(errNum, "clSetKernelArg at Kernel 2");
+imgBuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+        sizeof(Image),
+        img,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(img)");
 
-    // Setando os argumentos da função do Kernel3
-    errNum = clSetKernelArg(kernel3, 0, sizeof(cl_mem), &Mbuffer);
-    errNum |= clSetKernelArg(kernel3, 1, sizeof(cl_mem), &Cbuffer);
-    errNum |= clSetKernelArg(kernel3, 2, sizeof(cl_mem), &Ubuffer);
-    errNum |= clSetKernelArg(kernel3, 3, sizeof(cl_mem), &Clabelbuffer);
-    errNum |= clSetKernelArg(kernel3, 4, sizeof(cl_mem), &Ulabelbuffer);
-    errNum |= clSetKernelArg(kernel3, 5, sizeof(cl_mem), &UPredbuffer);
-    errNum |= clSetKernelArg(kernel3, 6, sizeof(cl_mem), &CPredbuffer);
-    errNum |= clSetKernelArg(kernel3, 7, sizeof(cl_mem), &SEMbuffer);
-    checkErr(errNum, "clSetKernelArg at Kernel 3");
-    /*
-    */
+imgvalBuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        n * ( sizeof(cl_int) ),
+        img->val,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(M_valBuffer)");
 
-    // Definindo o número de work-items globais e locais
-    const size_t globalWorkSize[1] = { N };
-    const size_t localWorkSize[1] = { 512 };
+imgtbrowBuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        img->nrows * ( sizeof(cl_int) ),
+        img->tbrow,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(img_tbrowBuffer)");
 
-    // releituraFeita e um evento que sincroniza a atualizacao feita
-    // por cada chamada aos kernels
+Mbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        N * (sizeof(cl_int)),
+        Mask,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(M_buffer)");
 
-    cl_event releituraFeita;
-    errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
-            sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
-    checkErr(errNum, CL_SUCCESS);
-    clWaitForEvents(1, &releituraFeita);
+Abuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+        sizeof( cl_int * ),
+        &(A->n),
+        &errNum);
+checkErr(errNum, "clCreateBuffer(A)");
 
-    printf ( "sssEntering in loop...\n" );
-    cl_int vez = 0;
-    double run_time_gpu = 0;
-    cl_ulong ev_start_time=(cl_ulong)0;     
-    cl_ulong ev_end_time=(cl_ulong)0;
-    gettimeofday(tS1, NULL);
+Adxbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+        A->n * sizeof( cl_int ),
+        A->dx,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(A)");
 
-    while(!vazio(Mask, n)) {
+Adybuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+        A->n * sizeof( cl_int ),
+        A->dy,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(A)");
 
-        for ( i = 0; i < NLOOP; i++) {
+Ulabelbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        n * sizeof(cl_int),
+        Ulabel,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(Ulabel_buffer)");
+
+Clabelbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        n * sizeof(cl_int),
+        Clabel,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(Clabel)");
+
+Ubuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        n * sizeof(cl_int),
+        UpdateCost,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(U_buffer)");
+
+Cbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        n * sizeof(cl_int),
+        CostCost,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(CostCost)");
+
+UPredbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        n * sizeof(cl_int),
+        UpdatePred,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(CostCost)");
+
+CPredbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        //Cmax+1,
+        n * sizeof(cl_int),
+        CostPred,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(CostCost)");
+
+SEMbuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        sizeof(cl_int),
+        (void *)&semaforo,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(semaforo)");
+
+extraBuffer = clCreateBuffer (
+        contexto,
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        sizeof(cl_int),
+        &extra,
+        &errNum);
+checkErr(errNum, "clCreateBuffer(extra)");
+
+
+/*
+   __global Image *img,
+   __global Image *cost,
+   __global Image *label,
+   __global AdjRel *A,
+   __global cl_int *Mask,
+   __global cl_int *CostCost,
+   __global cl_int *UpdateCost,
+   __global cl_int *sem,
+   */
+
+// Escolhendo o primeiro dispositivo e criando a fila de comando
+fila = clCreateCommandQueue (
+        contexto, 
+        listaDispositivoID[0],
+        CL_QUEUE_PROFILING_ENABLE,
+        &errNum);
+checkErr(errNum, "clCreateCommandQueue");
+
+// Setando os argumentos da função do Kernel
+
+errNum = clSetKernelArg(kernel0, 0, sizeof(cl_mem), &imgBuffer);
+errNum |= clSetKernelArg(kernel0, 1, sizeof(cl_mem), &imgvalBuffer);
+errNum |= clSetKernelArg(kernel0, 2, sizeof(cl_mem), &imgtbrowBuffer);
+errNum |= clSetKernelArg(kernel0, 3, sizeof(cl_mem), &Abuffer);
+errNum |= clSetKernelArg(kernel0, 4, sizeof(cl_mem), &Adxbuffer);
+errNum |= clSetKernelArg(kernel0, 5, sizeof(cl_mem), &Adybuffer);
+errNum |= clSetKernelArg(kernel0, 6, sizeof(cl_mem), &SEMbuffer);
+errNum |= clSetKernelArg(kernel0, 7, sizeof(cl_mem), &extraBuffer);
+errNum |= clSetKernelArg(kernel0, 8, sizeof(cl_mem), &cacheBuffer);
+checkErr(errNum, "clSetKernelArg at Kernel 0");
+
+
+//errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &imgBuffer);
+errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &imgvalBuffer);
+//errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &imgtbrowBuffer);
+//	errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &costBuffer);
+//errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &costvalBuffer);
+//errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &labelBuffer);
+//errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &labelvalBuffer);
+/*
+errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Abuffer);
+errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Adxbuffer);
+errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &Adybuffer);
+*/
+errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &Mbuffer);
+errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &Cbuffer);
+errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Ubuffer);
+/*
+   errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &Ulabelbuffer);
+   errNum |= clSetKernelArg(kernel, 10, sizeof(cl_mem), &Clabelbuffer);
+   */
+errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &UPredbuffer);
+errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &CPredbuffer);
+errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &SEMbuffer);
+errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &extraBuffer);
+errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &cacheBuffer);
+checkErr(errNum, "clSetKernelArg at Kernel 1");
+
+// Setando os argumentos da função do Kernel2
+errNum = clSetKernelArg(kernel2, 0, sizeof(cl_mem), &Mbuffer);
+errNum |= clSetKernelArg(kernel2, 1, sizeof(cl_mem), &Cbuffer);
+errNum |= clSetKernelArg(kernel2, 2, sizeof(cl_mem), &Ubuffer);
+errNum |= clSetKernelArg(kernel2, 3, sizeof(cl_mem), &Clabelbuffer);
+errNum |= clSetKernelArg(kernel2, 4, sizeof(cl_mem), &Ulabelbuffer);
+errNum |= clSetKernelArg(kernel2, 5, sizeof(cl_mem), &UPredbuffer);
+errNum |= clSetKernelArg(kernel2, 6, sizeof(cl_mem), &CPredbuffer);
+errNum |= clSetKernelArg(kernel2, 7, sizeof(cl_mem), &SEMbuffer);
+checkErr(errNum, "clSetKernelArg at Kernel 2");
+
+// Setando os argumentos da função do Kernel3
+errNum = clSetKernelArg(kernel3, 0, sizeof(cl_mem), &Mbuffer);
+errNum |= clSetKernelArg(kernel3, 1, sizeof(cl_mem), &Cbuffer);
+errNum |= clSetKernelArg(kernel3, 2, sizeof(cl_mem), &Ubuffer);
+errNum |= clSetKernelArg(kernel3, 3, sizeof(cl_mem), &Clabelbuffer);
+errNum |= clSetKernelArg(kernel3, 4, sizeof(cl_mem), &Ulabelbuffer);
+errNum |= clSetKernelArg(kernel3, 5, sizeof(cl_mem), &UPredbuffer);
+errNum |= clSetKernelArg(kernel3, 6, sizeof(cl_mem), &CPredbuffer);
+errNum |= clSetKernelArg(kernel3, 7, sizeof(cl_mem), &SEMbuffer);
+checkErr(errNum, "clSetKernelArg at Kernel 3");
+/*
+*/
+
+// Definindo o número de work-items globais e locais
+const size_t globalWorkSize[1] = { N };
+const size_t localWorkSize[1] = { 512 };
+
+cl_int vez = 0;
+double run_time_gpu = 0;
+double run_time_k0 = 0;
+double run_time_k1 = 0;
+double run_time_k2 = 0;
+cl_ulong ev_start_time=(cl_ulong)0;     
+cl_ulong ev_end_time=(cl_ulong)0;
+gettimeofday(tS1, NULL);
+// releituraFeita e um evento que sincroniza a atualizacao feita
+// por cada chamada aos kernels
+
+cl_event releituraFeita;
+errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
+        sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
+checkErr(errNum, CL_SUCCESS);
+clWaitForEvents(1, &releituraFeita);
+
+printf ( "Caching neighboorhood...\n" );
+        errNum = clEnqueueNDRangeKernel (
+                fila,
+                kernel0,
+                1,
+                NULL,
+                globalWorkSize,
+                localWorkSize,
+                0,
+                NULL,
+                &evento0);
+        checkErr(errNum, "clEnqueueNDRangeKernel 0");
+
+        clFinish(fila);
+
+        errNum |= clGetEventProfilingInfo(evento0, 
+                CL_PROFILING_COMMAND_START, sizeof(cl_ulong),
+                &ev_start_time, NULL);
+
+        errNum |= clGetEventProfilingInfo(evento0, 
+                CL_PROFILING_COMMAND_END, sizeof(cl_ulong), 
+                &ev_end_time, NULL);
+
+        checkErr(errNum, "Error Profiling");
+        run_time_k0 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
+
+printf ( "Entering in loop...\n" );
+
+while(!vazio(Mask, n)) {
+
+    for ( i = 0; i < NLOOP; i++) {
         // Enfileirando o Kernel para execução através da matriz
         errNum = clEnqueueNDRangeKernel (
                 fila,
@@ -766,147 +867,165 @@ void CL_CALLBACK contextCallback (
         checkErr(errNum, "clEnqueueNDRangeKernel2");
         /*
         */
-    clFinish(fila);
-    errNum |= clGetEventProfilingInfo(evento1, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
-    errNum |= clGetEventProfilingInfo(evento1, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
+        clFinish(fila);
+        errNum |= clGetEventProfilingInfo(evento1, 
+                CL_PROFILING_COMMAND_START, sizeof(cl_ulong),
+                &ev_start_time, NULL);
 
-    checkErr(errNum, "Error Profiling");
-    run_time_gpu += (double)(ev_end_time - ev_start_time)/1e6; // in msec
-        }
+        errNum |= clGetEventProfilingInfo(evento1, 
+                CL_PROFILING_COMMAND_END, sizeof(cl_ulong), 
+                &ev_end_time, NULL);
 
-        errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
-                sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
-        checkErr(errNum, CL_SUCCESS);
-        clWaitForEvents(1, &releituraFeita);
+        checkErr(errNum, "Error Profiling");
+        run_time_k1 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
 
+        errNum |= clGetEventProfilingInfo(evento2, 
+                CL_PROFILING_COMMAND_START, sizeof(cl_ulong),
+                &ev_start_time, NULL);
+
+        errNum |= clGetEventProfilingInfo(evento2, 
+                CL_PROFILING_COMMAND_END, sizeof(cl_ulong), 
+                &ev_end_time, NULL);
+
+        checkErr(errNum, "Error Profiling");
+        run_time_k2 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
     }
 
-    printf ( "Parallel Recursion started.\n");
-    for ( i = 0; i < 9; i++ ) {
-        errNum = clEnqueueNDRangeKernel (
-                fila,
-                kernel3,
-                1,
-                NULL,
-                globalWorkSize,
-                localWorkSize,
-                0,
-                NULL,
-                &evento3);
-        checkErr(errNum, "clEnqueueNDRangeKernel3");
-    }
-    clFinish(fila);
-    /*
-    */
-    gettimeofday(tS2, NULL);
-    float transTime = CTime(tS1, tS2);
+    errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
+            sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
+    checkErr(errNum, CL_SUCCESS);
+    clWaitForEvents(1, &releituraFeita);
 
-    errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
-    errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
-    /*
+}
+
+printf ( "Parallel Recursion started.\n");
+for ( i = 0; i < 9; i++ ) {
+    errNum = clEnqueueNDRangeKernel (
+            fila,
+            kernel3,
+            1,
+            NULL,
+            globalWorkSize,
+            localWorkSize,
+            0,
+            NULL,
+            &evento3);
+    checkErr(errNum, "clEnqueueNDRangeKernel3");
+}
+clFinish(fila);
+/*
 */
-    checkErr(errNum, "Error Profiling");
-    double run_time_gpu2 = (double)(ev_end_time - ev_start_time)/1e6; // in msec
-    /*
-    */
+gettimeofday(tS2, NULL);
+float transTime = CTime(tS1, tS2);
 
-
-    /*
-       for (i = 0; i < n; i++) {
-       if (Mask[i])
-    //printf ( "%d: %d ", i, Mask[i] );
-    printf ( "%d ", Mask[i] );
-    }
-    printf("\n");
-    */
-    errNum = clEnqueueReadBuffer(   fila, 
-            Clabelbuffer, 
-            CL_FALSE, 
-            0, 
-            sizeof(cl_int) * n, 
-            label->val, 
-            0, 
-            NULL, 
-            NULL    );
-
-    errNum = clEnqueueReadBuffer(   fila, 
-            CPredbuffer, 
-            CL_FALSE, 
-            0, 
-            sizeof(cl_int) * n, 
-            CostPred,
-            0, 
-            NULL, 
-            NULL    );
-
-
-   // errNum = clWaitForEvents(1, &evento);
-
-    tS1 = (timer *)malloc(sizeof(timer));
-    gettimeofday(tS1, NULL);
-    printf("\nEnd of parallel code. Labelling correction started.\n");
-    for (i=0; i<n; i++) {
-        label->val[i] = SetLabel (CostPred, label->val, n, i);
-    }
-    tS2 = (timer *)malloc(sizeof(timer));
-    gettimeofday(tS2, NULL);
-
-    /*
-    printf("\nLabel\n");
-    for (i = 0; i < n; i++) {
-        if (label->val[i])
-            printf ( "%d ", label->val[i] );
-    }
-    printf("\nLabel\n");
-    printf("\n");
+errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
+errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
+/*
 */
-    printf ( "\nRecursion time (Serial): %fms\nRecursion Time (Parallel): %lfms\nParallel Execution time: %lfms\nTransfer CPU<->GPU Time: %f\n",
-               CTime(tS1,tS2) , run_time_gpu2, run_time_gpu, transTime);
+checkErr(errNum, "Error Profiling");
+double run_time_gpu2 = (double)(ev_end_time - ev_start_time)/1e6; // in msec
+/*
+*/
 
 
-    /*
-       for (i = 0; i < n; i++) {
-       if (i <100)
-       label->val[i] = i%25;
-       }
-       */
-    /* Path propagation */
+/*
+   for (i = 0; i < n; i++) {
+   if (Mask[i])
+//printf ( "%d: %d ", i, Mask[i] );
+printf ( "%d ", Mask[i] );
+}
+printf("\n");
+*/
+errNum = clEnqueueReadBuffer(   fila, 
+        Clabelbuffer, 
+        CL_FALSE, 
+        0, 
+        sizeof(cl_int) * n, 
+        label->val, 
+        0, 
+        NULL, 
+        NULL    );
 
-    /*
-       while (!EmptyGQueue(Q)){
-       p   = RemoveGQueue(Q);
-       u.x = p%img->ncols;
-       u.y = p/img->ncols;
-       for (i=1; i < A->n; i++) {
-       v.x = u.x + A->dx[i];
-       v.y = u.y + A->dy[i];
-       if (ValidPixel(img,v.x,v.y)){
-       q   = v.x + img->tbrow[v.y];
-       if (cost->val[p] < cost->val[q]){
-
-       tmp = MAX(cost->val[p] , img->val[q]);
-       if (tmp < cost->val[q]){
-       if (cost->val[q]!=INT_MAX)
-       RemoveGQueueElem(Q,q);
-       cost->val[q] =tmp;
-       label->val[q]=label->val[p];
-       InsertGQueue(&Q,q);
-       }
-       }
-
-       }
-       }
-       }
-       */
-    //printf ( "\n~~~~~~~%d %d %d~~~~~~~\n", *(&A->dx), A->dx[0], *A->dx );
+errNum = clEnqueueReadBuffer(   fila, 
+        CPredbuffer, 
+        CL_FALSE, 
+        0, 
+        sizeof(cl_int) * n, 
+        CostPred,
+        0, 
+        NULL, 
+        NULL    );
 
 
-    DestroyGQueue(&Q);
-    DestroyImage(&cost);
-    DestroyAdjRel(&A);
+// errNum = clWaitForEvents(1, &evento);
+
+tS1 = (timer *)malloc(sizeof(timer));
+gettimeofday(tS1, NULL);
+printf("\nEnd of parallel code. Labelling correction started.\n");
+for (i=0; i<n; i++) {
+    label->val[i] = SetLabel (CostPred, label->val, n, i);
+}
+tS2 = (timer *)malloc(sizeof(timer));
+gettimeofday(tS2, NULL);
+
+/*
+   printf("\nLabel\n");
+   for (i = 0; i < n; i++) {
+   if (label->val[i])
+   printf ( "%d ", label->val[i] );
+   }
+   printf("\nLabel\n");
+   printf("\n");
+   */
+printf ( "\nRecursion time (Serial): %fms\nRecursion Time (Parallel): %lfms\nKernel 0 Execution Time: %lfms\nKernel 1 Execution time: %lfms\nKernel 2 Execution Time: %lfms\nAll kernels execution time: %lfms\nTransfer CPU<->GPU Time: %f\n",
+        CTime(tS1,tS2) , 
+        run_time_gpu2, run_time_k0, run_time_k1, run_time_k2,
+        run_time_gpu2 +run_time_k0 + run_time_k2 + run_time_k1, transTime);
 
 
-    return(label);
+/*
+   for (i = 0; i < n; i++) {
+   if (i <100)
+   label->val[i] = i%25;
+   }
+   */
+/* Path propagation */
+
+/*
+   while (!EmptyGQueue(Q)){
+   p   = RemoveGQueue(Q);
+   u.x = p%img->ncols;
+   u.y = p/img->ncols;
+   for (i=1; i < A->n; i++) {
+   v.x = u.x + A->dx[i];
+   v.y = u.y + A->dy[i];
+   if (ValidPixel(img,v.x,v.y)){
+   q   = v.x + img->tbrow[v.y];
+   if (cost->val[p] < cost->val[q]){
+
+   tmp = MAX(cost->val[p] , img->val[q]);
+   if (tmp < cost->val[q]){
+   if (cost->val[q]!=INT_MAX)
+   RemoveGQueueElem(Q,q);
+   cost->val[q] =tmp;
+   label->val[q]=label->val[p];
+   InsertGQueue(&Q,q);
+   }
+   }
+
+   }
+   }
+   }
+   */
+//printf ( "\n~~~~~~~%d %d %d~~~~~~~\n", *(&A->dx), A->dx[0], *A->dx );
+
+
+DestroyGQueue(&Q);
+DestroyImage(&cost);
+DestroyAdjRel(&A);
+
+
+return(label);
 }
 
 cl_int main(cl_int argc, char **argv)

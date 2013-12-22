@@ -29,22 +29,22 @@ run:
 	cd ../../; make ; cd -
 	rm watershed
 	make watershed
-	./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+	./watershed images/flower.pgm images/flower_grad.pgm images/flower-seeds.txt
 
 
 rerun:
 	cd ../../; make clean && make ; cd -
 	make watershed
-	./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+	./watershed images/flower.pgm images/flower_grad.pgm images/flower-seeds.txt
 
 gdb:
-	gdb --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+	gdb --args ./watershed images/flower.pgm images/flower_grad.pgm images/flower-seeds.txt
 
 sf:
-	gdb --batch -x dbg --args ./watershed flower.pgm flower_grad.pgm flower-seeds.txt
+	gdb --batch -x dbg --args ./watershed images/flower.pgm images/flower_grad.pgm images/flower-seeds.txt
 
 sfhd:
 	gdb --batch -x dbg --args ./watershed images/mPicchu.pgm images/mPicchu_grad.pgm images/mPicchu_seeds.txt
 view:
 	make run
-	eog flower_result*.ppm
+	eog images/flower_result*.ppm
