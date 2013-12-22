@@ -45,5 +45,5 @@ Thumbs.db
 *.sw*
 tst*
 test*
-tags
+#tags
 .bak*
