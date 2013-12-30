@@ -194,7 +194,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
             errNum = clGetDeviceIDs (	
                     listaPlataformaID[j],
                     //									CL_DEVICE_TYPE_ALL,
-                    //    CL_DEVICE_TYPE_CPU,
+                    //CL_DEVICE_TYPE_CPU,
                     CL_DEVICE_TYPE_GPU,
                     nDispositivos,
                     &listaDispositivoID[0],
@@ -335,6 +335,23 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
             NULL);
 
     printf ( "kernel0 compiled!          \n" );
+    if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
+        // Determinando o motivo do erro
+        char logCompilacao[16384];
+        clGetProgramBuildInfo (
+                programa,
+                listaDispositivoID[0],
+                CL_PROGRAM_BUILD_LOG,
+                sizeof(logCompilacao),
+                logCompilacao,
+                NULL);
+
+        //std::cerr << "Erro no kernel: " << std::endl;
+        printf ( " Build error : %s\n", logCompilacao );
+
+        //		std::cerr << logCompilacao;
+        checkErr(errNum, "clBuildProgram");
+    }
 
     printf ( "Compiling the kernel 1 ... \r" );
     errNum = clBuildProgram (
@@ -372,6 +389,23 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
             NULL,
             NULL,
             NULL);
+    if (errNum != CL_SUCCESS) { 		// Verificando se houve erro
+        // Determinando o motivo do erro
+        char logCompilacao[16384];
+        clGetProgramBuildInfo (
+                programa,
+                listaDispositivoID[0],
+                CL_PROGRAM_BUILD_LOG,
+                sizeof(logCompilacao),
+                logCompilacao,
+                NULL);
+
+        //std::cerr << "Erro no kernel: " << std::endl;
+        printf ( " Build error : %s\n", logCompilacao );
+
+        //		std::cerr << logCompilacao;
+        checkErr(errNum, "clBuildProgram");
+    }
 
 
     printf ( "Compiling the kernel 3 ... \n" );
@@ -479,16 +513,17 @@ while ( N > 0 ) {
 
 N = 1 << t;
 
-printf ("n=%d ... N=%d (2^%d)\n", n, N, t);
+printf ("n=%d ... N=%d (2^%d)##\n", n, N, t);
 
 
-cl_int* Mask = (cl_int *) alloca (N * sizeof ( cl_int ) );
-cl_int* CostCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
-cl_int* UpdateCost = (cl_int *) alloca (n * sizeof ( cl_int ) );
-cl_int* Clabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
-cl_int* Ulabel = (cl_int *) alloca (n * sizeof ( cl_int ) );
-cl_int* UpdatePred = (cl_int *) alloca (n * sizeof ( cl_int ) );
-cl_int* CostPred = (cl_int *) alloca (n * sizeof ( cl_int ) );
+printf ("-- ");
+cl_int* Mask = (cl_int *) malloc (N * sizeof ( cl_int ) );
+cl_int* CostCost = (cl_int *) malloc (n * sizeof ( cl_int ) );
+cl_int* UpdateCost = (cl_int *) malloc (n * sizeof ( cl_int ) );
+cl_int* Clabel = (cl_int *) malloc (n * sizeof ( cl_int ) );
+cl_int* Ulabel = (cl_int *) malloc (n * sizeof ( cl_int ) );
+cl_int* UpdatePred = (cl_int *) malloc (n * sizeof ( cl_int ) );
+cl_int* CostPred = (cl_int *) malloc (n * sizeof ( cl_int ) );
 static volatile cl_int semaforo = 0;
 cl_int extra = 0;
 /*
@@ -497,6 +532,11 @@ cl_int extra = 0;
 
 //Mask[p] = false;
 memset (Mask, 0, N*4);
+/*
+for (p=0; p < N; p++){
+    Mask [p] = 0;
+}
+*/
 for (p=0; p < n; p++){
     cost->val[p] =INT_MAX;
     CostCost[p] = INT_MAX;
@@ -551,10 +591,11 @@ while(S != NULL){
    malloc_usable_size (Mask), A->n);
    printf ( "\n-------------------\nMalloc Image: %d\n", malloc_usable_size (img) );
    */
-int cache [N*8];
+//int cache [N*8];
+int* cache = (int *) malloc ( sizeof (int) * N * 8 );
 cacheBuffer = clCreateBuffer (
         contexto,
-        CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, // TEST ALLOC_HOST !!! Its pinned!
+        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, 
         sizeof(cl_int) * N * 8,
         cache,
         &errNum);
@@ -578,7 +619,7 @@ checkErr(errNum, "clCreateBuffer(img)");
 
 imgvalBuffer = clCreateBuffer (
         contexto,
-        CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+        CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
         //Cmax+1,
         n * ( sizeof(cl_int) ),
         img->val,
@@ -783,7 +824,9 @@ checkErr(errNum, "clSetKernelArg at Kernel 3");
 
 // Definindo o número de work-items globais e locais
 const size_t globalWorkSize[1] = { N };
-const size_t localWorkSize[1] = { 512 };
+const size_t localWorkSize[1] = { 128 };
+const size_t globalWorkSize2[2] = { N , 8 };
+const size_t localWorkSize2[2] = { 256, 1 };
 
 cl_int vez = 0;
 double run_time_gpu = 0;
@@ -828,7 +871,12 @@ printf ( "Caching neighboorhood...\n" );
         checkErr(errNum, "Error Profiling");
         run_time_k0 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
 
-printf ( "Entering in loop...\n" );
+errNum = clEnqueueReadBuffer(fila, cacheBuffer, CL_TRUE, 0, 
+        sizeof(cl_int) * N, cache, 0, NULL, &releituraFeita);
+checkErr(errNum, CL_SUCCESS);
+clWaitForEvents(1, &releituraFeita);
+
+printf ( "\nEntering in loop...\r" );
 
 while(!vazio(Mask, n)) {
 
@@ -839,8 +887,8 @@ while(!vazio(Mask, n)) {
                 kernel,
                 1,
                 NULL,
-                globalWorkSize,
-                localWorkSize,
+                globalWorkSize2,
+                localWorkSize2,
                 0,
                 NULL,
                 &evento1);
@@ -852,6 +900,7 @@ while(!vazio(Mask, n)) {
         clWaitForEvents(1, &releituraFeita);
         //printf ("%d\n", extra);
 
+        clFinish(fila);
 
         // Enfileirando o Kernel2 para execução através da matriz
         errNum = clEnqueueNDRangeKernel (
@@ -897,9 +946,58 @@ while(!vazio(Mask, n)) {
     clWaitForEvents(1, &releituraFeita);
 
 }
+printf ( "Exiting from loop...\n" );
+double run_time_gpu2;
 
-printf ( "Parallel Recursion started.\n");
-for ( i = 0; i < 9; i++ ) {
+/*
+errNum = clEnqueueReadBuffer(   fila, 
+        Clabelbuffer, 
+        CL_FALSE, 
+        0, 
+        sizeof(cl_int) * n, 
+        label->val, 
+        0, 
+        NULL, 
+        NULL    );
+*/
+
+errNum = clEnqueueReadBuffer(   fila, 
+        CPredbuffer, 
+        CL_FALSE, 
+        0, 
+        sizeof(cl_int) * n, 
+        CostPred,
+        0, 
+        NULL, 
+        NULL    );
+
+fp = fopen ("cache.txt", "w");
+for ( i = 0; i < n; i++ ) {
+        fprintf ( fp, "%d ", cache[i] );
+            if ( i % 25 == 0 ) 
+                        fprintf ( fp, "\n" );
+}
+fclose (fp);
+
+
+fp = fopen ("label.txt", "w");
+for ( i = 0; i < n; i++ ) {
+        fprintf ( fp, "%d ", label->val[i] );
+            if ( i % 25 == 0 ) 
+                        fprintf ( fp, "\n" );
+}
+fclose (fp);
+
+fp = fopen ("pred.txt", "w");
+for ( i = 0; i < n; i++ ) {
+    fprintf ( fp, "%d ", CostPred[i] );
+    if ( i % 25 == 0 )  
+        fprintf ( fp, "\n" );
+}                       
+fclose (fp);            
+
+printf ( "Parallel Recursion started.");
+for ( i = 0; i < 1; i++ ) {
     errNum = clEnqueueNDRangeKernel (
             fila,
             kernel3,
@@ -911,19 +1009,21 @@ for ( i = 0; i < 9; i++ ) {
             NULL,
             &evento3);
     checkErr(errNum, "clEnqueueNDRangeKernel3");
+    errNum = clFinish(fila);
+
+    checkErr(errNum, "hmmm");
+    errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
+    checkErr(errNum, "Error Profiling 3 0");
+    errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
+    checkErr(errNum, "Error Profiling 3");
+    run_time_gpu2 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
 }
-clFinish(fila);
+printf ( "\rParallel Recursion finished.\n");
 /*
 */
 gettimeofday(tS2, NULL);
 float transTime = CTime(tS1, tS2);
 
-errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ev_start_time, NULL);
-errNum |= clGetEventProfilingInfo(evento3, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ev_end_time, NULL);
-/*
-*/
-checkErr(errNum, "Error Profiling");
-double run_time_gpu2 = (double)(ev_end_time - ev_start_time)/1e6; // in msec
 /*
 */
 
@@ -956,6 +1056,7 @@ errNum = clEnqueueReadBuffer(   fila,
         NULL, 
         NULL    );
 
+//for ( i = 0 ; i < N ; 
 
 // errNum = clWaitForEvents(1, &evento);
 
@@ -982,6 +1083,13 @@ printf ( "\nRecursion time (Serial): %fms\nRecursion Time (Parallel): %lfms\nKer
         run_time_gpu2, run_time_k0, run_time_k1, run_time_k2,
         run_time_gpu2 +run_time_k0 + run_time_k2 + run_time_k1, transTime);
 
+fp = fopen ("label2.txt", "w");
+for ( i = 0; i < n; i++ ) {
+        fprintf ( fp, "%d ", label->val[i] );
+            if ( i % 25 == 0 ) 
+                        fprintf ( fp, "\n" );
+}
+fclose (fp);
 
 /*
    for (i = 0; i < n; i++) {

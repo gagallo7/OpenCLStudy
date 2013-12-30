@@ -39,31 +39,34 @@ void ReleaseSemaphor(__global int * semaphor)
 __kernel void initCache (
         __global ImageIFT *img,
         __global int *ival,
-        __global int *itbrow,
-        __global int *An,
-        __global int *dx,
-        __global int *dy,
+        __constant int *itbrow,
+        __constant int *An,
+        __constant int *dx,
+        __constant int *dy,
         __global int *sem,
         __global int *extra,
         __global int *cache)
 {
     Pixel u, v;
     int tid = get_global_id(0);
-    int i, q, tmp;
+    int i, j;
 
     //__local int cache[512*8];
     u.x = tid % img->ncols;
     u.y = tid / img->ncols;
 
+#pragma unroll(8)
     for ( i = 1; i < *An; i++ ) {
+        j = i - 1;
         v.x = u.x + dx[i];
         v.y = u.y + dy[i];
 
-        if ( ValidPixel ( img, v.x, v.y ) ) {
-            cache [tid*8 + i -1] = v.x + itbrow [v.y];
+        if ((v.x >= 0)&&(v.x < img->ncols)&&
+                (v.y >= 0)&&(v.y < img->nrows)) {
+            cache [tid*8 + j] = v.x + itbrow [v.y];
         }
         else
-            cache [tid*8 + i -1] = -1;
+            cache [tid*8 + j] = -1;
     }
 
 

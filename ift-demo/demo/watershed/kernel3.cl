@@ -1,14 +1,14 @@
 void GetSemaphor(__global int * semaphor) {
-    int occuPredRecied = atom_xchg (semaphor, 1);
+    int occuPredRecied = atomic_xchg (semaphor, 1);
     while(occuPredRecied > 0)
     {
-        occuPredRecied = atom_xchg (semaphor, 1);
+        occuPredRecied = atomic_xchg (semaphor, 1);
     }
 }
 
 void ReleaseSemaphor(__global int * semaphor)
 {
-    int prevVal = atom_xchg (semaphor, 0);
+    int prevVal = atomic_xchg (semaphor, 0);
 }
 
 __kernel void dijkstra3 (
@@ -26,10 +26,10 @@ __kernel void dijkstra3 (
     for ( uPredRec = tid; uPredRec != -1; uPredRec = UpdatePred [ uPredRec ] ) {
             if ( UpdatePred [ uPredRec ] < 0 ) {
                 //CostLabel [tid] = CostLabel [ uPredRec ];
-                atom_xchg (&CostLabel[tid], CostLabel[uPredRec]);
+                atomic_xchg (&CostLabel[tid], CostLabel[uPredRec]);
                 // The pixel was just sweeped
                 //CostPred [tid] = -1;
-                atom_xchg (&CostPred[tid], -1);
+                atomic_xchg (&CostPred[tid], -1);
             }
     }
     UpdatePred[tid] = CostPred[tid];

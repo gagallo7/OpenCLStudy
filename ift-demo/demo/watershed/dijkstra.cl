@@ -2,25 +2,6 @@
 #define MAX(x,y) (((x) > (y))?(x):(y))
 #endif
 
-typedef struct _pixel {
-    int x,y;
-} Pixel;
-
-typedef struct _figure {
-    int *val;
-    int *tbrow;
-    int ncols,nrows;
-} ImageIFT;
-
-bool ValidPixel(__global ImageIFT *img, int x, int y)
-{
-    if ((x >= 0)&&(x < img->ncols)&&
-            (y >= 0)&&(y < img->nrows))
-        return(true);
-    else
-        return(false);
-}
-
 void GetSemaphor(__global int * semaphor) {
     int occupied = atom_xchg (semaphor, 1);
     while(occupied > 0)
@@ -58,7 +39,6 @@ __kernel void dijkstra (
         __global int *extra,
         __global int *cache)
 {
-    Pixel u, v;
     int tid = get_global_id(0);
     int gid = get_local_id(0);
     int i, q, tmp;
@@ -100,11 +80,11 @@ __kernel void dijkstra (
                 tmp = max ( CostCost [tid], ival [q] );
                 if ( UpdateCost [q] > tmp ) {
                     //            atom_inc (extra);
-                    UpdateCost [q] = tmp;
-                    UpdatePred [q] = tid;
+                    //UpdateCost [q] = tmp;
+                    //UpdatePred [q] = tid;
+                       atom_xchg ( &UpdateCost [q], tmp );
+                       atom_xchg ( &UpdatePred [q], tid );
                     /*
-                       atom_xchg ( &CostCost [q], tmp );
-                       atom_xchg ( &CostPred [q], tid );
                        atom_xchg ( &M [q], true );
                      */
                 }

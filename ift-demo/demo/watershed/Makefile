@@ -7,8 +7,8 @@ BIN=.
 INCLUDES= -I$(INC) -I$(OPF_DIR)/include
 
 #FLAGS= -g -Wall 
-#FLAGS= -O3 -Wall
-FLAGS= -O3 -g -pg
+FLAGS= -O3 -Wall
+#FLAGS= -O3 -g -pg
 
 $(LIB)/libift.a:
 	cd ../../; make ; cd -
@@ -45,6 +45,7 @@ sf:
 
 sfhd:
 	gdb --batch -x dbg --args ./watershed images/mPicchu.pgm images/mPicchu_grad.pgm images/mPicchu_seeds.txt
+
 view:
 	make run
 	eog images/flower_result*.ppm
