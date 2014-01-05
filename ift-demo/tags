@@ -21,6 +21,7 @@ AllocUIntArray	src/common.c	/^uint *AllocUIntArray(int n)$/;"	f
 AllocUShortArray	src/common.c	/^ushort *AllocUShortArray(int n)$/;"	f
 BIN	Makefile	/^BIN=.\/bin$/;"	m
 BIN	demo/diffwatershed/Makefile	/^BIN=.$/;"	m
+BIN	demo/eucldist/Makefile	/^BIN=.$/;"	m
 BIN	demo/watergray/Makefile	/^BIN=.$/;"	m
 BIN	demo/watershed/Makefile	/^BIN=.$/;"	m
 BLACK	include/common.h	60;"	d
@@ -60,6 +61,7 @@ CreateAdjRel	src/adjacency.c	/^AdjRel *CreateAdjRel(int n)$/;"	f
 CreateCImage	src/cimage.c	/^CImage *CreateCImage(int ncols, int nrows)$/;"	f
 CreateDImage	src/dimage.c	/^DImage *CreateDImage(int ncols, int nrows)$/;"	f
 CreateFeatures	src/feature.c	/^Features* CreateFeatures(int ncols, int nrows, int nfeats)$/;"	f
+CreateForest	demo/eucldist/eucldist.c	/^Forest *CreateForest(int ncols, int nrows)$/;"	f
 CreateGQueue	src/gqueue.c	/^GQueue *CreateGQueue(int nbuckets, int nelems, int *value)$/;"	f
 CreateImage	src/image.c	/^Image *CreateImage(int ncols, int nrows)$/;"	f
 CreateImageForest	demo/diffwatershed/diffwatershed.c	/^ImageForest *CreateImageForest(Image *img)$/;"	f
@@ -75,6 +77,7 @@ DestroyAdjRel	src/adjacency.c	/^void DestroyAdjRel(AdjRel **A)$/;"	f
 DestroyCImage	src/cimage.c	/^void    DestroyCImage(CImage **cimg)$/;"	f
 DestroyDImage	src/dimage.c	/^void DestroyDImage(DImage **dimg)$/;"	f
 DestroyFeatures	src/feature.c	/^void DestroyFeatures(Features **f)$/;"	f
+DestroyForest	demo/eucldist/eucldist.c	/^void DestroyForest(Forest **F)$/;"	f
 DestroyGQueue	src/gqueue.c	/^void DestroyGQueue(GQueue **Q)$/;"	f
 DestroyImage	src/image.c	/^void DestroyImage(Image **img)$/;"	f
 DestroyImageForest	demo/diffwatershed/diffwatershed.c	/^void DestroyImageForest(ImageForest **fst)$/;"	f
@@ -83,6 +86,7 @@ DestroySet	src/set.c	/^void DestroySet(Set **S)$/;"	f
 DestroySubgraph	src/subgraph.c	/^void DestroySubgraph(Subgraph **sg)$/;"	f
 DiffWatershed	demo/diffwatershed/diffwatershed.c	/^void DiffWatershed(Image *grad, ImageForest *fst, Set *Obj, Set *Bkg, Set *Rm)$/;"	f
 Dilate	src/morphology.c	/^Image *Dilate(Image *img, AdjRel *A)$/;"	f
+DistTrans	demo/eucldist/eucldist.c	/^Forest *DistTrans(Image *I)$/;"	f
 DrawLabeledRegions	src/cimage.c	/^CImage *DrawLabeledRegions(Image *img, Image *label){$/;"	f
 EXTERIOR	include/common.h	56;"	d
 EmptyGQueue	src/gqueue.c	/^int EmptyGQueue(GQueue *Q)$/;"	f
@@ -96,8 +100,9 @@ FElem	include/feature.h	/^} FElem;$/;"	t	typeref:struct:_felem
 FIFOBREAK	include/gqueue.h	8;"	d
 FLAGS	Makefile	/^FLAGS= -O0 -Wall -pg -g$/;"	m
 FLAGS	demo/diffwatershed/Makefile	/^FLAGS= -O3 -Wall$/;"	m
+FLAGS	demo/eucldist/Makefile	/^FLAGS= -O3 -Wall$/;"	m
 FLAGS	demo/watergray/Makefile	/^FLAGS= -O3 -Wall$/;"	m
-FLAGS	demo/watershed/Makefile	/^FLAGS= -O0 -g -pg$/;"	m
+FLAGS	demo/watershed/Makefile	/^FLAGS= -O3 -Wall$/;"	m
 FastCircular	src/adjacency.c	/^AdjRel *FastCircular(float r){$/;"	f
 FastClose	src/morphology.c	/^Image *FastClose(Image *I, float radius)$/;"	f
 FastCloseRec	src/morphology.c	/^Image *FastCloseRec(Image *I, float radius)$/;"	f
@@ -106,6 +111,7 @@ FastErode	src/morphology.c	/^Image *FastErode(Image *I,Set **S, float radius)$/;
 FastOpen	src/morphology.c	/^Image *FastOpen(Image *I, float radius)$/;"	f
 FastOpenRec	src/morphology.c	/^Image *FastOpenRec(Image *I, float radius)$/;"	f
 Features	include/feature.h	/^} Features;$/;"	t	typeref:struct:_features
+Forest	demo/eucldist/eucldist.c	/^} Forest;$/;"	t	typeref:struct:_forest	file:
 ForestRemoval	demo/diffwatershed/diffwatershed.c	/^Set *ForestRemoval(ImageForest *fst, Set *Rm, AdjRel *A)$/;"	f
 FrameSize	src/adjacency.c	/^int FrameSize(AdjRel *A)$/;"	f
 GCircularQueue	include/gqueue.h	/^} GCircularQueue;$/;"	t	typeref:struct:_gcircularqueue
@@ -124,11 +130,13 @@ HEAP_LEFTSON	include/realheap.h	9;"	d
 HEAP_RIGHTSON	include/realheap.h	10;"	d
 Horizontal	src/adjacency.c	/^AdjRel *Horizontal(int r)$/;"	f
 INC	demo/diffwatershed/Makefile	/^INC=..\/..\/include$/;"	m
+INC	demo/eucldist/Makefile	/^INC=..\/..\/include$/;"	m
 INC	demo/watergray/Makefile	/^INC=..\/..\/include$/;"	m
 INC	demo/watershed/Makefile	/^INC=..\/..\/include$/;"	m
 INCLUDE	Makefile	/^INCLUDE=.\/include$/;"	m
 INCLUDES	Makefile	/^INCLUDES=-I$(INCLUDE)$/;"	m
 INCLUDES	demo/diffwatershed/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
+INCLUDES	demo/eucldist/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
 INCLUDES	demo/watergray/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
 INCLUDES	demo/watershed/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
 INCREASING	include/common.h	62;"	d
@@ -173,6 +181,7 @@ KAdjacency	src/adjacency.c	/^AdjRel *KAdjacency()$/;"	f
 L	include/gqueue.h	/^  GDoublyLinkedLists L;$/;"	m	struct:_gqueue
 LIB	Makefile	/^LIB=.\/lib$/;"	m
 LIB	demo/diffwatershed/Makefile	/^LIB=..\/..\/lib$/;"	m
+LIB	demo/eucldist/Makefile	/^LIB=..\/..\/lib$/;"	m
 LIB	demo/watergray/Makefile	/^LIB=..\/..\/lib$/;"	m
 LIB	demo/watershed/Makefile	/^LIB=..\/..\/lib$/;"	m
 LIFOBREAK	include/gqueue.h	9;"	d
@@ -183,7 +192,7 @@ LeftSide2	src/adjacency.c	/^AdjRel *LeftSide2(AdjRel *A, float r)$/;"	f
 MAX	include/common.h	69;"	d
 MAXARCW	include/opf.h	9;"	d
 MAXVALUE	include/gqueue.h	7;"	d
-MAX_SOURCE_SIZE	src/oclFunctions.c	2;"	d	file:
+MAX_SOURCE_SIZE	include/oclFunctions.h	14;"	d
 MIN	include/common.h	73;"	d
 MINVALUE	include/gqueue.h	6;"	d
 MSG1	include/common.h	16;"	d
@@ -200,6 +209,7 @@ MinimumValue	src/image.c	/^int MinimumValue(Image *img)$/;"	f
 N	include/set.h	/^  int N, VN;$/;"	m	struct:_bmap
 NCFgets	src/common.c	/^int NCFgets(char *s, int m, FILE *f) {$/;"	f
 NIL	include/common.h	61;"	d
+NLOOP	demo/watershed/watershed.c	31;"	d	file:
 OBJ	Makefile	/^OBJ=.\/obj$/;"	m
 OPFClassify	src/opf.c	/^void OPFClassify(Subgraph *sgtrain, Subgraph *sg)$/;"	f
 OPFClassifyImage	src/opf.c	/^Image* OPFClassifyImage(Subgraph *sgtrain, Features* feat)$/;"	f
@@ -210,10 +220,12 @@ OPF_OBJ_LABEL	include/opf.h	15;"	d
 Open	src/morphology.c	/^Image *Open(Image *img, AdjRel *A)$/;"	f
 OpenDomes	src/morphology.c	/^Image *OpenDomes(Image *img)$/;"	f
 OpenRec	src/morphology.c	/^Image *OpenRec(Image *I, AdjRel *A)$/;"	f
+P	demo/eucldist/eucldist.c	/^  Image *P; \/\/ predecessor map$/;"	m	struct:_forest	file:
 PI	include/common.h	54;"	d
 PROTOTYPE	include/opf.h	10;"	d
 Pixel	include/image.h	/^} Pixel;$/;"	t	typeref:struct:_pixel
 QSIZE	include/gqueue.h	10;"	d
+R	demo/eucldist/eucldist.c	/^  Image *R; \/\/ root map$/;"	m	struct:_forest	file:
 REAL_MAX	include/common.h	48;"	d
 REAL_MIN	include/common.h	49;"	d
 RGB2Lab	src/color.c	/^void RGB2Lab(float* r, float* g, float * b)$/;"	f
@@ -244,6 +256,7 @@ SafeMod	src/common.c	/^int SafeMod(int a, int n)$/;"	f
 Set	include/set.h	/^} Set;$/;"	t	typeref:struct:_set
 SetDImage	src/dimage.c	/^void SetDImage(DImage *dimg, double value)$/;"	f
 SetImage	src/image.c	/^void SetImage(Image *img, int value)$/;"	f
+SetLabel	demo/watershed/watershed.c	/^cl_int SetLabel (cl_int* pred, cl_int* label, cl_int n, cl_int pos) {$/;"	f
 SetRemovalPolicy	include/gqueue.h	13;"	d
 SetRemovalPolicyRealHeap	src/realheap.c	/^void SetRemovalPolicyRealHeap(RealHeap *H, char policy){$/;"	f
 SetSubgraphFeatures	src/opf.c	/^void SetSubgraphFeatures(Subgraph *sg, Features *f)$/;"	f
@@ -268,6 +281,7 @@ Tic	src/comptime.c	/^timer *Tic(){ \/* It marks the initial time *\/$/;"	f
 Toc	src/comptime.c	/^timer *Toc(){ \/* It marks the final time *\/$/;"	f
 UpdateGQueue	src/gqueue.c	/^void UpdateGQueue(GQueue **Q, int elem, int newvalue)$/;"	f
 UpdateRealHeap	src/realheap.c	/^void UpdateRealHeap(RealHeap *H, int p, float value){$/;"	f
+V	demo/eucldist/eucldist.c	/^  Image *V; \/\/ distance (cost or connectivity) map$/;"	m	struct:_forest	file:
 VN	include/set.h	/^  int N, VN;$/;"	m	struct:_bmap
 ValidDImagePixel	src/dimage.c	/^bool ValidDImagePixel(DImage *dimg, int x, int y)$/;"	f
 ValidPixel	src/image.c	/^bool ValidPixel(Image *img, int x, int y)$/;"	f
@@ -309,6 +323,7 @@ _fast_BMapToggle	include/set.h	50;"	d
 _fast_Belongs	src/set.c	437;"	d	file:
 _features	include/feature.h	/^typedef struct _features {$/;"	s
 _felem	include/feature.h	/^typedef struct _felem {$/;"	s
+_forest	demo/eucldist/eucldist.c	/^typedef struct _forest {$/;"	s	file:
 _gcircularqueue	include/gqueue.h	/^typedef struct _gcircularqueue { $/;"	s
 _gdoublylinkedlists	include/gqueue.h	/^typedef struct _gdoublylinkedlists {$/;"	s
 _gqnode	include/gqueue.h	/^typedef struct _gqnode { $/;"	s
@@ -335,16 +350,16 @@ cimage	include/cimage.h	/^typedef struct cimage {$/;"	s
 color	include/gqueue.h	/^  char color; \/* WHITE=0, GRAY=1, BLACK=2 *\/ $/;"	m	struct:_gqnode
 color	include/realheap.h	/^  char *color;$/;"	m	struct:_realheap
 contextCallback	demo/watershed/kernels/dijk.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
-contextCallback	src/oclFunctions.c	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	demo/watershed/watershed.c	/^void CL_CALLBACK contextCallback ($/;"	f
 cost	demo/diffwatershed/diffwatershed.c	/^  Image *cost;$/;"	m	struct:_ImageForest	file:
 cost	include/realheap.h	/^  float *cost;$/;"	m	struct:_realheap
 count	include/set.h	/^  int count;$/;"	m	struct:_intset
 data	include/set.h	/^  char *data;$/;"	m	struct:_bmap
 dens	include/subgraph.h	/^  float dens;    \/\/ probability density value$/;"	m	struct:_snode
 df	include/subgraph.h	/^  float df;      \/\/ radius in the feature space for density computation$/;"	m	struct:_subgraph
-dp	include/adjacency.h	/^  int *dp;$/;"	m	struct:_adjpxl
-dx	include/adjacency.h	/^  int *dx;$/;"	m	struct:_adjrel
-dy	include/adjacency.h	/^  int *dy;$/;"	m	struct:_adjrel
+dp	include/adjacency.h	/^  cl_int *dp;$/;"	m	struct:_adjpxl
+dx	include/adjacency.h	/^  cl_int *dx;$/;"	m	struct:_adjrel
+dy	include/adjacency.h	/^  cl_int *dy;$/;"	m	struct:_adjrel
 elem	include/feature.h	/^  FElem *elem;$/;"	m	struct:_features
 elem	include/gqueue.h	/^  GQNode *elem;  \/* all possible doubly-linked lists of the circular queue *\/$/;"	m	struct:_gdoublylinkedlists
 elem	include/set.h	/^  int elem;$/;"	m	struct:_set
@@ -362,9 +377,10 @@ last	include/gqueue.h	/^  int  *last;    \/* list of the last  elements of each 
 last	include/realheap.h	/^  int last;$/;"	m	struct:_realheap
 log	demo/watershed/kernels/dijk.cpp	/^void log (vector < unsigned int > v, char *argv[]) {$/;"	f
 main	demo/diffwatershed/diffwatershed.c	/^int main(int argc, char **argv)$/;"	f
+main	demo/eucldist/eucldist.c	/^int main(int argc, char **argv)$/;"	f
 main	demo/watergray/watergray.c	/^int main(int argc, char **argv)$/;"	f
 main	demo/watershed/kernels/dijk.cpp	/^int main(int argc, char *argv[]) {$/;"	f
-main	demo/watershed/watershed.c	/^int main(int argc, char **argv)$/;"	f
+main	demo/watershed/watershed.c	/^cl_int main(cl_int argc, char **argv)$/;"	f
 make_graph	demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph(FILE *fp) {$/;"	f	class:grafo
 make_graph558	demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph558 ( FILE* fp, int* raiz ) {$/;"	f	class:grafo
 make_graph9	demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph9 ( FILE* fp ) {$/;"	f	class:grafo
@@ -372,14 +388,14 @@ maxdens	include/subgraph.h	/^  float maxdens; \/\/ maximum density value$/;"	m	s
 maxvalue	include/gqueue.h	/^  int  maxvalue;  \/* maximum value of a node in queue *\/$/;"	m	struct:_gcircularqueue
 mindens	include/subgraph.h	/^  float mindens; \/\/ minimum density value$/;"	m	struct:_subgraph
 minvalue	include/gqueue.h	/^  int  minvalue;  \/* minimum value of a node in queue *\/$/;"	m	struct:_gcircularqueue
-n	include/adjacency.h	/^  int n;$/;"	m	struct:_adjpxl
-n	include/adjacency.h	/^  int n;$/;"	m	struct:_adjrel
+n	include/adjacency.h	/^  cl_int n;$/;"	m	struct:_adjpxl
+n	include/adjacency.h	/^  cl_int n;$/;"	m	struct:_adjrel
 n	include/realheap.h	/^  int n;$/;"	m	struct:_realheap
 n	include/set.h	/^  int n;$/;"	m	struct:_intset
 nbuckets	include/gqueue.h	/^  int  nbuckets; \/* number of buckets in the circular queue *\/$/;"	m	struct:_gcircularqueue
 ncols	include/dimage.h	/^  int ncols,nrows;$/;"	m	struct:_DImage
 ncols	include/feature.h	/^  int  nrows,ncols;$/;"	m	struct:_features
-ncols	include/image.h	/^  int ncols,nrows;$/;"	m	struct:_image
+ncols	include/image.h	/^  cl_int ncols,nrows;$/;"	m	struct:_image
 nelems	include/feature.h	/^  int  nelems;$/;"	m	struct:_features
 nelems	include/gqueue.h	/^  int nelems;  \/* total number of elements *\/$/;"	m	struct:_gdoublylinkedlists
 next	include/gqueue.h	/^  int  next;  \/* next node *\/$/;"	m	struct:_gqnode
@@ -393,7 +409,7 @@ node	include/subgraph.h	/^  SNode *node;   \/\/ nodes of the image\/scene subgra
 nplatadj	include/subgraph.h	/^  int nplatadj; \/\/holds the amount of adjacent nodes on plateaus$/;"	m	struct:_snode
 nrows	include/dimage.h	/^  int ncols,nrows;$/;"	m	struct:_DImage
 nrows	include/feature.h	/^  int  nrows,ncols;$/;"	m	struct:_features
-nrows	include/image.h	/^  int ncols,nrows;$/;"	m	struct:_image
+nrows	include/image.h	/^  cl_int ncols,nrows;$/;"	m	struct:_image
 numV	demo/watershed/kernels/dijk.cpp	/^		int numV; 				\/\/ Numero de vertices$/;"	m	class:grafo	file:
 ordered_list_of_nodes	include/subgraph.h	/^  int  *ordered_list_of_nodes; \/\/ Store the list of nodes in the increasing\/decreasing order of pathval for speeding up classification.$/;"	m	struct:_subgraph
 pathval	include/subgraph.h	/^  float pathval; \/\/ path value$/;"	m	struct:_snode
@@ -421,7 +437,7 @@ slsize	include/set.h	/^  int slsize, slgrow;$/;"	m	struct:_intset
 sqrtreal	src/common.c	/^inline real sqrtreal(real x){$/;"	f
 status	include/subgraph.h	/^  char  status;  \/\/ 0 - nothing, 1 - prototype$/;"	m	struct:_snode
 tbrow	include/dimage.h	/^  int *tbrow;$/;"	m	struct:_DImage
-tbrow	include/image.h	/^  int *tbrow;$/;"	m	struct:_image
+tbrow	include/image.h	/^  cl_int *tbrow;$/;"	m	struct:_image
 tiebreak	include/gqueue.h	/^  char tiebreak; \/* 1 is LIFO, 0 is FIFO (default) *\/$/;"	m	struct:_gcircularqueue
 timer	include/common.h	/^typedef struct timeval timer;$/;"	t	typeref:struct:timeval
 true	include/common.h	/^typedef enum boolean {false,true} bool;$/;"	e	enum:boolean
@@ -430,10 +446,10 @@ uchar	include/common.h	/^typedef unsigned char uchar;$/;"	t
 uint	include/common.h	/^typedef unsigned int uint;$/;"	t
 ushort	include/common.h	/^typedef unsigned short ushort;$/;"	t
 val	include/dimage.h	/^  double *val;$/;"	m	struct:_DImage
-val	include/image.h	/^  int *val;$/;"	m	struct:_image
+val	include/image.h	/^  cl_int *val;$/;"	m	struct:_image
 value	include/gqueue.h	/^  int *value;   \/* the value of the nodes in the graph *\/$/;"	m	struct:_gdoublylinkedlists
 vazio	demo/watershed/kernels/dijk.cpp	/^bool vazio (vector < unsigned int > M) {$/;"	f
-vazio	demo/watershed/watershed.c	/^bool vazio (unsigned int M[], int n) {$/;"	f
+vazio	demo/watershed/watershed.c	/^bool vazio (cl_int Mask[], cl_int n) {$/;"	f
 vert	demo/watershed/kernels/dijk.cpp	/^		vector < cl_uint > vert; 			\/\/ Vetor de vertices$/;"	m	class:grafo	file:
-x	include/image.h	/^  int x,y;$/;"	m	struct:_pixel
-y	include/image.h	/^  int x,y;$/;"	m	struct:_pixel
+x	include/image.h	/^  cl_int x,y;$/;"	m	struct:_pixel
+y	include/image.h	/^  cl_int x,y;$/;"	m	struct:_pixel

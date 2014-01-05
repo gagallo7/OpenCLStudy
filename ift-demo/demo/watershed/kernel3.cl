@@ -19,20 +19,45 @@ __kernel void dijkstra3 (
         __global int *UpdateLabel,
         __global int *UpdatePred,
         __global int *CostPred,
-        __global volatile int *sem
+        __global volatile int *sem,
+        __global int *n
         ) {
     int tid = get_global_id(0);
-    int uPredRec, i = 0;
-    for ( uPredRec = tid; uPredRec != -1; uPredRec = UpdatePred [ uPredRec ] ) {
+    int gid = get_local_id(0);
+    int uPredRec;
+    /*
+    __local int map [ 128 ];
+    map [ gid ] = 0;
+    */
+//    uint gap = get_global_size(0) - n[0];
+
+    // Having a conditional if without else is bad because it debalances
+    // the workflow of workitems and their workgroups
+    // but it stills faster than the serial version
+    if ( tid < n[0] ) {
+
+        /*
+        for ( uPredRec = tid; uPredRec != -1 && !map[gid]; uPredRec = UpdatePred [ uPredRec ] ) {
             if ( UpdatePred [ uPredRec ] < 0 ) {
                 //CostLabel [tid] = CostLabel [ uPredRec ];
-                atomic_xchg (&CostLabel[tid], CostLabel[uPredRec]);
+                atom_xchg (&CostLabel[tid], CostLabel[uPredRec]);
                 // The pixel was just sweeped
                 //CostPred [tid] = -1;
-                atomic_xchg (&CostPred[tid], -1);
+                atom_xchg (&CostPred[tid], -1);
+                map [ gid ] = 1;
             }
+        }
+        */
+
+        uPredRec = tid;
+
+        while ( UpdatePred [ uPredRec ] != -1 ) {
+            uPredRec = UpdatePred [ uPredRec ];
+        }
+                atom_xchg (&CostLabel[tid], CostLabel[uPredRec]);
+                atom_xchg (&CostPred[tid], -1);
+        UpdatePred[tid] = CostPred[tid];
+        UpdateCost[tid] = CostCost[tid];
     }
-    UpdatePred[tid] = CostPred[tid];
-    UpdateCost[tid] = CostCost[tid];
 }
 

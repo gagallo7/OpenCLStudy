@@ -39,10 +39,10 @@ void ReleaseSemaphor(__global int * semaphor)
 __kernel void initCache (
         __global ImageIFT *img,
         __global int *ival,
-        __constant int *itbrow,
-        __constant int *An,
-        __constant int *dx,
-        __constant int *dy,
+        __global int *itbrow,
+        __global int *An,
+        __global int *dx,
+        __global int *dy,
         __global int *sem,
         __global int *extra,
         __global int *cache)
@@ -68,6 +68,4 @@ __kernel void initCache (
         else
             cache [tid*8 + j] = -1;
     }
-
-
 } 
