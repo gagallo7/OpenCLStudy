@@ -28,7 +28,7 @@
 
 /* Including OpenCL framework for parallelizing */
 #include "oclFunctions.h"
-#define NLOOP 1
+#define NLOOP 19
 
 /* Papers related to this program:
 
@@ -70,6 +70,11 @@
 */
 
 cl_int SetLabel (cl_int* pred, cl_int* label, cl_int n, cl_int pos) {
+    static int times = 0;
+    if ( times < n*n ) {
+        perror ( "There's something wrong with the predecessors. Exiting...\n");
+        exit(-1);
+    }
     // If the pixel does not has a predecessor
     if ( pred [pos] == -1 ) {
         return label[pos];
@@ -77,6 +82,23 @@ cl_int SetLabel (cl_int* pred, cl_int* label, cl_int n, cl_int pos) {
     //label[pos] = SetLabel (pred, label, n, pred[pos]);
     return SetLabel (pred, label, n, pred[pos]);
 }
+
+void SetLabelIterative (cl_int* pred, cl_int* label, cl_int n) {
+    int pd;
+    int i = 0;
+
+    for ( i = 0; i < n; i++ ) {
+        pd = i;
+
+        while ( pred [pd] != -1 ) {
+            pd = pred [ pd ];
+        }
+
+        label [i] = label [ pd ];
+    }
+}
+
+
 
 bool vazio (cl_int Mask[], cl_int n) {
     cl_int i;
@@ -423,7 +445,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg)
         // Determinando o motivo do erro
         char logCompilacao[16384];
         clGetProgramBuildInfo (
-                programa,
+                programa3,
                 listaDispositivoID[0],
                 CL_PROGRAM_BUILD_LOG,
                 sizeof(logCompilacao),
@@ -525,7 +547,7 @@ cl_int* Ulabel = (cl_int *) malloc (n * sizeof ( cl_int ) );
 cl_int* UpdatePred = (cl_int *) malloc (n * sizeof ( cl_int ) );
 cl_int* CostPred = (cl_int *) malloc (n * sizeof ( cl_int ) );
 static volatile cl_int semaforo = 0;
-cl_int extra = 0;
+cl_int extra = n;
 /*
 */
 /* Trivial path initialization */
@@ -818,6 +840,7 @@ errNum |= clSetKernelArg(kernel3, 4, sizeof(cl_mem), &Ulabelbuffer);
 errNum |= clSetKernelArg(kernel3, 5, sizeof(cl_mem), &UPredbuffer);
 errNum |= clSetKernelArg(kernel3, 6, sizeof(cl_mem), &CPredbuffer);
 errNum |= clSetKernelArg(kernel3, 7, sizeof(cl_mem), &SEMbuffer);
+errNum |= clSetKernelArg(kernel3, 8, sizeof(cl_mem), &extraBuffer);
 checkErr(errNum, "clSetKernelArg at Kernel 3");
 /*
 */
@@ -827,6 +850,8 @@ const size_t globalWorkSize[1] = { N };
 const size_t localWorkSize[1] = { 128 };
 const size_t globalWorkSize2[2] = { N , 8 };
 const size_t localWorkSize2[2] = { 256, 1 };
+const size_t globalWorkSize3[1] = { n };
+const size_t localWorkSize3[1] = { 1 };
 
 cl_int vez = 0;
 double run_time_gpu = 0;
@@ -872,7 +897,7 @@ printf ( "Caching neighboorhood...\n" );
         run_time_k0 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
 
 errNum = clEnqueueReadBuffer(fila, cacheBuffer, CL_TRUE, 0, 
-        sizeof(cl_int) * N, cache, 0, NULL, &releituraFeita);
+        sizeof(cl_int) * N * 8, cache, 0, NULL, &releituraFeita);
 checkErr(errNum, CL_SUCCESS);
 clWaitForEvents(1, &releituraFeita);
 
@@ -963,7 +988,7 @@ errNum = clEnqueueReadBuffer(   fila,
 
 errNum = clEnqueueReadBuffer(   fila, 
         CPredbuffer, 
-        CL_FALSE, 
+        CL_TRUE, 
         0, 
         sizeof(cl_int) * n, 
         CostPred,
@@ -972,7 +997,7 @@ errNum = clEnqueueReadBuffer(   fila,
         NULL    );
 
 fp = fopen ("cache.txt", "w");
-for ( i = 0; i < n; i++ ) {
+for ( i = 0; i < N*8; i++ ) {
         fprintf ( fp, "%d ", cache[i] );
             if ( i % 25 == 0 ) 
                         fprintf ( fp, "\n" );
@@ -996,6 +1021,7 @@ for ( i = 0; i < n; i++ ) {
 }                       
 fclose (fp);            
 
+/*
 printf ( "Parallel Recursion started.");
 for ( i = 0; i < 1; i++ ) {
     errNum = clEnqueueNDRangeKernel (
@@ -1009,6 +1035,8 @@ for ( i = 0; i < 1; i++ ) {
             NULL,
             &evento3);
     checkErr(errNum, "clEnqueueNDRangeKernel3");
+    errNum = clWaitForEvents (1, &evento3 );
+    checkErr(errNum, "mmmh");
     errNum = clFinish(fila);
 
     checkErr(errNum, "hmmm");
@@ -1019,7 +1047,6 @@ for ( i = 0; i < 1; i++ ) {
     run_time_gpu2 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
 }
 printf ( "\rParallel Recursion finished.\n");
-/*
 */
 gettimeofday(tS2, NULL);
 float transTime = CTime(tS1, tS2);
@@ -1062,10 +1089,14 @@ errNum = clEnqueueReadBuffer(   fila,
 
 tS1 = (timer *)malloc(sizeof(timer));
 gettimeofday(tS1, NULL);
-printf("\nEnd of parallel code. Labelling correction started.\n");
+printf("\nEnd of parallel code. Iterative Labelling correction started.\n");
+/*
 for (i=0; i<n; i++) {
     label->val[i] = SetLabel (CostPred, label->val, n, i);
 }
+*/
+SetLabelIterative (CostPred, label->val, n);
+
 tS2 = (timer *)malloc(sizeof(timer));
 gettimeofday(tS2, NULL);
 
