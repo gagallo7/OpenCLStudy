@@ -5,9 +5,9 @@ SRC=./src
 OBJ=./obj
 DEMO=./demo
 #FLAGS= -g -Wall -D _DEBUG
-#FLAGS= -O3 -Wall
+FLAGS= -O3 -Wall
 #FLAGS= -O3 -Wall -pg -g
-FLAGS= -O0 -Wall -pg -g
+#FLAGS= -Wall -pg 
 
 INCLUDES=-I$(INCLUDE)
 

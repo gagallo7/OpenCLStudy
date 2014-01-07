@@ -6,7 +6,7 @@ BIN=.
 
 INCLUDES= -I$(INC) -I$(OPF_DIR)/include
 
-#FLAGS= -g -Wall 
+#FLAGS= -pg -Wall  -static
 FLAGS= -O3 -Wall
 
 $(LIB)/libift.a:

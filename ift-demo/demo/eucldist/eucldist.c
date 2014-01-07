@@ -26,7 +26,7 @@
 
 #include "ift.h"
 #define DEVICE CL_DEVICE_TYPE_GPU
-#define NLOOP 5
+#define NLOOP 1
 
 /* Paper related to this program:
 
@@ -122,9 +122,11 @@ Forest *DistTrans(Image *I)
             Abuffer, Adxbuffer, Adybuffer,
             imgtbrowBuffer, labelvalBuffer, labeltbrowBuffer,
             Mbuffer, MvalBuffer, MtbrowBuffer,
+            /*
             Ubuffer, Ulabelbuffer,
             Cbuffer, Clabelbuffer,
             UPredbuffer, CPredbuffer,
+            */
             IBuffer, IvalBuffer, FVvalBuffer,
             FRvalBuffer, FPvalBuffer,
             cacheBuffer;
@@ -135,7 +137,7 @@ Forest *DistTrans(Image *I)
     Pixel u,v,w;
     AdjRel *A=Circular(1.5),*A4=Circular(1.0);
     Forest *F=CreateForest(I->ncols,I->nrows);
-    GQueue *Q=CreateGQueue(1024,n,F->V->val);
+    //GQueue *Q=CreateGQueue(1024,n,F->V->val);
 
 
     /* Preparing device for OpenCL program */
@@ -240,6 +242,7 @@ Forest *DistTrans(Image *I)
             &errNum);
     checkErr(errNum, "clCreateProgramWithSource");
 
+    /*
     fp = fopen("kernel2.cl", "r");
     if (!fp) {
         fprintf(stderr, "Failed to load kernel2.\n");
@@ -263,7 +266,7 @@ Forest *DistTrans(Image *I)
 
     programa3 = clCreateProgramWithSource(contexto, 1, (const char **)&source_str,
             (const size_t *)&source_size, &errNum);
-
+*/
     printf ( "Compiling the kernel 0 ... \r" );
     errNum = clBuildProgram (
             programa0,
@@ -278,7 +281,7 @@ Forest *DistTrans(Image *I)
         // Determinando o motivo do erro
         char logCompilacao[16384];
         clGetProgramBuildInfo (
-                programa,
+                programa0,
                 listaDispositivoID[0],
                 CL_PROGRAM_BUILD_LOG,
                 sizeof(logCompilacao),
@@ -316,6 +319,7 @@ Forest *DistTrans(Image *I)
         printf ( " Build error : %s\n", logCompilacao );
         checkErr(errNum, "clBuildProgram");
     }
+    /*
     printf ( "Compiling the kernel2 ... \n" );
     errNum = clBuildProgram (
             programa2,
@@ -365,7 +369,7 @@ Forest *DistTrans(Image *I)
         printf ( " Build error : %s\n", logCompilacao );
         checkErr(errNum, "clBuildProgram");
     }
-
+*/
     printf ( "KERNEL 0\n" );
     // Criando o objeto do Kernel
     kernel0 = clCreateKernel (
@@ -382,6 +386,7 @@ Forest *DistTrans(Image *I)
             &errNum);
     checkErr(errNum, "clCreateKernel1");
 
+    /*
     printf ( "KERNEL 2\n" );
     // Criando o objeto do Kernel2
     kernel2 = clCreateKernel (
@@ -397,7 +402,7 @@ Forest *DistTrans(Image *I)
             "dijkstra3",
             &errNum);
     checkErr(errNum, "clCreateKernel3");
-
+*/
     // Calculating the next 2 power of n
     int N = n;
     int t = 0;
@@ -413,15 +418,17 @@ Forest *DistTrans(Image *I)
 
     printf ("-- ");
     cl_int* Mask = (cl_int *) malloc (N * sizeof ( cl_int ) );
+    /*
     cl_int* CostCost = (cl_int *) malloc (n * sizeof ( cl_int ) );
     cl_int* UpdateCost = (cl_int *) malloc (n * sizeof ( cl_int ) );
     cl_int* Clabel = (cl_int *) malloc (n * sizeof ( cl_int ) );
     cl_int* Ulabel = (cl_int *) malloc (n * sizeof ( cl_int ) );
     cl_int* UpdatePred = (cl_int *) malloc (n * sizeof ( cl_int ) );
     cl_int* CostPred = (cl_int *) malloc (n * sizeof ( cl_int ) );
+    */
     static volatile cl_int semaforo = 0;
     cl_int extra = 0;
-    cl_int* cache = (int *) malloc ( sizeof (int) * N * 8 );
+    cl_int8* cache = (cl_int8 *) malloc ( sizeof (cl_int8) * N );
 
     memset (Mask, 0, N*4);
 
@@ -439,14 +446,15 @@ Forest *DistTrans(Image *I)
         }
     }
 
-
     cacheBuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, 
-            sizeof(cl_int) * N * 8,
+            sizeof(cl_int8) * N,
             cache,
             &errNum);
     checkErr(errNum, "clCreateBuffer(cache)");
+
+    printf ( "\n\n\ncl_int8*: %d cl_int8: %d\n\n", sizeof(cl_int8*), sizeof(cl_int8) );
 
     IBuffer = clCreateBuffer (
             contexto,
@@ -659,7 +667,7 @@ Forest *DistTrans(Image *I)
     run_time_k0 += (double)(ev_end_time - ev_start_time)/1e6; // in msec
 
     errNum = clEnqueueReadBuffer(fila, cacheBuffer, CL_TRUE, 0, 
-            sizeof(cl_int) * N * 8, cache, 0, NULL, &releituraFeita);
+            sizeof(cl_int8) * N, cache, 0, NULL, &releituraFeita);
     checkErr(errNum, CL_SUCCESS);
     clWaitForEvents(1, &releituraFeita);
 
@@ -667,7 +675,7 @@ Forest *DistTrans(Image *I)
 
     fp = fopen ("cache.txt", "w");
     for ( i = 0; i < N*8; i++ ) {
-        fprintf ( fp, "%d ", cache[i] );
+        //fprintf ( fp, "%d ", cache[i] );
         if ( i % 24 == 0 ) 
             fprintf ( fp, "\n" );
     }
@@ -765,7 +773,7 @@ Forest *DistTrans(Image *I)
         0, 
         NULL, 
         NULL    );
-    checkErr ( errNum, "Reading FVval" );
+    checkErr ( errNum, "Reading FPval" );
 
     errNum = clEnqueueReadBuffer(   fila, 
         FRvalBuffer, 
@@ -777,7 +785,7 @@ Forest *DistTrans(Image *I)
         NULL, 
         NULL    );
 
-    checkErr ( errNum, "Reading FVval" );
+    checkErr ( errNum, "Reading FRval" );
 
     /*
     // Path propagation
@@ -804,11 +812,13 @@ Forest *DistTrans(Image *I)
             }
         }
     }
-*/
 
     DestroyGQueue(&Q);
+*/
     DestroyAdjRel(&A);
     DestroyAdjRel(&A4);
+    free ( Mask );
+    free ( cache );
 
     return(F);
 }

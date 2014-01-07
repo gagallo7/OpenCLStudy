@@ -31,8 +31,8 @@ endif
 
 
 
-#FLAGS= -g -Wall 
-FLAGS= -O3 -Wall
+FLAGS= -g -Wall 
+#FLAGS= -O3 -Wall
 
 $(LIB)/libift.a:
 	cd ../../; make ; cd -

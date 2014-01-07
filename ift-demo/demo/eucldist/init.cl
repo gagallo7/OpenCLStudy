@@ -45,29 +45,42 @@ __kernel void initCache (
         __constant int *dy,
         __global int *sem,
         __global int *extra,
-        __global int *cache)
+        __global int8 *cache)
 {
     Pixel u, v;
     int tid = get_global_id(0);
     int i, j;
+    int tmp[8];
 
     //__local int cache[512*8];
     u.x = tid % img->ncols;
     u.y = tid / img->ncols;
 
-#pragma unroll(8)
-    for ( i = 1; i < *An; i++ ) {
-        j = i - 1;
-        v.x = u.x + dx[i];
-        v.y = u.y + dy[i];
+    for ( i = 0; i < *An-1; i++ ) {
+        j = i + 1;
+        v.x = u.x + dx[j];
+        v.y = u.y + dy[j];
 
         if ((v.x >= 0)&&(v.x < img->ncols)&&
                 (v.y >= 0)&&(v.y < img->nrows)) {
-            cache [tid*8 + j] = v.x + itbrow [v.y];
+//            cache [tid + j]si = v.x + itbrow [v.y];
+            tmp [i] = v.x + itbrow [v.y];
         }
-        else
-            cache [tid*8 + j] = -1;
+        else {
+            tmp [i] = -1;
+        //    cache [tid + j] = -1;
+        }
     }
 
+    cache[tid] = (int8)( 
+            tmp [ 0 ],
+            tmp [ 1 ],
+            tmp [ 2 ],
+            tmp [ 3 ],
+            tmp [ 4 ],
+            tmp [ 5 ],
+            tmp [ 6 ],
+            tmp [ 7 ]
+            );
 
 } 

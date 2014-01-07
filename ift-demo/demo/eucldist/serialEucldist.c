@@ -80,6 +80,7 @@ void DestroyForest(Forest **F)
 
 Forest *DistTrans(Image *I)
 {
+  timer    *t1=NULL,*t2=NULL;
   int p,q,n=I->ncols*I->nrows,i,tmp;
   Pixel u,v,w;
   AdjRel *A=Circular(1.5),*A4=Circular(1.0);
@@ -98,6 +99,7 @@ Forest *DistTrans(Image *I)
     }
   }
 
+  t1 = Tic();
   // Path propagation
 
   while(!EmptyGQueue(Q)){
@@ -122,6 +124,8 @@ Forest *DistTrans(Image *I)
       }
     }
   }
+  t2 = Toc();
+  fprintf(stdout,"Euclidian Distance Transform in %f ms\n",CTime(t1,t2));
 
   DestroyGQueue(&Q);
   DestroyAdjRel(&A);
@@ -135,7 +139,6 @@ int main(int argc, char **argv)
   int p;
   char outfile[100];
   char *file_noext;
-  timer    *t1=NULL,*t2=NULL;
   Image    *img,*aux, *sqrt_edt;
   Forest   *edt;
 
@@ -170,13 +173,10 @@ int main(int argc, char **argv)
   }
   DestroyImage(&aux);
 
-  t1 = Tic();
 
   edt = DistTrans(img);
 
-  t2 = Toc();
 
-  fprintf(stdout,"Euclidian Distance Transform in %f ms\n",CTime(t1,t2));
 
   sqrt_edt = CreateImage(img->ncols, img->nrows);
   for(p = 0; p < img->ncols*img->nrows;p++)
