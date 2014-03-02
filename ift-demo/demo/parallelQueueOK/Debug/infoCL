@@ -1,0 +1,57 @@
+Found 2 platform(s).
+platform[0x10e7aa8]: profile: FULL_PROFILE
+platform[0x10e7aa8]: version: OpenCL 1.1 LINUX
+platform[0x10e7aa8]: name: Intel(R) OpenCL
+platform[0x10e7aa8]: vendor: Intel(R) Corporation
+platform[0x10e7aa8]: extensions: cl_khr_fp64 cl_khr_icd cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_byte_addressable_store cl_intel_printf cl_ext_device_fission cl_intel_exec_by_local_thread 
+platform[0x10e7aa8]: Found 1 device(s).
+	device[0x10f4060]: NAME:        Intel(R) Core(TM) i7-3770K CPU @ 3.50GHz
+	device[0x10f4060]: VENDOR: Intel(R) Corporation
+	device[0x10f4060]: PROFILE: FULL_PROFILE
+	device[0x10f4060]: VERSION: OpenCL 1.1 (Build 31360.31426)
+	device[0x10f4060]: EXTENSIONS: cl_khr_fp64 cl_khr_icd cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_byte_addressable_store cl_intel_printf cl_ext_device_fission cl_intel_exec_by_local_thread
+	device[0x10f4060]: DRIVER_VERSION: 1.1
+
+	device[0x10f4060]: Type: CPU 
+	device[0x10f4060]: EXECUTION_CAPABILITIES: Kernel Native 
+	device[0x10f4060]: GLOBAL_MEM_CACHE_TYPE: Read-Write (2)
+	device[0x10f4060]: CL_DEVICE_LOCAL_MEM_TYPE: Global (2)
+	device[0x10f4060]: SINGLE_FP_CONFIG: 0x7
+	device[0x10f4060]: QUEUE_PROPERTIES: 0x3
+
+	device[0x10f4060]: VENDOR_ID: 32902
+	device[0x10f4060]: MAX_COMPUTE_UNITS: 8
+	device[0x10f4060]: MAX_WORK_ITEM_DIMENSIONS: 3
+	device[0x10f4060]: MAX_WORK_GROUP_SIZE: 1024
+	device[0x10f4060]: PREFERRED_VECTOR_WIDTH_CHAR: 16
+	device[0x10f4060]: PREFERRED_VECTOR_WIDTH_SHORT: 8
+	device[0x10f4060]: PREFERRED_VECTOR_WIDTH_INT: 4
+	device[0x10f4060]: PREFERRED_VECTOR_WIDTH_LONG: 2
+	device[0x10f4060]: PREFERRED_VECTOR_WIDTH_FLOAT: 4
+	device[0x10f4060]: PREFERRED_VECTOR_WIDTH_DOUBLE: 2
+	device[0x10f4060]: MAX_CLOCK_FREQUENCY: 3500
+	device[0x10f4060]: ADDRESS_BITS: 64
+	device[0x10f4060]: MAX_MEM_ALLOC_SIZE: 4196687872
+	device[0x10f4060]: IMAGE_SUPPORT: 1
+	device[0x10f4060]: MAX_READ_IMAGE_ARGS: 480
+	device[0x10f4060]: MAX_WRITE_IMAGE_ARGS: 480
+	device[0x10f4060]: IMAGE2D_MAX_WIDTH: 8192
+	device[0x10f4060]: IMAGE2D_MAX_HEIGHT: 8192
+	device[0x10f4060]: IMAGE3D_MAX_WIDTH: 2048
+	device[0x10f4060]: IMAGE3D_MAX_HEIGHT: 2048
+	device[0x10f4060]: IMAGE3D_MAX_DEPTH: 2048
+	device[0x10f4060]: MAX_SAMPLERS: 480
+	device[0x10f4060]: MAX_PARAMETER_SIZE: 3840
+	device[0x10f4060]: MEM_BASE_ADDR_ALIGN: 1024
+	device[0x10f4060]: MIN_DATA_TYPE_ALIGN_SIZE: 128
+	device[0x10f4060]: GLOBAL_MEM_CACHELINE_SIZE: 64
+	device[0x10f4060]: GLOBAL_MEM_CACHE_SIZE: 262144
+	device[0x10f4060]: GLOBAL_MEM_SIZE: 16786751488
+	device[0x10f4060]: MAX_CONSTANT_BUFFER_SIZE: 131072
+	device[0x10f4060]: MAX_CONSTANT_ARGS: 480
+	device[0x10f4060]: LOCAL_MEM_SIZE: 32768
+	device[0x10f4060]: ERROR_CORRECTION_SUPPORT: 0
+	device[0x10f4060]: PROFILING_TIMER_RESOLUTION: 1
+	device[0x10f4060]: ENDIAN_LITTLE: 1
+	device[0x10f4060]: AVAILABLE: 1
+	device[0x10f4060]: COMPILER_AVAILABLE: 1
