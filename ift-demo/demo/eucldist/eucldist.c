@@ -454,8 +454,6 @@ Forest *DistTrans(Image *I)
             &errNum);
     checkErr(errNum, "clCreateBuffer(cache)");
 
-    printf ( "\n\n\ncl_int8*: %d cl_int8: %d\n\n", sizeof(cl_int8*), sizeof(cl_int8) );
-
     IrBuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
