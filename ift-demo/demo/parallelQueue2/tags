@@ -1,0 +1,701 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+A	../../../Grafos/Tentativas/testes/multM.cpp	/^cl_uint A[l][m];$/;"	v
+ARRAY_SIZE	../../../Grafos/Tentativas/testes/vector/dotProduct.cpp	/^const int ARRAY_SIZE = 8;$/;"	v
+ARRAY_SIZE	../../../Learning/ProdEsc/dotProduct.cpp	/^const int ARRAY_SIZE = 8;$/;"	v
+ASM_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^ASM_SRCS := $/;"	m
+Accuracy	../../../ift-demo/src/opf.c	/^float Accuracy(Subgraph *sg)$/;"	f
+AddFrame	../../../ift-demo/src/image.c	/^Image *AddFrame(Image *img, int sz, int value)$/;"	f
+AddValue	../../../ift-demo/demo/watergray/watergray.c	/^Image *AddValue(Image *img, int H)$/;"	f
+AdjPixels	../../../ift-demo/src/adjacency.c	/^AdjPxl *AdjPixels(Image *img, AdjRel *A)$/;"	f
+AdjPxl	../../../ift-demo/include/adjacency.h	/^} AdjPxl;$/;"	t	typeref:struct:_adjpxl
+AdjRel	../../../ift-demo/include/adjacency.h	/^} AdjRel;$/;"	t	typeref:struct:_adjrel
+AdjRel2Image	../../../ift-demo/src/adjacency.c	/^Image  *AdjRel2Image(AdjRel *A){$/;"	f
+AllocCharArray	../../../ift-demo/src/common.c	/^char *AllocCharArray(int n)$/;"	f
+AllocDoubleArray	../../../ift-demo/src/common.c	/^double *AllocDoubleArray(int n)$/;"	f
+AllocFloatArray	../../../ift-demo/src/common.c	/^float *AllocFloatArray(int n)$/;"	f
+AllocIntArray	../../../ift-demo/src/common.c	/^int *AllocIntArray(int n)$/;"	f
+AllocRealArray	../../../ift-demo/src/common.c	/^real  *AllocRealArray(int n){$/;"	f
+AllocUCharArray	../../../ift-demo/src/common.c	/^uchar *AllocUCharArray(int n)$/;"	f
+AllocUIntArray	../../../ift-demo/src/common.c	/^uint *AllocUIntArray(int n)$/;"	f
+AllocUShortArray	../../../ift-demo/src/common.c	/^ushort *AllocUShortArray(int n)$/;"	f
+ArrayType	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^class ArrayType$/;"	c	file:
+ArrayType	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^class ArrayType<char>$/;"	c	file:
+B	../../../Grafos/Tentativas/testes/multM.cpp	/^cl_uint B[m][n];$/;"	v
+BIN	../../../ift-demo/Makefile	/^BIN=.\/bin$/;"	m
+BIN	../../../ift-demo/demo/diffwatershed/Makefile	/^BIN=.$/;"	m
+BIN	../../../ift-demo/demo/eucldist/Makefile	/^BIN=.$/;"	m
+BIN	../../../ift-demo/demo/parallelQueue2/Makefile	/^BIN=.$/;"	m
+BIN	../../../ift-demo/demo/parallelQueue2/tools/Makefile	/^BIN=.$/;"	m
+BIN	../../../ift-demo/demo/watergray/Makefile	/^BIN=.$/;"	m
+BIN	../../../ift-demo/demo/watershed/Makefile	/^BIN=.$/;"	m
+BLACK	../../../ift-demo/include/common.h	60;"	d
+BMap	../../../ift-demo/include/set.h	/^} BMap;$/;"	t	typeref:struct:_bmap
+BMapCopy	../../../ift-demo/src/set.c	/^void   BMapCopy(BMap *dest, BMap *src) {$/;"	f
+BMapDestroy	../../../ift-demo/src/set.c	/^void   BMapDestroy(BMap *b) {$/;"	f
+BMapFill	../../../ift-demo/src/set.c	/^void   BMapFill(BMap *b, int value) {$/;"	f
+BMapGet	../../../ift-demo/src/set.c	/^int    BMapGet(BMap *b, int n) {$/;"	f
+BMapNew	../../../ift-demo/src/set.c	/^BMap * BMapNew(int n) {$/;"	f
+BMapSet	../../../ift-demo/src/set.c	/^void BMapSet(BMap *b, int n, int value) {$/;"	f
+BMapToggle	../../../ift-demo/src/set.c	/^void   BMapToggle(BMap *b, int n) {$/;"	f
+BOTH	../../../ift-demo/include/common.h	57;"	d
+Box	../../../ift-demo/src/adjacency.c	/^AdjRel *Box(int ncols, int nrows)$/;"	f
+C	../../../Grafos/Tentativas/testes/multM.cpp	/^cl_uint C[l][n];$/;"	v
+C	../../../ift-demo/include/cimage.h	/^  Image *C[3];$/;"	m	struct:cimage
+C	../../../ift-demo/include/gqueue.h	/^  GCircularQueue C;$/;"	m	struct:_gqueue
+CC_DEPS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CC_DEPS := $/;"	m
+CC_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CC_SRCS := $/;"	m
+CImage	../../../ift-demo/include/cimage.h	/^} CImage;$/;"	t	typeref:struct:cimage
+CL_CALLBACK	../../../Grafos/Tentativas/dijk.cpp	17;"	d	file:
+CL_CALLBACK	../../../Grafos/Tentativas/testes/multM.cpp	13;"	d	file:
+CL_CALLBACK	../../../Learning/MultMatrizes/MultMatrixLocals/big/multMGPU.cpp	14;"	d	file:
+CL_CALLBACK	../../../Learning/MultMatrizes/MultMatrixLocals/multMCPU.cpp	14;"	d	file:
+CL_CALLBACK	../../../Learning/MultMatrizes/MultMatrixLocals/multMGPU.cpp	14;"	d	file:
+CL_CALLBACK	../../../Learning/MultMatrizes/MultMatrixNoLocals/multM.cpp	14;"	d	file:
+CL_CALLBACK	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMCPU.cpp	14;"	d	file:
+CL_CALLBACK	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMGPU.cpp	14;"	d	file:
+CL_CALLBACK	../../../Learning/MultMatrizes/float/MultMatrixLocals/multM.cpp	16;"	d	file:
+CL_CALLBACK	../../../Learning/Somatorio/soma.cpp	14;"	d	file:
+CL_CALLBACK	../../../ift-demo/demo/watershed/kernels/dijk.cpp	17;"	d	file:
+CL_CALLBACK	../../../ift-demo/include/oclFunctions.h	8;"	d
+CPP_DEPS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CPP_DEPS := $/;"	m
+CPP_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CPP_SRCS := $/;"	m
+CTime	../../../ift-demo/src/comptime.c	/^float CTime(timer *tic, timer *toc) \/* It computes the time difference *\/$/;"	f
+CU_DEPS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CU_DEPS := $/;"	m
+CU_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CU_SRCS := $/;"	m
+CXX_DEPS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CXX_DEPS := $/;"	m
+CXX_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^CXX_SRCS := $/;"	m
+C_DEPS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^C_DEPS := $/;"	m
+C_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^C_SRCS := $/;"	m
+C_UPPER_DEPS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^C_UPPER_DEPS := $/;"	m
+C_UPPER_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^C_UPPER_SRCS := $/;"	m
+Change	../../../ift-demo/src/common.c	/^void Change(int *a, int *b){ \/* It changes content between a and b *\/$/;"	f
+Circular	../../../ift-demo/src/adjacency.c	/^AdjRel *Circular(float r)$/;"	f
+Cleanup	../../../Grafos/Tentativas/testes/vector/dotProduct.cpp	/^void Cleanup(cl_context context, cl_command_queue commandQueue,$/;"	f
+Cleanup	../../../Learning/ProdEsc/dotProduct.cpp	/^void Cleanup(cl_context context, cl_command_queue commandQueue,$/;"	f
+CloneAdjRel	../../../ift-demo/src/adjacency.c	/^AdjRel *CloneAdjRel(AdjRel *A){$/;"	f
+CloneSet	../../../ift-demo/src/set.c	/^Set *CloneSet(Set *S){$/;"	f
+Close	../../../ift-demo/src/morphology.c	/^Image *Close(Image *img, AdjRel *A)$/;"	f
+CloseBasins	../../../ift-demo/src/morphology.c	/^Image *CloseBasins(Image *img)$/;"	f
+CloseHoles	../../../ift-demo/src/morphology.c	/^Image *CloseHoles(Image *img)$/;"	f
+CloseRec	../../../ift-demo/src/morphology.c	/^Image *CloseRec(Image *I, AdjRel *A)$/;"	f
+ComplAdj	../../../ift-demo/src/adjacency.c	/^AdjRel *ComplAdj(AdjRel *A1, AdjRel *A2)$/;"	f
+Convert2DisjointSets	../../../ift-demo/src/set.c	/^void    Convert2DisjointSets(Set **S1,$/;"	f
+ConvertDImage2Image	../../../ift-demo/src/dimage.c	/^Image *ConvertDImage2Image(DImage *dimg){$/;"	f
+CopyDImage	../../../ift-demo/src/dimage.c	/^DImage *CopyDImage(DImage *dimg)$/;"	f
+CopyFeatures	../../../ift-demo/src/feature.c	/^Features* CopyFeatures(Features* feat)$/;"	f
+CopyImage	../../../ift-demo/src/image.c	/^Image  *CopyImage(Image *img)$/;"	f
+CopySNode	../../../ift-demo/src/subgraph.c	/^void CopySNode(SNode *dest, SNode *src, int nfeats){$/;"	f
+CopySubgraph	../../../ift-demo/src/subgraph.c	/^Subgraph *CopySubgraph(Subgraph *g){$/;"	f
+CreateAdjRel	../../../ift-demo/src/adjacency.c	/^AdjRel *CreateAdjRel(int n)$/;"	f
+CreateCImage	../../../ift-demo/src/cimage.c	/^CImage *CreateCImage(int ncols, int nrows)$/;"	f
+CreateCommandQueue	../../../Grafos/Tentativas/testes/vector/dotProduct.cpp	/^cl_command_queue CreateCommandQueue(cl_context context, cl_device_id *device)$/;"	f
+CreateCommandQueue	../../../Learning/ProdEsc/dotProduct.cpp	/^cl_command_queue CreateCommandQueue(cl_context context, cl_device_id *device)$/;"	f
+CreateContext	../../../Grafos/Tentativas/testes/vector/dotProduct.cpp	/^cl_context CreateContext()$/;"	f
+CreateContext	../../../Learning/ProdEsc/dotProduct.cpp	/^cl_context CreateContext()$/;"	f
+CreateDImage	../../../ift-demo/src/dimage.c	/^DImage *CreateDImage(int ncols, int nrows)$/;"	f
+CreateFeatures	../../../ift-demo/src/feature.c	/^Features* CreateFeatures(int ncols, int nrows, int nfeats)$/;"	f
+CreateForest	../../../ift-demo/demo/eucldist/eucldist.c	/^Forest *CreateForest(int ncols, int nrows)$/;"	f
+CreateForest	../../../ift-demo/demo/eucldist/serialEucldist.c	/^Forest *CreateForest(int ncols, int nrows)$/;"	f
+CreateGQueue	../../../ift-demo/src/gqueue.c	/^GQueue *CreateGQueue(int nbuckets, int nelems, int *value)$/;"	f
+CreateImage	../../../ift-demo/src/image.c	/^Image *CreateImage(int ncols, int nrows)$/;"	f
+CreateImageForest	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^ImageForest *CreateImageForest(Image *img)$/;"	f
+CreateMemObjects	../../../Grafos/Tentativas/testes/vector/dotProduct.cpp	/^bool CreateMemObjects(cl_context context, cl_mem memObjects[3],$/;"	f
+CreateMemObjects	../../../Learning/ProdEsc/dotProduct.cpp	/^bool CreateMemObjects(cl_context context, cl_mem memObjects[3],$/;"	f
+CreateProgram	../../../Grafos/Tentativas/testes/vector/dotProduct.cpp	/^cl_program CreateProgram(cl_context context, cl_device_id device, const char* fileName)$/;"	f
+CreateProgram	../../../Learning/ProdEsc/dotProduct.cpp	/^cl_program CreateProgram(cl_context context, cl_device_id device, const char* fileName)$/;"	f
+CreateRealHeap	../../../ift-demo/src/realheap.c	/^RealHeap *CreateRealHeap(int n, float *cost) {$/;"	f
+CreateSubgraph	../../../ift-demo/src/subgraph.c	/^Subgraph *CreateSubgraph(int nnodes)$/;"	f
+Cross	../../../ift-demo/src/adjacency.c	/^AdjRel *Cross(int ncols, int nrows)$/;"	f
+DECREASING	../../../ift-demo/include/common.h	63;"	d
+DEMO	../../../ift-demo/Makefile	/^DEMO=.\/demo$/;"	m
+DEVICE	../../../ift-demo/demo/eucldist/eucldist.c	28;"	d	file:
+DEVICE	../../../ift-demo/demo/parallelQueue2/mWatershed.c	28;"	d	file:
+DEVICE	../../../ift-demo/demo/parallelQueue2/watershed.c	28;"	d	file:
+DEVICE	../../../ift-demo/demo/parallelQueue2/watershed2.c	28;"	d	file:
+DImage	../../../ift-demo/include/dimage.h	/^} DImage;$/;"	t	typeref:struct:_DImage
+DImageThreshold	../../../ift-demo/src/dimage.c	/^Image *DImageThreshold(DImage *img, double lower, double higher)$/;"	f
+DestroyAdjPxl	../../../ift-demo/src/adjacency.c	/^void DestroyAdjPxl(AdjPxl **N)$/;"	f
+DestroyAdjRel	../../../ift-demo/src/adjacency.c	/^void DestroyAdjRel(AdjRel **A)$/;"	f
+DestroyCImage	../../../ift-demo/src/cimage.c	/^void    DestroyCImage(CImage **cimg)$/;"	f
+DestroyDImage	../../../ift-demo/src/dimage.c	/^void DestroyDImage(DImage **dimg)$/;"	f
+DestroyFeatures	../../../ift-demo/src/feature.c	/^void DestroyFeatures(Features **f)$/;"	f
+DestroyForest	../../../ift-demo/demo/eucldist/eucldist.c	/^void DestroyForest(Forest **F)$/;"	f
+DestroyForest	../../../ift-demo/demo/eucldist/serialEucldist.c	/^void DestroyForest(Forest **F)$/;"	f
+DestroyGQueue	../../../ift-demo/src/gqueue.c	/^void DestroyGQueue(GQueue **Q)$/;"	f
+DestroyImage	../../../ift-demo/src/image.c	/^void DestroyImage(Image **img)$/;"	f
+DestroyImageForest	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^void DestroyImageForest(ImageForest **fst)$/;"	f
+DestroyRealHeap	../../../ift-demo/src/realheap.c	/^void DestroyRealHeap(RealHeap **H) {$/;"	f
+DestroySet	../../../ift-demo/src/set.c	/^void DestroySet(Set **S)$/;"	f
+DestroySubgraph	../../../ift-demo/src/subgraph.c	/^void DestroySubgraph(Subgraph **sg)$/;"	f
+DiffWatershed	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^void DiffWatershed(Image *grad, ImageForest *fst, Set *Obj, Set *Bkg, Set *Rm)$/;"	f
+Dilate	../../../ift-demo/src/morphology.c	/^Image *Dilate(Image *img, AdjRel *A)$/;"	f
+DisplayPlatformInfo	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^void DisplayPlatformInfo($/;"	f
+DistTrans	../../../ift-demo/demo/eucldist/eucldist.c	/^Forest *DistTrans(Image *I)$/;"	f
+DistTrans	../../../ift-demo/demo/eucldist/serialEucldist.c	/^Forest *DistTrans(Image *I)$/;"	f
+DrawLabeledRegions	../../../ift-demo/src/cimage.c	/^CImage *DrawLabeledRegions(Image *img, Image *label){$/;"	f
+EXECUTABLES	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^EXECUTABLES := $/;"	m
+EXTERIOR	../../../ift-demo/include/common.h	56;"	d
+EmptyGQueue	../../../ift-demo/src/gqueue.c	/^int EmptyGQueue(GQueue *Q)$/;"	f
+Epsilon	../../../ift-demo/include/common.h	64;"	d
+Erode	../../../ift-demo/src/morphology.c	/^Image *Erode(Image *img, AdjRel *A)$/;"	f
+Error	../../../ift-demo/src/common.c	/^void Error(char *msg,char *func){ \/* It prints error message and exits$/;"	f
+EuclDist	../../../ift-demo/src/opf.c	/^float EuclDist(float *f1, float *f2, int n)$/;"	f
+EuclDistLog	../../../ift-demo/src/opf.c	/^float EuclDistLog(float *f1, float *f2, int n)$/;"	f
+FChange	../../../ift-demo/src/common.c	/^void FChange(float *a, float *b){ \/* It changes content between floats a and b *\/$/;"	f
+FElem	../../../ift-demo/include/feature.h	/^} FElem;$/;"	t	typeref:struct:_felem
+FFMpegWriter	../../../ift-demo/demo/parallelQueue2/graph.py	/^FFMpegWriter = anim.writers['ffmpeg']$/;"	v
+FIFOBREAK	../../../ift-demo/include/gqueue.h	8;"	d
+FLAGS	../../../ift-demo/Makefile	/^FLAGS= -O0 -Wall -pg -g$/;"	m
+FLAGS	../../../ift-demo/demo/diffwatershed/Makefile	/^FLAGS= -O3 -Wall$/;"	m
+FLAGS	../../../ift-demo/demo/eucldist/Makefile	/^FLAGS= -g -Wall $/;"	m
+FLAGS	../../../ift-demo/demo/parallelQueue2/Makefile	/^FLAGS= -g -Wall $/;"	m
+FLAGS	../../../ift-demo/demo/parallelQueue2/tools/Makefile	/^FLAGS= -g -Wall $/;"	m
+FLAGS	../../../ift-demo/demo/watergray/Makefile	/^FLAGS= -O3 -Wall$/;"	m
+FLAGS	../../../ift-demo/demo/watershed/Makefile	/^FLAGS= -O3 -g -pg$/;"	m
+FastCircular	../../../ift-demo/src/adjacency.c	/^AdjRel *FastCircular(float r){$/;"	f
+FastClose	../../../ift-demo/src/morphology.c	/^Image *FastClose(Image *I, float radius)$/;"	f
+FastCloseRec	../../../ift-demo/src/morphology.c	/^Image *FastCloseRec(Image *I, float radius)$/;"	f
+FastDilate	../../../ift-demo/src/morphology.c	/^Image *FastDilate(Image *I,Set **S, float radius)$/;"	f
+FastErode	../../../ift-demo/src/morphology.c	/^Image *FastErode(Image *I,Set **S, float radius)$/;"	f
+FastOpen	../../../ift-demo/src/morphology.c	/^Image *FastOpen(Image *I, float radius)$/;"	f
+FastOpenRec	../../../ift-demo/src/morphology.c	/^Image *FastOpenRec(Image *I, float radius)$/;"	f
+Features	../../../ift-demo/include/feature.h	/^} Features;$/;"	t	typeref:struct:_features
+Forest	../../../ift-demo/demo/eucldist/eucldist.c	/^} Forest;$/;"	t	typeref:struct:_forest	file:
+Forest	../../../ift-demo/demo/eucldist/serialEucldist.c	/^} Forest;$/;"	t	typeref:struct:_forest	file:
+ForestRemoval	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^Set *ForestRemoval(ImageForest *fst, Set *Rm, AdjRel *A)$/;"	f
+FrameSize	../../../ift-demo/src/adjacency.c	/^int FrameSize(AdjRel *A)$/;"	f
+GCircularQueue	../../../ift-demo/include/gqueue.h	/^} GCircularQueue;$/;"	t	typeref:struct:_gcircularqueue
+GDoublyLinkedLists	../../../ift-demo/include/gqueue.h	/^} GDoublyLinkedLists; $/;"	t	typeref:struct:_gdoublylinkedlists
+GQNode	../../../ift-demo/include/gqueue.h	/^} GQNode;$/;"	t	typeref:struct:_gqnode
+GQueue	../../../ift-demo/include/gqueue.h	/^} GQueue;$/;"	t	typeref:struct:_gqueue
+GRAY	../../../ift-demo/include/common.h	59;"	d
+GaussCImageFeats	../../../ift-demo/src/feature.c	/^Features *GaussCImageFeats(CImage *cimg, int nscales)$/;"	f
+GaussImageFeats	../../../ift-demo/src/feature.c	/^Features *GaussImageFeats(Image *img, int nscales)$/;"	f
+GetSetSize	../../../ift-demo/src/set.c	/^int  GetSetSize(Set *S){$/;"	f
+GoDownRealHeap	../../../ift-demo/src/realheap.c	/^void GoDownRealHeap(RealHeap *H, int i) {$/;"	f
+GoUpRealHeap	../../../ift-demo/src/realheap.c	/^void GoUpRealHeap(RealHeap *H, int i) {$/;"	f
+GrowGQueue	../../../ift-demo/src/gqueue.c	/^GQueue *GrowGQueue(GQueue **Q, int nbuckets)$/;"	f
+HEAP_DAD	../../../ift-demo/include/realheap.h	8;"	d
+HEAP_LEFTSON	../../../ift-demo/include/realheap.h	9;"	d
+HEAP_RIGHTSON	../../../ift-demo/include/realheap.h	10;"	d
+Horizontal	../../../ift-demo/src/adjacency.c	/^AdjRel *Horizontal(int r)$/;"	f
+INC	../../../ift-demo/demo/diffwatershed/Makefile	/^INC=..\/..\/include$/;"	m
+INC	../../../ift-demo/demo/eucldist/Makefile	/^INC=..\/..\/include -I\/usr\/include\/nvidia-current$/;"	m
+INC	../../../ift-demo/demo/parallelQueue2/Makefile	/^INC=..\/..\/include$/;"	m
+INC	../../../ift-demo/demo/parallelQueue2/tools/Makefile	/^INC=..\/..\/..\/include$/;"	m
+INC	../../../ift-demo/demo/watergray/Makefile	/^INC=..\/..\/include$/;"	m
+INC	../../../ift-demo/demo/watershed/Makefile	/^INC=..\/..\/include$/;"	m
+INCLUDE	../../../ift-demo/Makefile	/^INCLUDE=.\/include -I\/opt\/AMDAPP\/include$/;"	m
+INCLUDES	../../../ift-demo/Makefile	/^INCLUDES=-I$(INCLUDE)$/;"	m
+INCLUDES	../../../ift-demo/demo/diffwatershed/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
+INCLUDES	../../../ift-demo/demo/eucldist/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
+INCLUDES	../../../ift-demo/demo/parallelQueue2/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include -I\/opt\/AMDAPP\/include$/;"	m
+INCLUDES	../../../ift-demo/demo/parallelQueue2/tools/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
+INCLUDES	../../../ift-demo/demo/watergray/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
+INCLUDES	../../../ift-demo/demo/watershed/Makefile	/^INCLUDES= -I$(INC) -I$(OPF_DIR)\/include$/;"	m
+INCREASING	../../../ift-demo/include/common.h	62;"	d
+INF	../../../Grafos/Tentativas/Serial/dijk.cpp	6;"	d	file:
+INF	../../../Grafos/Tentativas/dijk.cpp	20;"	d	file:
+INF	../../../ift-demo/demo/watershed/kernels/dijk.cpp	20;"	d	file:
+INF	../../../ift-demo/include/oclFunctions.h	13;"	d
+INTERIOR	../../../ift-demo/include/common.h	55;"	d
+Image	../../../ift-demo/include/image.h	/^} Image;$/;"	t	typeref:struct:_image
+ImageBorder	../../../ift-demo/src/morphology.c	/^Set *ImageBorder(Image *img)$/;"	f
+ImageForest	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^} ImageForest;$/;"	t	typeref:struct:_ImageForest	file:
+Imax	../../../ift-demo/include/feature.h	/^  int  Imax;$/;"	m	struct:_features
+Imax	../../../ift-demo/include/subgraph.h	/^  int   Imax;    \/\/ Maximum image value;$/;"	m	struct:_subgraph
+InfRec	../../../ift-demo/src/morphology.c	/^Image *InfRec(Image *img, Image *marker)$/;"	f
+InfRecMI	../../../ift-demo/src/morphology.c	/^Image *InfRecMI(Image *img, Set **S)$/;"	f
+InfoDevice	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^class InfoDevice$/;"	c	file:
+InfoDevice	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^class InfoDevice<ArrayType<T> >$/;"	c	file:
+InsertGQueue	../../../ift-demo/src/gqueue.c	/^void InsertGQueue(GQueue **Q, int elem)$/;"	f
+InsertRealHeap	../../../ift-demo/src/realheap.c	/^char InsertRealHeap(RealHeap *H, int pixel) {$/;"	f
+InsertSet	../../../ift-demo/src/set.c	/^void InsertSet(Set **S, int elem)$/;"	f
+IntSet	../../../ift-demo/include/set.h	/^} IntSet;$/;"	t	typeref:struct:_intset
+IntSetAddUniqueElementToSet	../../../ift-demo/src/set.c	/^void IntSetAddUniqueElementToSet(IntSet *S, int elem, void *elemprop) {$/;"	f
+IntSetBelongs	../../../ift-demo/src/set.c	/^int  IntSetBelongs(IntSet *S, int elem) {$/;"	f
+IntSetDestroy	../../../ift-demo/src/set.c	/^void IntSetDestroy(IntSet *S) {$/;"	f
+IntSetEmpty	../../../ift-demo/src/set.c	/^int IntSetEmpty(IntSet *S) {$/;"	f
+IntSetGetElemProp	../../../ift-demo/src/set.c	/^int  IntSetGetElemProp(IntSet *S, int elem, void *elemprop) {$/;"	f
+IntSetGrow	../../../ift-demo/src/set.c	/^void IntSetGrow(IntSet *S) {$/;"	f
+IntSetIntersection	../../../ift-demo/src/set.c	/^void IntSetIntersection(IntSet *S, IntSet *T) {$/;"	f
+IntSetMinus	../../../ift-demo/src/set.c	/^void IntSetMinus(IntSet *S, IntSet *T) {$/;"	f
+IntSetNew	../../../ift-demo/src/set.c	/^IntSet * IntSetNew(int N, int propsize) {$/;"	f
+IntSetNewCopy	../../../ift-demo/src/set.c	/^IntSet * IntSetNewCopy(IntSet *S) {$/;"	f
+IntSetR1	../../../ift-demo/src/set.c	/^void IntSetR1(IntSet *S, int index) {$/;"	f
+IntSetRemoveAll	../../../ift-demo/src/set.c	/^void IntSetRemoveAll(IntSet *S) {$/;"	f
+IntSetRemoveAny	../../../ift-demo/src/set.c	/^int IntSetRemoveAny(IntSet *S, void *elemprop) {$/;"	f
+IntSetRemoveElement	../../../ift-demo/src/set.c	/^void IntSetRemoveElement(IntSet *S, int elem, void *elemprop) {$/;"	f
+IntSetSetElemProp	../../../ift-demo/src/set.c	/^int IntSetSetElemProp(IntSet *S, int elem, void *elemprop) {$/;"	f
+IntSetShrink	../../../ift-demo/src/set.c	/^void IntSetShrink(IntSet *S) {$/;"	f
+IntSetUnion	../../../ift-demo/src/set.c	/^void IntSetUnion(IntSet *S, IntSet *T) {$/;"	f
+IntSetUnion1	../../../ift-demo/src/set.c	/^void IntSetUnion1(IntSet *S, int elem, void *elemprop) {$/;"	f
+IsEmptyRealHeap	../../../ift-demo/src/realheap.c	/^char IsEmptyRealHeap(RealHeap *H) {$/;"	f
+IsFullRealHeap	../../../ift-demo/src/realheap.c	/^char IsFullRealHeap(RealHeap *H) {$/;"	f
+IsInSet	../../../ift-demo/src/set.c	/^bool IsInSet(Set *S, int elem){$/;"	f
+IsPowerOf2	../../../ift-demo/src/common.c	/^int IsPowerOf2(int x)$/;"	f
+K	../../../ift-demo/include/subgraph.h	/^  float K;  \/\/ Constant for PDF computation$/;"	m	struct:_subgraph
+KAdjacency	../../../ift-demo/src/adjacency.c	/^AdjRel *KAdjacency()$/;"	f
+L	../../../ift-demo/include/gqueue.h	/^  GDoublyLinkedLists L;$/;"	m	struct:_gqueue
+LIB	../../../ift-demo/Makefile	/^LIB=.\/lib$/;"	m
+LIB	../../../ift-demo/demo/diffwatershed/Makefile	/^LIB=..\/..\/lib$/;"	m
+LIB	../../../ift-demo/demo/eucldist/Makefile	/^LIB=..\/..\/lib -L\/usr\/lib\/nvidia-current$/;"	m
+LIB	../../../ift-demo/demo/parallelQueue2/Makefile	/^LIB=..\/..\/lib$/;"	m
+LIB	../../../ift-demo/demo/parallelQueue2/tools/Makefile	/^LIB=..\/..\/..\/lib$/;"	m
+LIB	../../../ift-demo/demo/watergray/Makefile	/^LIB=..\/..\/lib$/;"	m
+LIB	../../../ift-demo/demo/watershed/Makefile	/^LIB=..\/..\/lib$/;"	m
+LIBS	../../../ift-demo/demo/eucldist/Makefile	/^LIBS=-lOpenCL$/;"	m
+LIBS	../../../ift-demo/demo/parallelQueue2/Debug/objects.mk	/^LIBS := -lift -lOpenCL -lm$/;"	m
+LIBS	../../../ift-demo/demo/parallelQueue2/Makefile	/^LIBS= -L$(LIB) -L\/opt\/AMDAPP\/lib\/x86_64\/$/;"	m
+LIFOBREAK	../../../ift-demo/include/gqueue.h	9;"	d
+Lab2RGB	../../../ift-demo/src/color.c	/^void Lab2RGB(float* l, float* a, float* b)$/;"	f
+LabFeats	../../../ift-demo/src/feature.c	/^Features* LabFeats(Features* rgb)$/;"	f
+LeftSide	../../../ift-demo/src/adjacency.c	/^AdjRel *LeftSide(AdjRel *A)$/;"	f
+LeftSide2	../../../ift-demo/src/adjacency.c	/^AdjRel *LeftSide2(AdjRel *A, float r)$/;"	f
+MAX	../../../ift-demo/include/common.h	69;"	d
+MAXARCW	../../../ift-demo/include/opf.h	9;"	d
+MAXVALUE	../../../ift-demo/include/gqueue.h	7;"	d
+MAX_SOURCE_SIZE	../../../ift-demo/include/oclFunctions.h	14;"	d
+MIN	../../../ift-demo/include/common.h	73;"	d
+MINVALUE	../../../ift-demo/include/gqueue.h	6;"	d
+MSG1	../../../ift-demo/include/common.h	16;"	d
+MSG2	../../../ift-demo/include/common.h	17;"	d
+MSG3	../../../ift-demo/include/common.h	18;"	d
+MSTPrototypes	../../../ift-demo/src/opf.c	/^void MSTPrototypes(Subgraph *sg)$/;"	f
+MaximumDImageValue	../../../ift-demo/src/dimage.c	/^double  MaximumDImageValue(DImage *dimg)$/;"	f
+MaximumSetValue	../../../ift-demo/src/set.c	/^int     MaximumSetValue(Set *S){$/;"	f
+MaximumValue	../../../ift-demo/src/image.c	/^int MaximumValue(Image *img)$/;"	f
+MergeSets	../../../ift-demo/src/set.c	/^void MergeSets(Set **S, Set **T) {$/;"	f
+MinimumDImageValue	../../../ift-demo/src/dimage.c	/^double  MinimumDImageValue(DImage *dimg)$/;"	f
+MinimumSetValue	../../../ift-demo/src/set.c	/^int     MinimumSetValue(Set *S){$/;"	f
+MinimumValue	../../../ift-demo/src/image.c	/^int MinimumValue(Image *img)$/;"	f
+N	../../../ift-demo/include/set.h	/^  int N, VN;$/;"	m	struct:_bmap
+NCFgets	../../../ift-demo/src/common.c	/^int NCFgets(char *s, int m, FILE *f) {$/;"	f
+NIL	../../../ift-demo/demo/parallelQueue2/watershed.c	30;"	d	file:
+NIL	../../../ift-demo/include/common.h	61;"	d
+NLOOP	../../../ift-demo/demo/eucldist/eucldist.c	29;"	d	file:
+NLOOP	../../../ift-demo/demo/parallelQueue2/mWatershed.c	29;"	d	file:
+NLOOP	../../../ift-demo/demo/parallelQueue2/watershed.c	29;"	d	file:
+NLOOP	../../../ift-demo/demo/parallelQueue2/watershed2.c	29;"	d	file:
+NLOOP	../../../ift-demo/demo/watershed/watershed.c	31;"	d	file:
+OBJ	../../../ift-demo/Makefile	/^OBJ=.\/obj$/;"	m
+OBJS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^OBJS := $/;"	m
+OBJ_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^OBJ_SRCS := $/;"	m
+OPFClassify	../../../ift-demo/src/opf.c	/^void OPFClassify(Subgraph *sgtrain, Subgraph *sg)$/;"	f
+OPFClassifyImage	../../../ift-demo/src/opf.c	/^Image* OPFClassifyImage(Subgraph *sgtrain, Features* feat)$/;"	f
+OPFLearning	../../../ift-demo/src/opf.c	/^void OPFLearning(Subgraph **sgtrain, Subgraph **sgeval)$/;"	f
+OPFTraining	../../../ift-demo/src/opf.c	/^void OPFTraining(Subgraph *sg)$/;"	f
+OPF_BKG_LABEL	../../../ift-demo/include/opf.h	16;"	d
+OPF_OBJ_LABEL	../../../ift-demo/include/opf.h	15;"	d
+O_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^O_SRCS := $/;"	m
+Open	../../../ift-demo/src/morphology.c	/^Image *Open(Image *img, AdjRel *A)$/;"	f
+OpenDomes	../../../ift-demo/src/morphology.c	/^Image *OpenDomes(Image *img)$/;"	f
+OpenRec	../../../ift-demo/src/morphology.c	/^Image *OpenRec(Image *I, AdjRel *A)$/;"	f
+P	../../../ift-demo/demo/eucldist/eucldist.c	/^    Image *P; \/\/ predecessor map$/;"	m	struct:_forest	file:
+P	../../../ift-demo/demo/eucldist/serialEucldist.c	/^  Image *P; \/\/ predecessor map$/;"	m	struct:_forest	file:
+PI	../../../ift-demo/include/common.h	54;"	d
+PROTOTYPE	../../../ift-demo/include/opf.h	10;"	d
+Pixel	../../../ift-demo/include/image.h	/^} Pixel;$/;"	t	typeref:struct:_pixel
+QSIZE	../../../ift-demo/include/gqueue.h	10;"	d
+R	../../../ift-demo/demo/eucldist/eucldist.c	/^    Image *R; \/\/ root map$/;"	m	struct:_forest	file:
+R	../../../ift-demo/demo/eucldist/serialEucldist.c	/^  Image *R; \/\/ root map$/;"	m	struct:_forest	file:
+REAL_MAX	../../../ift-demo/include/common.h	48;"	d
+REAL_MIN	../../../ift-demo/include/common.h	49;"	d
+RGB2Lab	../../../ift-demo/src/color.c	/^void RGB2Lab(float* r, float* g, float * b)$/;"	f
+RM	../../../ift-demo/demo/parallelQueue2/Debug/makefile	/^RM := rm -rf$/;"	m
+ROUND	../../../ift-demo/include/common.h	76;"	d
+RandomInteger	../../../ift-demo/src/common.c	/^int RandomInteger (int low, int high){$/;"	f
+ReadCImage	../../../ift-demo/src/cimage.c	/^CImage *ReadCImage(char *filename)$/;"	f
+ReadDImage	../../../ift-demo/src/dimage.c	/^DImage  *ReadDImage(char *filename){$/;"	f
+ReadImage	../../../ift-demo/src/image.c	/^Image *ReadImage(char *filename)$/;"	f
+ReadSeeds	../../../ift-demo/src/seeds.c	/^void ReadSeeds(char *filename, Set **Obj, Set **Bkg)$/;"	f
+ReadSubgraph	../../../ift-demo/src/subgraph.c	/^Subgraph *ReadSubgraph(char *file){$/;"	f
+RealHeap	../../../ift-demo/include/realheap.h	/^} RealHeap;$/;"	t	typeref:struct:_realheap
+RemFrame	../../../ift-demo/src/image.c	/^Image *RemFrame(Image *fimg, int sz)$/;"	f
+RemoveGQueue	../../../ift-demo/src/gqueue.c	/^int RemoveGQueue(GQueue *Q)$/;"	f
+RemoveGQueueElem	../../../ift-demo/src/gqueue.c	/^void RemoveGQueueElem(GQueue *Q, int elem)$/;"	f
+RemoveRealHeap	../../../ift-demo/src/realheap.c	/^char RemoveRealHeap(RealHeap *H, int *pixel) {$/;"	f
+RemoveSet	../../../ift-demo/src/set.c	/^int RemoveSet(Set **S)$/;"	f
+RemoveSetElem	../../../ift-demo/src/set.c	/^void RemoveSetElem(Set **S, int elem){$/;"	f
+ResetGQueue	../../../ift-demo/src/gqueue.c	/^void ResetGQueue(GQueue *Q)$/;"	f
+ResetRealHeap	../../../ift-demo/src/realheap.c	/^void ResetRealHeap(RealHeap *H)$/;"	f
+Results	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void graph::Results(char* argv[]) {$/;"	f	class:graph
+RightSide	../../../ift-demo/src/adjacency.c	/^AdjRel *RightSide(AdjRel *A)$/;"	f
+RightSide2	../../../ift-demo/src/adjacency.c	/^AdjRel *RightSide2(AdjRel *A, float r)$/;"	f
+Ring	../../../ift-demo/src/adjacency.c	/^AdjRel *Ring(float inner_radius, float outer_radius)$/;"	f
+SIGN	../../../ift-demo/include/common.h	78;"	d
+SNode	../../../ift-demo/include/subgraph.h	/^} SNode;$/;"	t	typeref:struct:_snode
+SPROP_PTR	../../../ift-demo/include/set.h	94;"	d
+SRC	../../../ift-demo/Makefile	/^SRC=.\/src$/;"	m
+SUBDIRS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^SUBDIRS := \\$/;"	m
+S_UPPER_SRCS	../../../ift-demo/demo/parallelQueue2/Debug/sources.mk	/^S_UPPER_SRCS := $/;"	m
+SafeMod	../../../ift-demo/src/common.c	/^int SafeMod(int a, int n)$/;"	f
+Set	../../../ift-demo/include/set.h	/^} Set;$/;"	t	typeref:struct:_set
+SetDImage	../../../ift-demo/src/dimage.c	/^void SetDImage(DImage *dimg, double value)$/;"	f
+SetImage	../../../ift-demo/src/image.c	/^void SetImage(Image *img, int value)$/;"	f
+SetLabel	../../../ift-demo/demo/watershed/watershed.c	/^cl_int SetLabel (cl_int* pred, cl_int* label, cl_int n, cl_int pos) {$/;"	f
+SetLabelIterative	../../../ift-demo/demo/parallelQueue2/mWatershed.c	/^void SetLabelIterative (cl_int* pred, cl_int* label, cl_int n) {$/;"	f
+SetLabelIterative	../../../ift-demo/demo/parallelQueue2/watershed.c	/^void SetLabelIterative (cl_int* pred, cl_int* label, cl_int n) {$/;"	f
+SetLabelIterative	../../../ift-demo/demo/parallelQueue2/watershed2.c	/^void SetLabelIterative (cl_int* pred, cl_int* label, cl_int n) {$/;"	f
+SetRemovalPolicy	../../../ift-demo/include/gqueue.h	13;"	d
+SetRemovalPolicyRealHeap	../../../ift-demo/src/realheap.c	/^void SetRemovalPolicyRealHeap(RealHeap *H, char policy){$/;"	f
+SetSubgraphFeatures	../../../ift-demo/src/opf.c	/^void SetSubgraphFeatures(Subgraph *sg, Features *f)$/;"	f
+SetTieBreak	../../../ift-demo/include/gqueue.h	12;"	d
+ShearedBox	../../../ift-demo/src/adjacency.c	/^AdjRel *ShearedBox(int xsize, int ysize, float Si, float Sj)$/;"	f
+Sl	../../../ift-demo/include/set.h	/^  int   *Sl;$/;"	m	struct:_intset
+SplitSubgraph	../../../ift-demo/src/opf.c	/^void SplitSubgraph(Subgraph *sg, Subgraph **sg1, Subgraph **sg2, float perc1)$/;"	f
+SplitSubgraphByTrueLabel	../../../ift-demo/src/opf.c	/^Subgraph* SplitSubgraphByTrueLabel(Subgraph* sg, int label)$/;"	f
+Sprop	../../../ift-demo/include/set.h	/^  void  *Sprop; \/* propriedades associadas a cada elemento *\/$/;"	m	struct:_intset
+Subgraph	../../../ift-demo/include/subgraph.h	/^} Subgraph;$/;"	t	typeref:struct:_subgraph
+SubgraphFromSeeds	../../../ift-demo/src/opf.c	/^Subgraph* SubgraphFromSeeds(Features* f, Set* Si, Set* Se)$/;"	f
+SupRec	../../../ift-demo/src/morphology.c	/^Image *SupRec(Image *img, Image *marker)$/;"	f
+SupRecMI	../../../ift-demo/src/morphology.c	/^Image *SupRecMI(Image *img, Set **S)$/;"	f
+Sv	../../../ift-demo/include/set.h	/^  BMap  *Sv;$/;"	m	struct:_intset
+SwapErrorsbyNonPrototypes	../../../ift-demo/src/opf.c	/^void SwapErrorsbyNonPrototypes(Subgraph **sgtrain, Subgraph **sgeval)$/;"	f
+SwapSNode	../../../ift-demo/src/subgraph.c	/^void SwapSNode(SNode *a, SNode *b){$/;"	f
+TIMING_END	../../../ift-demo/include/comptime.h	17;"	d
+TIMING_SECTION	../../../ift-demo/include/comptime.h	14;"	d
+TIMING_START	../../../ift-demo/include/comptime.h	10;"	d
+Threshold	../../../ift-demo/src/image.c	/^Image *Threshold(Image *img, int lower, int higher)$/;"	f
+Tic	../../../ift-demo/src/comptime.c	/^timer *Tic(){ \/* It marks the initial time *\/$/;"	f
+Toc	../../../ift-demo/src/comptime.c	/^timer *Toc(){ \/* It marks the final time *\/$/;"	f
+USER_OBJS	../../../ift-demo/demo/parallelQueue2/Debug/objects.mk	/^USER_OBJS :=$/;"	m
+UpdateGQueue	../../../ift-demo/src/gqueue.c	/^void UpdateGQueue(GQueue **Q, int elem, int newvalue)$/;"	f
+UpdateRealHeap	../../../ift-demo/src/realheap.c	/^void UpdateRealHeap(RealHeap *H, int p, float value){$/;"	f
+V	../../../ift-demo/demo/eucldist/eucldist.c	/^    Image *V; \/\/ distance (cost or connectivity) map$/;"	m	struct:_forest	file:
+V	../../../ift-demo/demo/eucldist/serialEucldist.c	/^  Image *V; \/\/ distance (cost or connectivity) map$/;"	m	struct:_forest	file:
+VN	../../../ift-demo/include/set.h	/^  int N, VN;$/;"	m	struct:_bmap
+ValidDImagePixel	../../../ift-demo/src/dimage.c	/^bool ValidDImagePixel(DImage *dimg, int x, int y)$/;"	f
+ValidPixel	../../../ift-demo/src/image.c	/^bool ValidPixel(Image *img, int x, int y)$/;"	f
+Vertical	../../../ift-demo/src/adjacency.c	/^AdjRel *Vertical(int r)$/;"	f
+WHITE	../../../ift-demo/include/common.h	58;"	d
+Warning	../../../ift-demo/src/common.c	/^void Warning(char *msg,char *func){ \/* It prints warning message and$/;"	f
+WaterGray	../../../ift-demo/demo/watergray/watergray.c	/^Image *WaterGray(Image *img, Image *marker, AdjRel *A)$/;"	f
+Watershed	../../../ift-demo/demo/parallelQueue2/mWatershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg)$/;"	f
+Watershed	../../../ift-demo/demo/parallelQueue2/watershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)$/;"	f
+Watershed	../../../ift-demo/demo/parallelQueue2/watershed2.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg)$/;"	f
+Watershed	../../../ift-demo/demo/watershed/watershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg)$/;"	f
+WriteCImage	../../../ift-demo/src/cimage.c	/^void    WriteCImage(CImage *cimg, char *filename)$/;"	f
+WriteDImage	../../../ift-demo/src/dimage.c	/^void    WriteDImage(DImage *dimg, char *filename){$/;"	f
+WriteImage	../../../ift-demo/src/image.c	/^void WriteImage(Image *img,char *filename)$/;"	f
+WriteSubgraph	../../../ift-demo/src/subgraph.c	/^void WriteSubgraph(Subgraph *g, char *file){$/;"	f
+X	../../../ift-demo/demo/parallelQueue2/graph.py	/^X = data['cost']$/;"	v
+Y	../../../ift-demo/demo/parallelQueue2/graph.py	/^Y = data['matches']$/;"	v
+_ADJACENCY_H_	../../../ift-demo/include/adjacency.h	2;"	d
+_CIMAGE_H_	../../../ift-demo/include/cimage.h	2;"	d
+_COLOR_H_	../../../ift-demo/include/color.h	2;"	d
+_COMMON_H_	../../../ift-demo/include/common.h	2;"	d
+_CTIME_H_	../../../ift-demo/include/comptime.h	2;"	d
+_DIMAGE_H_	../../../ift-demo/include/dimage.h	2;"	d
+_DImage	../../../ift-demo/include/dimage.h	/^typedef struct _DImage{$/;"	s
+_FEATURE_H_	../../../ift-demo/include/feature.h	2;"	d
+_GQUEUE_H_	../../../ift-demo/include/gqueue.h	2;"	d
+_IFT_H_	../../../ift-demo/include/ift.h	2;"	d
+_IMAGE_H_	../../../ift-demo/include/image.h	2;"	d
+_ImageForest	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^typedef struct _ImageForest {$/;"	s	file:
+_MORPHOLOGY_H_	../../../ift-demo/include/morphology.h	2;"	d
+_OPF_H_	../../../ift-demo/include/opf.h	2;"	d
+_REALHEAP_H_	../../../ift-demo/include/realheap.h	2;"	d
+_SEEDS_H_	../../../ift-demo/include/seeds.h	2;"	d
+_SET_H_	../../../ift-demo/include/set.h	2;"	d
+_SUBGRAPH_H_	../../../ift-demo/include/subgraph.h	2;"	d
+_adjpxl	../../../ift-demo/include/adjacency.h	/^typedef struct _adjpxl {$/;"	s
+_adjrel	../../../ift-demo/include/adjacency.h	/^typedef struct _adjrel {$/;"	s
+_bmap	../../../ift-demo/include/set.h	/^typedef struct _bmap {$/;"	s
+_fast_BMapGet	../../../ift-demo/include/set.h	45;"	d
+_fast_BMapSet	../../../ift-demo/include/set.h	46;"	d
+_fast_BMapSet0	../../../ift-demo/include/set.h	48;"	d
+_fast_BMapSet1	../../../ift-demo/include/set.h	49;"	d
+_fast_BMapToggle	../../../ift-demo/include/set.h	50;"	d
+_fast_Belongs	../../../ift-demo/src/set.c	437;"	d	file:
+_features	../../../ift-demo/include/feature.h	/^typedef struct _features {$/;"	s
+_felem	../../../ift-demo/include/feature.h	/^typedef struct _felem {$/;"	s
+_forest	../../../ift-demo/demo/eucldist/eucldist.c	/^typedef struct _forest {$/;"	s	file:
+_forest	../../../ift-demo/demo/eucldist/serialEucldist.c	/^typedef struct _forest {$/;"	s	file:
+_gcircularqueue	../../../ift-demo/include/gqueue.h	/^typedef struct _gcircularqueue { $/;"	s
+_gdoublylinkedlists	../../../ift-demo/include/gqueue.h	/^typedef struct _gdoublylinkedlists {$/;"	s
+_gqnode	../../../ift-demo/include/gqueue.h	/^typedef struct _gqnode { $/;"	s
+_gqueue	../../../ift-demo/include/gqueue.h	/^typedef struct _gqueue { \/* Priority queue by Dial implemented as$/;"	s
+_image	../../../ift-demo/include/image.h	/^typedef struct _image {$/;"	s
+_intset	../../../ift-demo/include/set.h	/^typedef struct _intset {$/;"	s
+_pixel	../../../ift-demo/include/image.h	/^typedef struct _pixel {$/;"	s
+_realheap	../../../ift-demo/include/realheap.h	/^typedef struct _realheap {$/;"	s
+_set	../../../ift-demo/include/set.h	/^typedef struct _set {$/;"	s
+_snode	../../../ift-demo/include/subgraph.h	/^typedef struct _snode {$/;"	s
+_subgraph	../../../ift-demo/include/subgraph.h	/^typedef struct _subgraph {$/;"	s
+aL	../../../Grafos/Tentativas/Serial/dijk.cpp	/^		vector < list < edge > > aL; \/\/ Lista de adjacencias$/;"	m	class:grafo	file:
+add_edge	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void grafo::add_edge (int no, int no2, int peso) {$/;"	f	class:grafo
+adj	../../../ift-demo/include/subgraph.h	/^  Set  *adj;     \/\/ list of adjacent nodes$/;"	m	struct:_snode
+ap_double	../../../ift-demo/include/common.h	/^typedef double* ap_double;$/;"	t
+ap_int	../../../ift-demo/include/common.h	/^typedef int* ap_int;$/;"	t
+appendBitfield	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^void appendBitfield(T info, T value, std::string name, std::string & str)$/;"	f
+arestas	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	int vertices; 	int arestas;$/;"	m	class:graph	file:
+arestas	../../../Grafos/Tentativas/dijk.cpp	/^		vector < cl_uint > arestas; 		\/\/ Vetor de arestas$/;"	m	class:grafo	file:
+arestas	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^		vector < cl_uint > arestas; 		\/\/ Vetor de arestas$/;"	m	class:grafo	file:
+arqs	../../../Grafos/Tentativas/antigo.py	/^arqs = os.listdir("..\/Serial\/entrada")$/;"	v
+arqs	../../../Grafos/Tentativas/script/correcao.py	/^arqs = os.listdir("..\/entradas\/gigantes\/")$/;"	v
+ax	../../../ift-demo/demo/parallelQueue2/graph.py	/^ax = fig.add_subplot(111, projection='3d')$/;"	v
+b:current_syntax	../../../opencl.vim	/^let b:current_syntax = "opencl"$/;"	v
+bestk	../../../ift-demo/include/subgraph.h	/^  int   bestk;   \/\/ number of adjacent nodes$/;"	m	struct:_subgraph
+bmap_reset	../../../ift-demo/src/set.c	/^static char bmap_reset[8] = { 0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f };$/;"	v	file:
+bmap_set	../../../ift-demo/src/set.c	/^static char bmap_set[8]   = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };$/;"	v	file:
+bool	../../../ift-demo/include/common.h	/^typedef enum boolean {false,true} bool;$/;"	t	typeref:enum:boolean
+boolean	../../../ift-demo/include/common.h	/^typedef enum boolean {false,true} bool;$/;"	g
+checkErr	../../../Grafos/Tentativas/dijk.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Grafos/Tentativas/testes/multM.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/MultMatrizes/MultMatrixLocals/big/multMGPU.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/MultMatrizes/MultMatrixLocals/multMCPU.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/MultMatrizes/MultMatrixLocals/multMGPU.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/MultMatrizes/MultMatrixNoLocals/multM.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMCPU.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMGPU.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/MultMatrizes/float/MultMatrixLocals/multM.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../Learning/Somatorio/soma.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+checkErr	../../../ift-demo/src/oclFunctions.c	/^inline void checkErr(cl_int err, const char *name) {$/;"	f
+cimage	../../../ift-demo/include/cimage.h	/^typedef struct cimage {$/;"	s
+cmd	../../../Grafos/Tentativas/script/correcao.py	/^		cmd = ".\/Serial\/moco\/djs < entradas\/gigantes\/" + a + " >> Speedup.csv"$/;"	v
+cmd	../../../Grafos/Tentativas/script/correcao.py	/^		cmd = ".\/dj2 entradas\/gigantes\/" + a + " " + a + " | tail -1 >> Speedup.csv"$/;"	v
+color	../../../ift-demo/include/gqueue.h	/^  char color; \/* WHITE=0, GRAY=1, BLACK=2 *\/ $/;"	m	struct:_gqnode
+color	../../../ift-demo/include/realheap.h	/^  char *color;$/;"	m	struct:_realheap
+comment	../../../ift-demo/demo/parallelQueue2/graph.py	/^                comment='Movie support!')$/;"	v
+contextCallback	../../../Grafos/Tentativas/dijk.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Grafos/Tentativas/testes/multM.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/MultMatrizes/MultMatrixLocals/big/multMGPU.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/MultMatrizes/MultMatrixLocals/multMCPU.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/MultMatrizes/MultMatrixLocals/multMGPU.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/MultMatrizes/MultMatrixNoLocals/multM.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMCPU.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMGPU.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/MultMatrizes/float/MultMatrixLocals/multM.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../Learning/Somatorio/soma.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../ift-demo/demo/eucldist/eucldist.c	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../ift-demo/demo/parallelQueue2/mWatershed.c	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../ift-demo/demo/parallelQueue2/watershed.c	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../ift-demo/demo/parallelQueue2/watershed2.c	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	../../../ift-demo/demo/watershed/watershed.c	/^void CL_CALLBACK contextCallback ($/;"	f
+cost	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^  Image *cost;$/;"	m	struct:_ImageForest	file:
+cost	../../../ift-demo/include/realheap.h	/^  float *cost;$/;"	m	struct:_realheap
+count	../../../ift-demo/include/set.h	/^  int count;$/;"	m	struct:_intset
+d	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	vector < int > pi;		vector < int > d;$/;"	m	class:graph	file:
+data	../../../ift-demo/demo/parallelQueue2/graph.py	/^data = np.genfromtxt(fname, dtype=[('string','S8'),('cost','i4'),('string2','S8'),('matches','int_')], delimiter=",", deletechars=";", usecols=[1,3])$/;"	v
+data	../../../ift-demo/include/set.h	/^  char *data;$/;"	m	struct:_bmap
+dens	../../../ift-demo/include/subgraph.h	/^  float dens;    \/\/ probability density value$/;"	m	struct:_snode
+destino	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	int destino;	int peso;$/;"	m	class:edge	file:
+detectPredCycle	../../../ift-demo/demo/parallelQueue2/watershed.c	/^int detectPredCycle ( cl_int* pred, int n, int k )$/;"	f
+detectRootCycle	../../../ift-demo/demo/parallelQueue2/watershed.c	/^int detectRootCycle ( cl_int* root, int n, int k )$/;"	f
+df	../../../ift-demo/include/subgraph.h	/^  float df;      \/\/ radius in the feature space for density computation$/;"	m	struct:_subgraph
+dijkstra	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void grafo::dijkstra (int s) {$/;"	f	class:grafo
+dijkstra	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void graph::dijkstra(){$/;"	f	class:graph
+display	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^	static void display($/;"	f	class:InfoDevice
+displayInfo	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^void displayInfo(void)$/;"	f
+dp	../../../ift-demo/include/adjacency.h	/^  cl_int *dp;$/;"	m	struct:_adjpxl
+dx	../../../ift-demo/demo/parallelQueue2/graph.py	/^dx = 0.5 * np.ones_like(zpos)$/;"	v
+dx	../../../ift-demo/include/adjacency.h	/^  cl_int *dx;$/;"	m	struct:_adjrel
+dy	../../../ift-demo/demo/parallelQueue2/graph.py	/^dy = dx.copy()$/;"	v
+dy	../../../ift-demo/include/adjacency.h	/^  cl_int *dy;$/;"	m	struct:_adjrel
+dz	../../../ift-demo/demo/parallelQueue2/graph.py	/^dz = hist.flatten()$/;"	v
+edge	../../../Grafos/Tentativas/Serial/dijk.cpp	/^		edge (int a, int b) {$/;"	f	class:edge
+edge	../../../Grafos/Tentativas/Serial/dijk.cpp	/^class edge {$/;"	c	file:
+edge	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^class edge {$/;"	c	file:
+elem	../../../ift-demo/include/feature.h	/^  FElem *elem;$/;"	m	struct:_features
+elem	../../../ift-demo/include/gqueue.h	/^  GQNode *elem;  \/* all possible doubly-linked lists of the circular queue *\/$/;"	m	struct:_gdoublylinkedlists
+elem	../../../ift-demo/include/set.h	/^  int elem;$/;"	m	struct:_set
+elements	../../../ift-demo/demo/parallelQueue2/graph.py	/^elements = (len(xedges) - 1) * (len(yedges) - 1)$/;"	v
+entropy	../../../ift-demo/include/subgraph.h	/^  float entropy; \/\/ entropy of the pdf$/;"	m	struct:_subgraph
+extractMin	../../../Grafos/Tentativas/Serial/dijk.cpp	/^int extractMin (vector < int >& Q, vector < int >& map, vector < int >& d) {$/;"	f
+false	../../../ift-demo/include/common.h	/^typedef enum boolean {false,true} bool;$/;"	e	enum:boolean
+feat	../../../ift-demo/include/feature.h	/^  float *feat;$/;"	m	struct:_felem
+feat	../../../ift-demo/include/subgraph.h	/^  float *feat;    \/\/ feature vector$/;"	m	struct:_snode
+fig	../../../ift-demo/demo/parallelQueue2/graph.py	/^fig = plt.figure()$/;"	v
+first	../../../ift-demo/include/gqueue.h	/^  int  *first;   \/* list of the first elements of each doubly-linked list *\/$/;"	m	struct:_gcircularqueue
+fname	../../../ift-demo/demo/parallelQueue2/graph.py	/^fname = sys.argv[1]$/;"	v
+grafo	../../../Grafos/Tentativas/Serial/dijk.cpp	/^class grafo {$/;"	c	file:
+grafo	../../../Grafos/Tentativas/dijk.cpp	/^class grafo {$/;"	c	file:
+grafo	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^class grafo {$/;"	c	file:
+graph	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^class graph {$/;"	c	file:
+heap	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^class heap {$/;"	c	file:
+heapfy	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void heap::heapfy(int k) {$/;"	f	class:heap
+infoPlataforma	../../../Grafos/Tentativas/dijk.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../Learning/MultMatrizes/MultMatrixLocals/big/multMGPU.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../Learning/MultMatrizes/MultMatrixLocals/multMCPU.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../Learning/MultMatrizes/MultMatrixLocals/multMGPU.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../Learning/MultMatrizes/MultMatrixNoLocals/multM.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMCPU.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMGPU.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+infoPlataforma	../../../ift-demo/src/oclFunctions.c	/^void infoPlataforma (cl_platform_id * listaPlataformaID, cl_uint i) {$/;"	f
+init	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void graph::init() {$/;"	f	class:graph
+initializeSingleSource	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void grafo::initializeSingleSource(int s, vector < int >& d, vector < int >& pi) {$/;"	f	class:grafo
+inverse	../../../Grafos/Tentativas/Serial/dijk.cpp	/^int inverse (vector < int > map, int v) {$/;"	f
+isChar	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^	static bool isChar() { return false; }$/;"	f	class:ArrayType
+isChar	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^	static bool isChar() { return true; }$/;"	f	class:ArrayType
+l	../../../Grafos/Tentativas/testes/multM.cpp	/^const unsigned int l = 16;$/;"	v
+label	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^  Image *label;$/;"	m	struct:_ImageForest	file:
+label	../../../ift-demo/include/subgraph.h	/^  int   label;   \/\/ node label$/;"	m	struct:_snode
+last	../../../ift-demo/include/gqueue.h	/^  int  *last;    \/* list of the last  elements of each doubly-linked list  *\/$/;"	m	struct:_gcircularqueue
+last	../../../ift-demo/include/realheap.h	/^  int last;$/;"	m	struct:_realheap
+lista	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	vector < vector < edge > > lista;  $/;"	m	class:graph	file:
+load_sections	../../../ift-demo/demo/parallelQueue2/comparatives/wdiffParser.py	/^def load_sections(filename):$/;"	f
+log	../../../Grafos/Tentativas/dijk.cpp	/^void log (vector < unsigned int > v, char *argv[]) {$/;"	f
+log	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void log (vector < unsigned int > v, char *argv[]) {$/;"	f
+m	../../../Grafos/Tentativas/testes/multM.cpp	/^const unsigned int m = 16;$/;"	v
+main	../../../Grafos/Tentativas/Serial/dijk.cpp	/^int main () {$/;"	f
+main	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^int main (int argc, char* argv[]) {$/;"	f
+main	../../../Grafos/Tentativas/aux/input.cpp	/^int main (int argc, char *argv[]) {$/;"	f
+main	../../../Grafos/Tentativas/aux/inputWithoutWeights.cpp	/^int main (int argc, char *argv[]) {$/;"	f
+main	../../../Grafos/Tentativas/cores.cpp	/^int main(void) {$/;"	f
+main	../../../Grafos/Tentativas/dijk.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Grafos/Tentativas/input.cpp	/^int main (int argc, char *argv[]) {$/;"	f
+main	../../../Grafos/Tentativas/testes/entrada.cpp	/^int main (int argc, char *argv[]) {$/;"	f
+main	../../../Grafos/Tentativas/testes/multM.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Grafos/Tentativas/testes/vector/dotProduct.cpp	/^int main(int argc, char** argv)$/;"	f
+main	../../../Learning/MultMatrizes/MultMatrixLocals/big/multMGPU.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Learning/MultMatrizes/MultMatrixLocals/multMCPU.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Learning/MultMatrizes/MultMatrixLocals/multMGPU.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Learning/MultMatrizes/MultMatrixNoLocals/OpenCLInfo.cpp	/^int main(int argc, char** argv)$/;"	f
+main	../../../Learning/MultMatrizes/MultMatrixNoLocals/multM.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMCPU.cpp	/^int main() {$/;"	f
+main	../../../Learning/MultMatrizes/MultMatrixNoLocals/multMGPU.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Learning/MultMatrizes/float/MultMatrixLocals/multM.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../Learning/MultMatrizes/float/serializada/mMatrix.cpp	/^int main (int argc, char *argv[]) {$/;"	f
+main	../../../Learning/MultMatrizes/serializada/mMatrix.cpp	/^int main (int argc, char *argv[]) {$/;"	f
+main	../../../Learning/ProdEsc/dotProduct.cpp	/^int main(int argc, char** argv)$/;"	f
+main	../../../Learning/Somatorio/soma.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^int main(int argc, char **argv)$/;"	f
+main	../../../ift-demo/demo/eucldist/eucldist.c	/^int main(int argc, char **argv)$/;"	f
+main	../../../ift-demo/demo/eucldist/serialEucldist.c	/^int main(int argc, char **argv)$/;"	f
+main	../../../ift-demo/demo/parallelQueue2/mWatershed.c	/^int main(int argc, char **argv)$/;"	f
+main	../../../ift-demo/demo/parallelQueue2/tools/diffMarker.c	/^int main ( int argc, char* argv[] )$/;"	f
+main	../../../ift-demo/demo/parallelQueue2/tools/seedMarker.c	/^int main (int argc, char* argv[] )$/;"	f
+main	../../../ift-demo/demo/parallelQueue2/watershed.c	/^int main(int argc, char **argv)$/;"	f
+main	../../../ift-demo/demo/parallelQueue2/watershed2.c	/^int main(int argc, char **argv)$/;"	f
+main	../../../ift-demo/demo/watergray/watergray.c	/^int main(int argc, char **argv)$/;"	f
+main	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	../../../ift-demo/demo/watershed/watershed.c	/^cl_int main(cl_int argc, char **argv)$/;"	f
+makeLabelMaps	../../../ift-demo/demo/parallelQueue2/watershed.c	/^void makeLabelMaps ( cl_int* pred, cl_int* root, cl_int* label, int n, Image* img )$/;"	f
+make_graph	../../../Grafos/Tentativas/Serial/dijk.cpp	/^int grafo::make_graph () {$/;"	f	class:grafo
+make_graph	../../../Grafos/Tentativas/dijk.cpp	/^void grafo::make_graph(FILE *fp) {$/;"	f	class:grafo
+make_graph	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph(FILE *fp) {$/;"	f	class:grafo
+make_graph558	../../../Grafos/Tentativas/dijk.cpp	/^void grafo::make_graph558 ( FILE* fp, int* raiz ) {$/;"	f	class:grafo
+make_graph558	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph558 ( FILE* fp, int* raiz ) {$/;"	f	class:grafo
+make_graph9	../../../Grafos/Tentativas/dijk.cpp	/^void grafo::make_graph9 ( FILE* fp ) {$/;"	f	class:grafo
+make_graph9	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph9 ( FILE* fp ) {$/;"	f	class:grafo
+map	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	vector < int > map;$/;"	m	class:heap	file:
+maxdens	../../../ift-demo/include/subgraph.h	/^  float maxdens; \/\/ maximum density value$/;"	m	struct:_subgraph
+maxvalue	../../../ift-demo/include/gqueue.h	/^  int  maxvalue;  \/* maximum value of a node in queue *\/$/;"	m	struct:_gcircularqueue
+metadata	../../../ift-demo/demo/parallelQueue2/graph.py	/^metadata = dict(title='Movie Test', artist='Matplotlib',$/;"	v
+minHeapify	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void minHeapify (vector < int >& Q, vector < int >& map, int n, int i, vector < int >& d) {$/;"	f
+minHeapify2	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void minHeapify2 (vector < int >& Q, vector < int >& map, int n, int i, vector < int >& d) {$/;"	f
+mindens	../../../ift-demo/include/subgraph.h	/^  float mindens; \/\/ minimum density value$/;"	m	struct:_subgraph
+minvalue	../../../ift-demo/include/gqueue.h	/^  int  minvalue;  \/* minimum value of a node in queue *\/$/;"	m	struct:_gcircularqueue
+myheap	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	heap myheap;$/;"	m	class:graph	file:
+n	../../../Grafos/Tentativas/Serial/dijk.cpp	/^		int n, peso;$/;"	m	class:edge	file:
+n	../../../Grafos/Tentativas/testes/multM.cpp	/^const unsigned int n = 16;$/;"	v
+n	../../../ift-demo/demo/parallelQueue2/graph.py	/^n = 0$/;"	v
+n	../../../ift-demo/demo/parallelQueue2/graph.py	/^n = len(data)$/;"	v
+n	../../../ift-demo/include/adjacency.h	/^  cl_int n;$/;"	m	struct:_adjpxl
+n	../../../ift-demo/include/adjacency.h	/^  cl_int n;$/;"	m	struct:_adjrel
+n	../../../ift-demo/include/realheap.h	/^  int n;$/;"	m	struct:_realheap
+n	../../../ift-demo/include/set.h	/^  int n;$/;"	m	struct:_intset
+nbuckets	../../../ift-demo/include/gqueue.h	/^  int  nbuckets; \/* number of buckets in the circular queue *\/$/;"	m	struct:_gcircularqueue
+ncols	../../../ift-demo/include/dimage.h	/^  int ncols,nrows;$/;"	m	struct:_DImage
+ncols	../../../ift-demo/include/feature.h	/^  int  nrows,ncols;$/;"	m	struct:_features
+ncols	../../../ift-demo/include/image.h	/^  cl_int ncols,nrows;$/;"	m	struct:_image
+nelems	../../../ift-demo/include/feature.h	/^  int  nelems;$/;"	m	struct:_features
+nelems	../../../ift-demo/include/gqueue.h	/^  int nelems;  \/* total number of elements *\/$/;"	m	struct:_gdoublylinkedlists
+next	../../../ift-demo/include/gqueue.h	/^  int  next;  \/* next node *\/$/;"	m	struct:_gqnode
+next	../../../ift-demo/include/set.h	/^  struct _set *next;$/;"	m	struct:_set	typeref:struct:_set::_set
+nextPow2	../../../Grafos/Tentativas/dijk.cpp	/^cl_uint nextPow2 (int n) {$/;"	f
+nextPow2	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^cl_uint nextPow2 (int n) {$/;"	f
+nfeats	../../../ift-demo/include/feature.h	/^  int  nfeats;$/;"	m	struct:_features
+nfeats	../../../ift-demo/include/subgraph.h	/^  int   nfeats;  \/\/ number of features$/;"	m	struct:_subgraph
+nlabels	../../../ift-demo/include/subgraph.h	/^  int   nlabels; \/\/ number of clusters$/;"	m	struct:_subgraph
+nnodes	../../../ift-demo/include/subgraph.h	/^  int   nnodes;  \/\/ number of nodes$/;"	m	struct:_subgraph
+node	../../../ift-demo/include/subgraph.h	/^  SNode *node;   \/\/ nodes of the image\/scene subgraph$/;"	m	struct:_subgraph
+nplatadj	../../../ift-demo/include/subgraph.h	/^  int nplatadj; \/\/holds the amount of adjacent nodes on plateaus$/;"	m	struct:_snode
+nrows	../../../ift-demo/include/dimage.h	/^  int ncols,nrows;$/;"	m	struct:_DImage
+nrows	../../../ift-demo/include/feature.h	/^  int  nrows,ncols;$/;"	m	struct:_features
+nrows	../../../ift-demo/include/image.h	/^  cl_int ncols,nrows;$/;"	m	struct:_image
+numV	../../../Grafos/Tentativas/dijk.cpp	/^		int numV; 				\/\/ Numero de vertices$/;"	m	class:grafo	file:
+numV	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^		int numV; 				\/\/ Numero de vertices$/;"	m	class:grafo	file:
+operator <	../../../Grafos/Tentativas/Serial/dijk.cpp	/^		bool operator<( const edge & d ) const {$/;"	f	class:edge
+ordered_list_of_nodes	../../../ift-demo/include/subgraph.h	/^  int  *ordered_list_of_nodes; \/\/ Store the list of nodes in the increasing\/decreasing order of pathval for speeding up classification.$/;"	m	struct:_subgraph
+pathval	../../../ift-demo/include/subgraph.h	/^  float pathval; \/\/ path value$/;"	m	struct:_snode
+peso	../../../Grafos/Tentativas/Serial/dijk.cpp	/^		int n, peso;$/;"	m	class:edge	file:
+peso	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	int destino;	int peso;$/;"	m	class:edge	file:
+pesos	../../../Grafos/Tentativas/dijk.cpp	/^		vector < cl_uint > pesos; 			\/\/ Vetor de pesos$/;"	m	class:grafo	file:
+pesos	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^		vector < cl_uint > pesos; 			\/\/ Vetor de pesos$/;"	m	class:grafo	file:
+pi	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	vector < int > pi;		vector < int > d;$/;"	m	class:graph	file:
+pixel	../../../ift-demo/include/realheap.h	/^  int *pixel;$/;"	m	struct:_realheap
+pixel	../../../ift-demo/include/subgraph.h	/^  int pixel;  \/\/ pixel index in the image\/scene$/;"	m	struct:_snode
+pop	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^int heap::pop() {$/;"	f	class:heap
+pos	../../../ift-demo/include/realheap.h	/^  int *pos;$/;"	m	struct:_realheap
+position	../../../ift-demo/include/subgraph.h	/^  int position;  \/\/ index in the pre-computed distance matrix$/;"	m	struct:_snode
+pred	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^  Image *pred;$/;"	m	struct:_ImageForest	file:
+pred	../../../ift-demo/include/subgraph.h	/^  int   pred;    \/\/ predecessor node$/;"	m	struct:_snode
+prepare	../../../Grafos/Tentativas/dijk.cpp	/^void prepare (vector < cl_uint >& M, vector < cl_uint >& C, vector < cl_uint >& U,$/;"	f
+prepare	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void prepare (vector < cl_uint >& M, vector < cl_uint >& C, vector < cl_uint >& U,$/;"	f
+prepareAllDataForDevice	../../../ift-demo/src/oclFunctions.c	/^void prepareAllDataForDevice (  cl_int errNum,$/;"	f
+prev	../../../ift-demo/include/gqueue.h	/^  int  prev;  \/* prev node *\/$/;"	m	struct:_gqnode
+print	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void heap::print(int vertices) {$/;"	f	class:heap
+printHeap	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void printHeap (vector < int > Q, vector < int > d, vector < int > map) {$/;"	f
+printInfo	../../../Grafos/Tentativas/dijk.cpp	/^void grafo::printInfo () {$/;"	f	class:grafo
+printInfo	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^void grafo::printInfo () {$/;"	f	class:grafo
+printPath	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void graph::printPath(int x, int psize){$/;"	f	class:graph
+printTree	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void printTree (int v, vector < int >& pi, vector < int >& d) {$/;"	f
+print_graph	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void grafo::print_graph () {$/;"	f	class:grafo
+printit	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void graph::printit() {$/;"	f	class:graph
+propsize	../../../ift-demo/include/set.h	/^  int    propsize;$/;"	m	struct:_intset
+radius	../../../ift-demo/include/subgraph.h	/^  float radius;  \/\/ maximum distance among the k-nearest neighbors in$/;"	m	struct:_snode
+real	../../../ift-demo/include/common.h	/^typedef float real;$/;"	t
+relax	../../../Grafos/Tentativas/Serial/dijk.cpp	/^void grafo::relax(int u, int v, int w,$/;"	f	class:grafo
+relax	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^void graph::relax(int u, int v, int w) {$/;"	f	class:graph
+relevant	../../../ift-demo/include/subgraph.h	/^  char  relevant; \/\/0 - irrelevant, 1 - relevant$/;"	m	struct:_snode
+removal_policy	../../../ift-demo/include/gqueue.h	/^  char removal_policy; \/* 0 is MINVALUE and 1 is MAXVALUE *\/$/;"	m	struct:_gcircularqueue
+removal_policy	../../../ift-demo/include/realheap.h	/^  char removal_policy; \/* 0 is MINVALUE and 1 is MAXVALUE *\/$/;"	m	struct:_realheap
+root	../../../ift-demo/demo/diffwatershed/diffwatershed.c	/^  Image *root;$/;"	m	struct:_ImageForest	file:
+root	../../../ift-demo/include/subgraph.h	/^  int   root;    \/\/ root node$/;"	m	struct:_snode
+s	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	int s;$/;"	m	class:graph	file:
+size	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	int size;$/;"	m	class:heap	file:
+slgrow	../../../ift-demo/include/set.h	/^  int slsize, slgrow;$/;"	m	struct:_intset
+slsize	../../../ift-demo/include/set.h	/^  int slsize, slgrow;$/;"	m	struct:_intset
+sqrtreal	../../../ift-demo/src/common.c	/^inline real sqrtreal(real x){$/;"	f
+status	../../../ift-demo/include/subgraph.h	/^  char  status;  \/\/ 0 - nothing, 1 - prototype$/;"	m	struct:_snode
+tbrow	../../../ift-demo/include/dimage.h	/^  int *tbrow;$/;"	m	struct:_DImage
+tbrow	../../../ift-demo/include/image.h	/^  cl_int *tbrow;$/;"	m	struct:_image
+tiebreak	../../../ift-demo/include/gqueue.h	/^  char tiebreak; \/* 1 is LIFO, 0 is FIFO (default) *\/$/;"	m	struct:_gcircularqueue
+timer	../../../ift-demo/include/common.h	/^typedef struct timeval timer;$/;"	t	typeref:struct:timeval
+toks	../../../ift-demo/demo/parallelQueue2/comparatives/wdiffParser.py	/^toks = load_sections ( str ( sys.argv [1] ) ) $/;"	v
+true	../../../ift-demo/include/common.h	/^typedef enum boolean {false,true} bool;$/;"	e	enum:boolean
+truelabel	../../../ift-demo/include/subgraph.h	/^  int truelabel; \/\/ true label if it is known$/;"	m	struct:_snode
+uchar	../../../ift-demo/include/common.h	/^typedef unsigned char uchar;$/;"	t
+uint	../../../ift-demo/include/common.h	/^typedef unsigned int uint;$/;"	t
+ushort	../../../ift-demo/include/common.h	/^typedef unsigned short ushort;$/;"	t
+v	../../../Grafos/Tentativas/Serial/dijk.cpp	/^		int v; \/\/ total de vertices$/;"	m	class:grafo	file:
+val	../../../ift-demo/include/dimage.h	/^  double *val;$/;"	m	struct:_DImage
+val	../../../ift-demo/include/image.h	/^  cl_int *val;$/;"	m	struct:_image
+value	../../../ift-demo/include/gqueue.h	/^  int *value;   \/* the value of the nodes in the graph *\/$/;"	m	struct:_gdoublylinkedlists
+vazio	../../../Grafos/Tentativas/dijk.cpp	/^bool vazio (vector < unsigned int > M) {$/;"	f
+vazio	../../../ift-demo/demo/eucldist/eucldist.c	/^bool vazio (cl_int Mask[], cl_int n) {$/;"	f
+vazio	../../../ift-demo/demo/parallelQueue2/mWatershed.c	/^cl_int vazio (cl_int Mask[], cl_int n) {$/;"	f
+vazio	../../../ift-demo/demo/parallelQueue2/watershed.c	/^cl_int vazio (cl_int Mask[], cl_int n) {$/;"	f
+vazio	../../../ift-demo/demo/parallelQueue2/watershed2.c	/^bool vazio (cl_int Mask[], cl_int n) {$/;"	f
+vazio	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^bool vazio (vector < unsigned int > M) {$/;"	f
+vazio	../../../ift-demo/demo/watershed/watershed.c	/^bool vazio (cl_int Mask[], cl_int n) {$/;"	f
+vert	../../../Grafos/Tentativas/dijk.cpp	/^		vector < cl_uint > vert; 			\/\/ Vetor de vertices$/;"	m	class:grafo	file:
+vert	../../../ift-demo/demo/watershed/kernels/dijk.cpp	/^		vector < cl_uint > vert; 			\/\/ Vetor de vertices$/;"	m	class:grafo	file:
+vertices	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	int vertices; 	int arestas;$/;"	m	class:graph	file:
+vheap	../../../Grafos/Tentativas/Serial/moco/dijk.cpp	/^	vector < vector < int > > vheap;$/;"	m	class:heap	file:
+writer	../../../ift-demo/demo/parallelQueue2/graph.py	/^writer = FFMpegWriter(fps=15, metadata=metadata)$/;"	v
+x	../../../ift-demo/include/image.h	/^  cl_int x,y;$/;"	m	struct:_pixel
+xpos	../../../ift-demo/demo/parallelQueue2/graph.py	/^xpos = xpos.flatten()$/;"	v
+y	../../../ift-demo/include/image.h	/^  cl_int x,y;$/;"	m	struct:_pixel
+ypos	../../../ift-demo/demo/parallelQueue2/graph.py	/^ypos = ypos.flatten()$/;"	v
+zpos	../../../ift-demo/demo/parallelQueue2/graph.py	/^zpos = np.zeros(elements)$/;"	v
