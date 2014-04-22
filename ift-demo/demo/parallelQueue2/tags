@@ -87,6 +87,7 @@ DECREASING	../../include/common.h	63;"	d
 DEMO	../../Makefile	/^DEMO=.\/demo$/;"	m
 DEVICE	../../demo/eucldist/eucldist.c	28;"	d	file:
 DEVICE	../../demo/watershedNew/watershed.c	28;"	d	file:
+DEVICE	watershed.c	28;"	d	file:
 DImage	../../include/dimage.h	/^} DImage;$/;"	t	typeref:struct:_DImage
 DImageThreshold	../../src/dimage.c	/^Image *DImageThreshold(DImage *img, double lower, double higher)$/;"	f
 DestroyAdjPxl	../../src/adjacency.c	/^void DestroyAdjPxl(AdjPxl **N)$/;"	f
@@ -239,9 +240,11 @@ MinimumValue	../../src/image.c	/^int MinimumValue(Image *img)$/;"	f
 N	../../include/set.h	/^  int N, VN;$/;"	m	struct:_bmap
 NCFgets	../../src/common.c	/^int NCFgets(char *s, int m, FILE *f) {$/;"	f
 NIL	../../include/common.h	61;"	d
+NIL	watershed.c	30;"	d	file:
 NLOOP	../../demo/eucldist/eucldist.c	29;"	d	file:
 NLOOP	../../demo/watershed/watershed.c	31;"	d	file:
 NLOOP	../../demo/watershedNew/watershed.c	29;"	d	file:
+NLOOP	watershed.c	29;"	d	file:
 OBJ	../../Makefile	/^OBJ=.\/obj$/;"	m
 OBJS	../../demo/watershedNew/Debug/sources.mk	/^OBJS := $/;"	m
 OBJ_SRCS	../../demo/watershedNew/Debug/sources.mk	/^OBJ_SRCS := $/;"	m
@@ -299,6 +302,7 @@ SetImage	../../src/image.c	/^void SetImage(Image *img, int value)$/;"	f
 SetLabel	../../demo/watershed/watershed.c	/^cl_int SetLabel (cl_int* pred, cl_int* label, cl_int n, cl_int pos) {$/;"	f
 SetLabelIterative	../../demo/watershed/watershed.c	/^void SetLabelIterative (cl_int* pred, cl_int* label, cl_int n) {$/;"	f
 SetLabelIterative	../../demo/watershedNew/watershed.c	/^void SetLabelIterative (cl_int* pred, cl_int* label, cl_int n) {$/;"	f
+SetLabelIterative	watershed.c	/^void SetLabelIterative (cl_int* pred, cl_int* label, cl_int n) {$/;"	f
 SetRemovalPolicy	../../include/gqueue.h	13;"	d
 SetRemovalPolicyRealHeap	../../src/realheap.c	/^void SetRemovalPolicyRealHeap(RealHeap *H, char policy){$/;"	f
 SetSubgraphFeatures	../../src/opf.c	/^void SetSubgraphFeatures(Subgraph *sg, Features *f)$/;"	f
@@ -335,6 +339,7 @@ Warning	../../src/common.c	/^void Warning(char *msg,char *func){ \/* It prints w
 WaterGray	../../demo/watergray/watergray.c	/^Image *WaterGray(Image *img, Image *marker, AdjRel *A)$/;"	f
 Watershed	../../demo/watershed/watershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg)$/;"	f
 Watershed	../../demo/watershedNew/watershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg)$/;"	f
+Watershed	watershed.c	/^Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)$/;"	f
 WriteCImage	../../src/cimage.c	/^void    WriteCImage(CImage *cimg, char *filename)$/;"	f
 WriteDImage	../../src/dimage.c	/^void    WriteDImage(DImage *dimg, char *filename){$/;"	f
 WriteImage	../../src/image.c	/^void WriteImage(Image *img,char *filename)$/;"	f
@@ -399,11 +404,14 @@ contextCallback	../../demo/eucldist/eucldist.c	/^void CL_CALLBACK contextCallbac
 contextCallback	../../demo/watershed/kernels/dijk.cpp	/^void CL_CALLBACK contextCallback ($/;"	f
 contextCallback	../../demo/watershed/watershed.c	/^void CL_CALLBACK contextCallback ($/;"	f
 contextCallback	../../demo/watershedNew/watershed.c	/^void CL_CALLBACK contextCallback ($/;"	f
+contextCallback	watershed.c	/^void CL_CALLBACK contextCallback ($/;"	f
 cost	../../demo/diffwatershed/diffwatershed.c	/^  Image *cost;$/;"	m	struct:_ImageForest	file:
 cost	../../include/realheap.h	/^  float *cost;$/;"	m	struct:_realheap
 count	../../include/set.h	/^  int count;$/;"	m	struct:_intset
 data	../../include/set.h	/^  char *data;$/;"	m	struct:_bmap
 dens	../../include/subgraph.h	/^  float dens;    \/\/ probability density value$/;"	m	struct:_snode
+detectPredCycle	watershed.c	/^int detectPredCycle ( cl_int* pred, int n, int k )$/;"	f
+detectRootCycle	watershed.c	/^int detectRootCycle ( cl_int* root, int n, int k )$/;"	f
 df	../../include/subgraph.h	/^  float df;      \/\/ radius in the feature space for density computation$/;"	m	struct:_subgraph
 dp	../../include/adjacency.h	/^  cl_int *dp;$/;"	m	struct:_adjpxl
 dx	../../include/adjacency.h	/^  cl_int *dx;$/;"	m	struct:_adjrel
@@ -432,6 +440,8 @@ main	../../demo/watergray/watergray.c	/^int main(int argc, char **argv)$/;"	f
 main	../../demo/watershed/kernels/dijk.cpp	/^int main(int argc, char *argv[]) {$/;"	f
 main	../../demo/watershed/watershed.c	/^cl_int main(cl_int argc, char **argv)$/;"	f
 main	../../demo/watershedNew/watershed.c	/^int main(int argc, char **argv)$/;"	f
+main	watershed.c	/^int main(int argc, char **argv)$/;"	f
+makeLabelMaps	watershed.c	/^void makeLabelMaps ( cl_int* pred, cl_int* root, cl_int* label, int n, Image* img )$/;"	f
 make_graph	../../demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph(FILE *fp) {$/;"	f	class:grafo
 make_graph558	../../demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph558 ( FILE* fp, int* raiz ) {$/;"	f	class:grafo
 make_graph9	../../demo/watershed/kernels/dijk.cpp	/^void grafo::make_graph9 ( FILE* fp ) {$/;"	f	class:grafo
@@ -510,6 +520,7 @@ vazio	../../demo/eucldist/eucldist.c	/^bool vazio (cl_int Mask[], cl_int n) {$/;
 vazio	../../demo/watershed/kernels/dijk.cpp	/^bool vazio (vector < unsigned int > M) {$/;"	f
 vazio	../../demo/watershed/watershed.c	/^bool vazio (cl_int Mask[], cl_int n) {$/;"	f
 vazio	../../demo/watershedNew/watershed.c	/^bool vazio (cl_int Mask[], cl_int n) {$/;"	f
+vazio	watershed.c	/^cl_int vazio (cl_int Mask[], cl_int n) {$/;"	f
 vert	../../demo/watershed/kernels/dijk.cpp	/^		vector < cl_uint > vert; 			\/\/ Vetor de vertices$/;"	m	class:grafo	file:
 x	../../include/image.h	/^  cl_int x,y;$/;"	m	struct:_pixel
 y	../../include/image.h	/^  cl_int x,y;$/;"	m	struct:_pixel

@@ -1,0 +1,64 @@
+imgVal: vetor com o valor constante de cada pixel na imagem
+cost: vetor com o custo de cada pixel
+Cmin: menor custo do heap
+Cmax: maior custo na imagem
+extra: variável auxiliar para atualizar custo mínimo
+
+Ideia original: fazer um array binário de Custo x Processador de tamanho MaxWeight x n. Cada processador Pi executava quando M [Cmin, Pi] == 1.
+
+Ideia: fazer fila de prioridade com uma máscara de n elementos. Para qualquer 0 < i < n, se m[i] está na fila, então m[i] > 0 e possue seu menor custo;
+
+Para isso fiz dois kernels: um para rodar a IFT somente para os processadores que possuirem os pixels com custo mínimo; e outro para encontrar o novo custo mínimo
+
+IFTkernel ( Cmin, imgVal, cost )
+{
+    se M [ tid ] == Cmin
+    {
+        cost [ tid ] = M [ tid ] // Atualizando custo
+        M [ tid ] = 0; // Saindo da fila
+    
+        para cada vizinho q de tid 
+        {
+            se q for válido
+            {
+                tmp = max ( cost [tid], imgVal [ q ] );
+
+                se M [q] == 0 ou M [q] > tmp
+                {
+                    label [ q ] = label [ tid ];
+                    M [ q ] = tmp;
+                }
+            }
+        }
+    }
+}
+
+findMinKernel ( Cmin, extra, M )
+{
+    se M [ tid ] == Cmin
+    {
+atomicamente: extra = Cmin;
+              retorne;
+    }
+    senão se M [ tid ] > 0
+    {
+atomicamente: extra = min { extra, M[tid] };
+    }
+}
+
+
+Inicialize Cmin = 1
+enquanto ( Cmin < Cmax )
+{
+    atualize Cmin no Kernel;
+
+    extra = 0;
+
+    atualize extra no Kernel;
+
+    execute IFTkernel;
+    execute findMinKernel;
+
+    Cmin = recebe extra do findMinKernel;
+}
+    
