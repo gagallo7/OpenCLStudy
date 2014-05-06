@@ -26,7 +26,7 @@
 
 #include "ift.h"
 #define DEVICE CL_DEVICE_TYPE_GPU
-#define NLOOP 3
+#define NLOOP 1
 #define NIL -1
 
 /* Papers related to this program:
@@ -208,7 +208,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
   AdjRel *A=NULL;
   GQueue *Q=NULL;
   Image  *cost=NULL,*label=NULL;
-  Pixel   u,v;
+  //Pixel   u,v;
   int     i,p,q,n,tmp,Cmax=MaximumValue(img);
   Set    *S;
 
@@ -219,7 +219,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
   A     = Circular(1.5);
     /*--------------------------------------------------------*/
     /* OpenCL variables --------------------------------------*/
-    timer    *tS1=NULL,*tS2=NULL;
     FILE* fp;
     char* source_str; 
     size_t source_size;
@@ -230,15 +229,15 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
     cl_device_id *listaDispositivoID;
     cl_context contexto = NULL;
     cl_command_queue fila;
-    cl_program programa0, programa, programa2, programa3;
+    cl_program programa0, programa, programa3;
     cl_kernel kernel0, kernel, kernel2, kernel3;
-    cl_event evento, evento0, evento1, evento2, evento3;
+    cl_event evento0, evento1;
 
-    cl_mem  costBuffer, costvalBuffer, costtbrowBuffer,
-            numVbuffer, SEMbuffer, extraBuffer,
+    cl_mem  costBuffer,
+            SEMbuffer, extraBuffer,
             Abuffer, Adxbuffer, Adybuffer,
-            imgtbrowBuffer, labelvalBuffer, labeltbrowBuffer,
-            Mbuffer, MvalBuffer, MtbrowBuffer,
+            imgtbrowBuffer,
+            Mbuffer, 
             /*
             Ubuffer, Ulabelbuffer,
             Cbuffer, Clabelbuffer,
@@ -246,9 +245,9 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
             */
             IBuffer, IvalBuffer, imgValBuffer,
             labelBuffer, predBuffer,
-            cacheBuffer, cache2Buffer, cache3Buffer,
+            cacheBuffer,
             CminBuffer, matchesBuffer, rootBuffer,
-            rwLocksBuffer, MblockBuffer;
+            rwLocksBuffer, MblockBuffer, CminBlockBuffer;
 
 
     /*--------------------------------------------------------*/
@@ -478,10 +477,11 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
             &errNum);
     checkErr(errNum, "clCreateKernel3");
 
-    int N = n;
+    int N = 0;
+    float F = n;
     int t = 0;
-    while ( N > 0 ) {
-        N >>= 1;
+    while ( F > 1 ) {
+        F /= 2;
         t++;
     }
 
@@ -494,7 +494,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
     cl_int* Mask = (cl_int *) malloc (N * sizeof ( cl_int ) );
     cl_int* pred = (cl_int *) malloc (N * sizeof ( cl_int ) );
     cl_int* root = (cl_int *) malloc (N * sizeof ( cl_int ) );
-    cl_int* Mblocks = (cl_int *) calloc ( N, sizeof ( cl_int ) );
     /*
     cl_int* CostCost = (cl_int *) malloc (n * sizeof ( cl_int ) );
     cl_int* UpdateCost = (cl_int *) malloc (n * sizeof ( cl_int ) );
@@ -514,6 +513,16 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
 
     memset (pred, 0, n*4);
 
+    // Definindo o n�mero de work-items globais e locais
+    const size_t globalWorkSize[1] = { N };
+    const size_t localWorkSize[1] = { 1024 };
+    /*
+    const size_t globalWorkSize2[2] = { N , 8 };
+    const size_t localWorkSize2[2] = { 1024, 1 };
+    */
+    cl_int* Mblocks = (cl_int *) calloc ( globalWorkSize [0] / localWorkSize [0], sizeof ( cl_int ) );
+    cl_int* CminBlock = (cl_int *) calloc ( N, sizeof ( cl_int ) );
+
   /* Trivial path initialization */
 
     for (p=0; p < N; p++)
@@ -532,6 +541,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
         pred[p] = NIL;
         //InsertGQueue(&Q,p);
         Mask [ p ] = 1;
+        Mblocks [ p / localWorkSize [0] ] = 1;
+        printf ( "p: %d  localP: %d\n", p,  p / localWorkSize [0] );
         root[p] = p;
         S = S->next;
     }
@@ -544,12 +555,22 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
         root[p] = p;
         //InsertGQueue(&Q,p);
         Mask [ p ] = 1;
+        Mblocks [ p / localWorkSize [0]  ] = 1;
+        printf ( "p: %d  localP: %d\n", p,  p / localWorkSize [0] ) ;
         S = S->next;
     }
+
+    for ( i = 0; i < (globalWorkSize [0] / localWorkSize [0] ); i++ )
+    {
+        printf ( "%d ", Mblocks [ i ] );
+    }
+    printf ( "\n" );
+    getchar ();
 
     int Cmin = 0;
     int matches = 0;
 
+    /*
 // This describes the format of the image data.
     cl_image_format format;
     format.image_channel_order = CL_INTENSITY;
@@ -557,7 +578,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
  
     int width = img->ncols;
     int height = img->nrows;
-    /*
     cl_mem input_image = clCreateImage2D(
                                            contexto,
                                            CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -588,6 +608,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
                                             &errNum );
     checkErr ( errNum, "Creating Sampler" );
       */                                      
+
+
     cacheBuffer = clCreateBuffer (
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, 
@@ -625,10 +647,19 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
             //Cmax+1,
-            N * sizeof(cl_int),
+            ( globalWorkSize [0] / localWorkSize [ 0 ] ) * sizeof(cl_int),
             Mblocks,
             &errNum);
-    checkErr(errNum, "clCreateBuffer(root)");
+    checkErr(errNum, "clCreateBuffer(Mblock)");
+
+    CminBlockBuffer = clCreateBuffer (
+            contexto,
+            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+            //Cmax+1,
+            ( globalWorkSize [0] / localWorkSize [ 0 ] ) * sizeof(cl_int),
+            CminBlock,
+            &errNum);
+    checkErr(errNum, "clCreateBuffer(CminBlock)");
 
     CminBuffer = clCreateBuffer (
             contexto,
@@ -746,7 +777,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
             contexto,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
             n * sizeof ( volatile cl_int ),
-            rwLocks,
+            (void *)rwLocks,
             &errNum);
     checkErr(errNum, "clCreateBuffer(rwLocks)");
 
@@ -756,12 +787,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
             CL_QUEUE_PROFILING_ENABLE,
             &errNum);
     checkErr(errNum, "clCreateCommandQueue");
-
-    // Definindo o n�mero de work-items globais e locais
-    const size_t globalWorkSize[1] = { N };
-    const size_t localWorkSize[1] = { 1024 };
-    const size_t globalWorkSize2[2] = { N , 8 };
-    const size_t localWorkSize2[2] = { 1024, 1 };
 
     // Setando os argumentos da fun��o do Kernel
 
@@ -782,13 +807,12 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
 
     // Kernel 1: Dijkstra' kernel
     errNum = clSetKernelArg(kernel, 0, sizeof(cl_mem), &IBuffer);
-    errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &IvalBuffer);
-    errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &Adxbuffer);
+    errNum |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &CminBlockBuffer );
+    errNum |= clSetKernelArg(kernel, 2, sizeof(cl_mem), &MblockBuffer);
     errNum |= clSetKernelArg(kernel, 3, sizeof(cl_mem), &Adybuffer);
     errNum |= clSetKernelArg(kernel, 4, sizeof(cl_mem), &Mbuffer);
     errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &costBuffer);
     errNum |= clSetKernelArg(kernel, 6, sizeof(cl_mem), &predBuffer);
-    //errNum |= clSetKernelArg(kernel, 5, sizeof(cl_mem), &CPredbuffer);
     errNum |= clSetKernelArg(kernel, 7, sizeof(cl_mem), &SEMbuffer);
     errNum |= clSetKernelArg(kernel, 8, sizeof(cl_mem), &extraBuffer);
     errNum |= clSetKernelArg(kernel, 9, sizeof(cl_mem), &labelBuffer);
@@ -796,7 +820,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
     errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &CminBuffer);
     errNum |= clSetKernelArg(kernel, 12, sizeof(cl_mem), &rootBuffer);
     errNum |= clSetKernelArg(kernel, 13, sizeof(cl_mem), &rwLocksBuffer);
-    errNum |= clSetKernelArg(kernel, 14, sizeof(cl_mem), &MblockBuffer );
+    //errNum |= clSetKernelArg(kernel, 14, sizeof(cl_mem), &MblockBuffer );
     /*
     errNum |= clSetKernelArg(kernel, 11, sizeof(cl_mem), &input_image);
     errNum |= clSetKernelArg(kernel, 12, sizeof(cl_sampler), &sampler);
@@ -838,7 +862,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
     double run_time_k3 = 0;
     cl_ulong ev_start_time=(cl_ulong)0;     
     cl_ulong ev_end_time=(cl_ulong)0;
-    gettimeofday(tS1, NULL);
     // releituraFeita e' um evento que sincroniza a atualizacao feita
     // por cada chamada aos kernels
 
@@ -885,8 +908,9 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
     printf ( "\nEntering in loop...\n" );
 
     //while( Cmin < Cmax ) 
-        while ( !vazio ( Mask, n ) )
-        {
+    //while ( !vazio ( Mask, n ) )
+    while ( !vazio ( Mblocks, globalWorkSize[0]/localWorkSize[0] ) )
+    {
 
         errNum = clEnqueueWriteBuffer(   
                 fila, 
@@ -898,19 +922,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
                 0, 
                 NULL, 
                 NULL    );
-        checkErr ( errNum, "Reading Cmin" );
-
-        errNum = clEnqueueReadBuffer(   
-                fila, 
-                CminBuffer, 
-                CL_TRUE, 
-                0, 
-                sizeof(cl_int), 
-                &Cmin,
-                0, 
-                NULL, 
-                NULL    );
-        checkErr ( errNum, "Reading Cmin" );
+        checkErr ( errNum, "Writing Cmin" );
 
         errNum = clEnqueueReadBuffer(   
                 fila, 
@@ -946,7 +958,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
                 0, 
                 NULL, 
                 NULL    );
-        checkErr ( errNum, "Reading extra" );
+        checkErr ( errNum, "Reading Mbuffer" );
 
         errNum = clEnqueueReadBuffer(   
                 fila, 
@@ -958,7 +970,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
                 0, 
                 NULL, 
                 NULL    );
-        checkErr ( errNum, "Reading extra" );
+        checkErr ( errNum, "Reading costBuffer" );
 
         nqueue = 0;
         for ( i = 0; i < n; i++ ) 
@@ -994,17 +1006,19 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
 
         memset ( Mblocks, 0, sizeof Mblocks );
 
-        errNum = clEnqueueWriteBuffer(   
-                fila, 
-                MblockBuffer, 
-                CL_TRUE, 
-                0, 
-                (N>>7) * sizeof(cl_int), 
-                Mblocks,
-                0, 
-                NULL, 
-                NULL    );
-        checkErr ( errNum, "Writing Mblocks" );
+        /*
+           errNum = clEnqueueWriteBuffer(   
+           fila, 
+           MblockBuffer, 
+           CL_TRUE, 
+           0, 
+           ( globalWorkSize [ 0 ] / localWorkSize [ 0 ] )* sizeof(cl_int), 
+           Mblocks,
+           0, 
+           NULL, 
+           NULL    );
+           checkErr ( errNum, "Writing Mblocks" );
+           */
 
 
         for ( i = 0; i < NLOOP; i++ )
@@ -1109,12 +1123,27 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
         //printf ( "\n--------Cmin NEW = %d  Extra COnf %d-----------\n", Cmin, extra );
 
         /*
-        errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
-                sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
-        checkErr(errNum, "Reading Mask");
+           errNum = clEnqueueReadBuffer(fila, Mbuffer, CL_FALSE, 0, 
+           sizeof(cl_int) * n, Mask, 0, NULL, &releituraFeita);
+           checkErr(errNum, "Reading Mask");
+           clWaitForEvents(1, &releituraFeita);
+           Cmin = vazio(Mask, n);
+           */
+
+        errNum = clEnqueueReadBuffer(fila, MblockBuffer, CL_FALSE, 0, 
+                sizeof(cl_int) * (globalWorkSize[0]/localWorkSize[0]), Mblocks, 0, NULL, &releituraFeita);
+        checkErr(errNum, CL_SUCCESS);
         clWaitForEvents(1, &releituraFeita);
-        Cmin = vazio(Mask, n);
-        */
+
+        errNum = clEnqueueReadBuffer(fila, CminBlockBuffer, CL_FALSE, 0, 
+                sizeof(cl_int) * (globalWorkSize[0]/localWorkSize[0]), CminBlock, 0, NULL, &releituraFeita);
+        checkErr(errNum, CL_SUCCESS);
+        clWaitForEvents(1, &releituraFeita);
+
+        for ( i = 0; i < (globalWorkSize[0]/localWorkSize[0]); i++ )
+        {
+            printf ( "MaskBlocks [ %d ] = %d Cost = %d\n", i, Mblocks [ i ], CminBlock [ i ] );
+        }
     }
 
 

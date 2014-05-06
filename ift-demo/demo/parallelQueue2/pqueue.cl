@@ -20,7 +20,7 @@ typedef struct _figure {
     int ncols,nrows;
 } ImageIFT;
 
-void GetSemaphor(__global int * semaphor) {
+void GetSemaphor(__global volatile int * semaphor) {
     int occupied = atomic_xchg (semaphor, 1);
     while(occupied > 0)
     {
@@ -29,7 +29,7 @@ void GetSemaphor(__global int * semaphor) {
 }
 
 
-void ReleaseSemaphor(__global int * semaphor)
+void ReleaseSemaphor(__global volatile int * semaphor)
 {
     int prevVal = atomic_xchg (semaphor, 0);
 }
@@ -50,8 +50,8 @@ void getMin ( __global int* Mask, int i, __global int *Cmin, int someVal )
 
 __kernel void pqueue (
         __global ImageIFT *img,
-        __global int *ival,
-        __global int *dx,
+        __global int *CminBlock,
+        __global int *MaskBlocks,
         __global int *dy,
         __global int *MaskGlobal,
         __global int *costGlobal,
@@ -62,8 +62,8 @@ __kernel void pqueue (
         __global int16 *cache,
         __global int *Cmin,
         __global int *rootGlobal,
-        __global volatile int *rwLocks,
-        __global volatile int *MaskBlocks
+        __global volatile int *rwLocks
+//        __global int *MaskBlocks2
         )
 {
     int globalId = get_global_id(0);
@@ -81,6 +81,8 @@ __kernel void pqueue (
     __local int     predLocal  [1024];
     __local int     rootLocal  [1024];
     __local int     labelLocal  [1024];
+    __local int CminLocal [2];
+    __local int ImLive [1];
 
     // Blocking area 
     MaskLocal [ localId ] = MaskGlobal [ globalId ];
@@ -88,11 +90,18 @@ __kernel void pqueue (
     predLocal [ localId ] = predGlobal [ globalId ];
     rootLocal [ localId ] = rootGlobal [ globalId ];
     labelLocal [ localId ] = labelGlobal [ globalId ];
+    /*
+    CminLocal [0] = Cmin[0];
+    CminLocal [1] = INT_MAX;
+    *ImLive = 0;
+    */
+    barrier ( CLK_LOCAL_MEM_FENCE );
 
     // Private area 
     minPixel = blockId * blockSize;
-    maxPixel = minPixel + blockId;
+    maxPixel = minPixel + blockSize;
     neighboorhood = cache[globalId];
+    int done = 0;
 
     // There are 8 neighboors, because 
     // it is 8-adjacency 
@@ -114,37 +123,55 @@ __kernel void pqueue (
     imgValArray [7] = neighboorhood.sF;
 
     // Initializing Blocks' Mask 
-    if ( MaskLocal [ localId ] == 1 )
+    //if ( !MaskBlocks [ blockId ] && MaskLocal [ localId ] == 1 )
+    /*
+    if ( !localId && MaskBlocks [ blockId ] )
     {
-       MaskBlocks [ blockId ] = 1;
+       //MaskBlocks [ blockId ] = 1;
+       MaskBlocks [ blockId ] = 0;
+       *ImLive = 1;
     }
-
-    barrier ( CLK_LOCAL_MEM_FENCE );
-
-    while ( MaskBlocks [ blockId ] == 1 )
+    if ( !MaskBlocks [ blockId ] && MaskLocal [ localId ] == 1 )
     {
+        MaskBlocks [ blockId ] = 1;
+    }
+    */
+
+    // In the toy figure, the image has to be
+    // segmented when the program exits this loop
+    //while ( MaskBlocks [ blockId ] == 1 )
+    while ( !done && MaskBlocks [ blockId ] == 1 )
+    {
+        barrier ( CLK_LOCAL_MEM_FENCE );
         MaskBlocks [ blockId ] = 0;
-        if ( MaskLocal [ localId ] == 1 && costLocal [ localId ] == Cmin [0] )
+
+        if ( MaskLocal [ localId ] == 1 && costLocal [ localId ] == CminLocal [0] )
         {
             MaskLocal [ localId ] = 0;
+            done = 1;
             for ( i = 0; i < 8; i++ )
             {
                 q = neighboor[i];
 
                 // q >= 0 -- neighboor is a valid pixel
                 // clamp ( q, minPixel, maxPixel ) -- testing if
-                // q is into the block
-                if ( q >= 0 && clamp ( q, minPixel, maxPixel ) == q ) 
+                // q is into the block -- minPixel <= q <= maxPixel?
+                //if ( q >= 0 && clamp ( q, minPixel, maxPixel ) == q ) 
+                if ( q >= 0 && 
+                        ( q <= maxPixel && q >= minPixel ) )
+
                 {
                     // Mapping q to a local area
                     q %= blockSize;
+                    //q &= blockSize - 1;
+
                     if ( costLocal [ localId ] < costLocal [ q ] )
                     {
-                        cq = costLocal [ q ];
                         tmp = max ( costLocal [ localId ], imgValArray [ i ]);
 
-                        if ( cq > tmp )
+                        if ( costLocal [ q ] > tmp )
                         {
+                            // Conquering neighboor
                             //GetSemaphor ( & rwLocks [ q ] );
                             MaskLocal [ q ] = 1;
                             MaskBlocks [ blockId ] = 1;
@@ -158,6 +185,22 @@ __kernel void pqueue (
                 }
             }
         }
+        // Guaranteeing that all local operations has finished
+        // before the loop iterates again
+        /*
+        //barrier ( CLK_LOCAL_MEM_FENCE );
+        if ( MaskLocal [ localId ] == 1 )
+        {
+           atom_min ( &CminLocal [1], costLocal [ localId ] );
+        }
+        //barrier ( CLK_LOCAL_MEM_FENCE );
+        if ( localId == 0 )
+        {
+            //atom_xchg ( CminLocal, CminLocal [ 1 ] );
+            CminLocal [ 0 ] = CminLocal [ 1 ];
+            CminLocal [ 1 ] = INT_MAX;
+        }
+        */
         barrier ( CLK_LOCAL_MEM_FENCE );
     }
 
@@ -167,6 +210,9 @@ __kernel void pqueue (
     predGlobal [ globalId ]  = predLocal [ localId ];
     rootGlobal [ globalId ]  = rootLocal [ localId ];
     labelGlobal [ globalId ]  = labelLocal [ localId ];
+    //MaskBlocks [ blockId ] = blockId;
+    //CminBlock [ blockId ] = CminLocal [ 0 ];
+    //Cmin [ 0 ]  = CminLocal [ 0 ] ;
 }
 
 __kernel void dijkstra2 (

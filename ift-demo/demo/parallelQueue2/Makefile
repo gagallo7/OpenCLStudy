@@ -13,9 +13,10 @@ $(LIB)/libift.a:
 	cd ../../; make ; cd -
 
 
- $@.c: $(LIB)/libift.a $@.c 
+$@.c: $(LIB)/libift.a $@.c 
 	make
 	gcc $(FLAGS) $@.c -o $(BIN)/$@ $(INCLUDES) -L$(LIB) -lift -lm -lOpenCL
+
 
 all:
 	cd ../../; make clean && make ; cd -
@@ -23,11 +24,13 @@ all:
 	cd tools; make ; cd -
 
 clean:
+	touch watershed
 	rm watershed
 
-run:
+
+run: clean
 	cd ../../; make ; cd -
-	rm watershed
+	rm -f watershed
 	make watershed
 	./watershed images/flower.pgm images/flower_grad.pgm images/flower-seeds.txt
 
@@ -49,3 +52,15 @@ sfhd:
 view:
 	make run
 	eog images/flower_result*.ppm
+
+%: images/%.pgm clean all
+	@echo $@
+	make watershed
+	./watershed images/$@.pgm images/$@_grad.pgm images/$@-seeds.txt
+	eog images/$@_result.ppm
+
+%: images/blocks/%.pgm clean
+	@echo $@
+	make watershed
+	./watershed images/blocks/$@.pgm images/blocks/$@_grad.pgm images/blocks/$@-seeds.txt
+	eog images/blocks/$@_result.ppm
