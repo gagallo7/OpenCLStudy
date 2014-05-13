@@ -69,29 +69,31 @@ __kernel void pqueue (
     int blockSize = get_local_size (0);
     int localId  = get_local_id(0);
     int i, q, cq;
+    int qLocal;
     int tmp;
     int16 q8;
     int minPixel, maxPixel;
     int16 neighboorhood;
     int qarray [8], imgValArray [8];
+    int ncols = img->ncols;
 
     __local int     MaskLocal  [1024];
-    /*
     __local int     costLocal  [1024];
     __local int     predLocal  [1024];
     __local int     rootLocal  [1024];
     __local int     labelLocal  [1024];
+    /*
     */
     __local int CminLocal [2];
     __local int ImLive [1];
 
     // Blocking area 
     MaskLocal [ localId ] = MaskGlobal [ globalId ];
-    /*
     costLocal [ localId ] = costGlobal [ globalId ];
     predLocal [ localId ] = predGlobal [ globalId ];
     rootLocal [ localId ] = rootGlobal [ globalId ];
     labelLocal [ localId ] = labelGlobal [ globalId ];
+    /*
     */
     CminLocal [0] = Cmin[0];
 
@@ -100,14 +102,18 @@ __kernel void pqueue (
     // Private area 
     minPixel = blockId * blockSize;
     maxPixel = minPixel + blockSize;
+    /*
+    minPixel = ( localId / ncols ) * ncols;
+    maxPixel = minPixel + ncols;
+    */
     neighboorhood = cache[globalId];
 
-    if ( MaskGlobal [globalId] == 1 && costGlobal[globalId] == Cmin[0] )
-    //if ( MaskLocal [localId] == 1 && costGlobal[globalId] == Cmin[0] )
+    //if ( MaskGlobal [globalId] == 1 && costGlobal[globalId] == Cmin[0] )
+    if ( MaskLocal [localId] == 1 && costLocal[localId] == Cmin[0] )
     {
         //MaskGlobal [globalId] = 0;
         MaskLocal [localId] = 0;
-        barrier ( CLK_LOCAL_MEM_FENCE );
+        //barrier ( CLK_LOCAL_MEM_FENCE );
         q8 = cache[globalId];
         qarray [0] = q8.s0;
         qarray [1] = q8.s1;
@@ -128,6 +134,7 @@ __kernel void pqueue (
 
         for ( i = 0; i < 8; i++ )
         {
+            //q = localId + dx [ i+1 ] + ncols * dy [ i+1 ] ;
             q = qarray[i];
             if ( q >= 0 && 
                     ( q < maxPixel && q >= minPixel ) )
@@ -140,15 +147,20 @@ __kernel void pqueue (
                     //if ( !mq || mq > tmp )
                     if ( cq > tmp )
                     {
+                        qLocal = q - minPixel;
                //         costGlobal [ q ] = tmp;
                         //GetSemaphor ( & rwLocks [ q ] );
-                        labelGlobal [ q ] = labelGlobal [ globalId ];
+        //                labelGlobal [ q ] = labelGlobal [ globalId ];
+                        labelLocal [ qLocal ] = labelLocal [ localId ];
+                        costLocal [ qLocal ] = tmp;
+                       // costGlobal [q] = tmp;
                         //MaskGlobal [ q ] = 1;
                         //MaskLocal [ q % blockSize ] = 1;
-                        MaskLocal [ q - minPixel ] = 1;
-                        costGlobal [q] = tmp;
-                        predGlobal [q] = globalId;
-                        rootGlobal [ q ] = rootGlobal [ globalId ];
+                        atom_xchg ( & MaskLocal [ qLocal ], 1 );
+                        //MaskLocal [ q - minPixel ] = 1;
+                        predLocal [qLocal] = globalId;
+                        //rootGlobal [ q ] = rootGlobal [ globalId ];
+                        rootLocal [ qLocal ] = rootLocal [ localId ];
                         /*
                         atom_xchg ( &predGlobal[q], globalId );
                         atom_xchg ( &rootGlobal[q], R );
@@ -158,6 +170,10 @@ __kernel void pqueue (
                 }
             }
         }
+    }
+    else
+    {
+        //barrier ( CLK_LOCAL_MEM_FENCE );
     }
 
     /*
@@ -216,13 +232,15 @@ __kernel void pqueue (
     }
 */
 
+    //barrier ( CLK_GLOBAL_MEM_FENCE );
+    barrier ( CLK_LOCAL_MEM_FENCE );
     // Blocking area 
     MaskGlobal [ globalId ]  = MaskLocal [ localId ];
-    /*
     costGlobal [ globalId ]  = costLocal [ localId ];
     predGlobal [ globalId ]  = predLocal [ localId ];
     rootGlobal [ globalId ]  = rootLocal [ localId ];
     labelGlobal [ globalId ]  = labelLocal [ localId ];
+    /*
     */
 }
 
@@ -320,9 +338,6 @@ __kernel void dijkstra3 (
             return;
         }
 
-        else if ( cost [tid] > 0 )
-        {
             atomic_min ( extra, cost[tid] );
-        }
     }
 }
