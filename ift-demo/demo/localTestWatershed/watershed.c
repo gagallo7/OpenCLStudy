@@ -911,8 +911,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
 
     printf ( "\nEntering in loop...\n" );
 
-    while( Cmin < Cmax )
-    //while ( !vazio ( Mask, n ) )
+//    while( Cmin < Cmax )
+    while ( !vazio ( Mask, n ) )
     {
         errNum = clEnqueueWriteBuffer(   
                 fila, 
@@ -1049,6 +1049,23 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
         }
         vez = 0;
 
+    errNum = clEnqueueReadBuffer(   
+            fila, 
+            MblockBuffer, 
+            CL_TRUE, 
+            0, 
+            numBlocks * sizeof(cl_int), 
+            Mblocks,
+            0, 
+            NULL, 
+            NULL    );
+    checkErr ( errNum, "Reading Mblocks" );
+
+    for ( i = 0; i < numBlocks; i++ )
+    {
+        printf ( "MaskBlock[%d] = %d\n", i, Mblocks[i] );
+    }
+
         errNum = clEnqueueWriteBuffer(   
                 fila, 
                 matchesBuffer, 
@@ -1103,6 +1120,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
                 sizeof(cl_int), &Cmin, 0, NULL, &releituraFeita);
         checkErr(errNum, "Reading Mask");
         clWaitForEvents(1, &releituraFeita);
+        /*
+        */
 
         errNum = clEnqueueReadBuffer(   
                 fila, 

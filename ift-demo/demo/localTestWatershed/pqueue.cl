@@ -48,7 +48,7 @@ void getMin ( __global int* Mask, int i, __global int *Cmin, int someVal )
 
 __kernel void pqueue (
         __global ImageIFT *img,
-        __global int *ival,
+        __global int *MaskOfTheBlock,
         __global int *dx,
         __global int *dy,
         __global int *MaskGlobal,
@@ -84,8 +84,8 @@ __kernel void pqueue (
     __local int     labelLocal  [1024];
     /*
     */
-    __local int CminLocal [2];
-    __local int ImLive [1];
+    __local int CminLocal [1];
+    __local int CminNext [1];
 
     // Blocking area 
     MaskLocal [ localId ] = MaskGlobal [ globalId ];
@@ -95,7 +95,11 @@ __kernel void pqueue (
     labelLocal [ localId ] = labelGlobal [ globalId ];
     /*
     */
-    CminLocal [0] = Cmin[0];
+    if ( localId == 0 )
+    {
+        CminLocal [0] = Cmin[0];
+        CminNext [0] = INT_MAX;
+    }
 
     barrier ( CLK_LOCAL_MEM_FENCE );
 
@@ -109,72 +113,91 @@ __kernel void pqueue (
     neighboorhood = cache[globalId];
 
     //if ( MaskGlobal [globalId] == 1 && costGlobal[globalId] == Cmin[0] )
-    if ( MaskLocal [localId] == 1 && costLocal[localId] == Cmin[0] )
+    /*
+    while ( MaskOfTheBlock [ blockId ] == 1 )
     {
-        //MaskGlobal [globalId] = 0;
-        MaskLocal [localId] = 0;
-        //barrier ( CLK_LOCAL_MEM_FENCE );
-        q8 = cache[globalId];
-        qarray [0] = q8.s0;
-        qarray [1] = q8.s1;
-        qarray [2] = q8.s2;
-        qarray [3] = q8.s3;
-        qarray [4] = q8.s4;
-        qarray [5] = q8.s5;
-        qarray [6] = q8.s6;
-        qarray [7] = q8.s7;
-        imgValArray [0] = q8.s8;
-        imgValArray [1] = q8.s9;
-        imgValArray [2] = q8.sA;
-        imgValArray [3] = q8.sB;
-        imgValArray [4] = q8.sC;
-        imgValArray [5] = q8.sD;
-        imgValArray [6] = q8.sE;
-        imgValArray [7] = q8.sF;
-
-        for ( i = 0; i < 8; i++ )
+        barrier ( CLK_LOCAL_MEM_FENCE );
+        if ( localId == 0 )
         {
-            //q = localId + dx [ i+1 ] + ncols * dy [ i+1 ] ;
-            q = qarray[i];
-            if ( q >= 0 && 
-                    ( q < maxPixel && q >= minPixel ) )
-            {
-                if ( costGlobal [ globalId ] < costGlobal [ q ] )
-                {
-                    cq = costGlobal [ q ];
-                    tmp = max ( costGlobal [ globalId ], imgValArray [ i ]);
+            MaskOfTheBlock [ blockId ] = 0;
+        }
+        */
+        if ( MaskLocal [localId] == 1 && costLocal[localId] == CminLocal[0] )
+        {
+            //MaskGlobal [globalId] = 0;
+            MaskLocal [localId] = 0;
+            q8 = cache[globalId];
+            qarray [0] = q8.s0;
+            qarray [1] = q8.s1;
+            qarray [2] = q8.s2;
+            qarray [3] = q8.s3;
+            qarray [4] = q8.s4;
+            qarray [5] = q8.s5;
+            qarray [6] = q8.s6;
+            qarray [7] = q8.s7;
+            imgValArray [0] = q8.s8;
+            imgValArray [1] = q8.s9;
+            imgValArray [2] = q8.sA;
+            imgValArray [3] = q8.sB;
+            imgValArray [4] = q8.sC;
+            imgValArray [5] = q8.sD;
+            imgValArray [6] = q8.sE;
+            imgValArray [7] = q8.sF;
 
-                    //if ( !mq || mq > tmp )
-                    if ( cq > tmp )
+            for ( i = 0; i < 8; i++ )
+            {
+                //q = localId + dx [ i+1 ] + ncols * dy [ i+1 ] ;
+                q = qarray[i];
+                if ( q >= 0 && 
+                        ( q < maxPixel && q >= minPixel ) )
+                {
+                    qLocal = q - minPixel;
+                    if ( costLocal [ localId ] < costLocal [ qLocal ] )
                     {
-                        qLocal = q - minPixel;
-               //         costGlobal [ q ] = tmp;
-                        //GetSemaphor ( & rwLocks [ q ] );
-        //                labelGlobal [ q ] = labelGlobal [ globalId ];
-                        labelLocal [ qLocal ] = labelLocal [ localId ];
-                        costLocal [ qLocal ] = tmp;
-                       // costGlobal [q] = tmp;
-                        //MaskGlobal [ q ] = 1;
-                        //MaskLocal [ q % blockSize ] = 1;
-                        atom_xchg ( & MaskLocal [ qLocal ], 1 );
-                        //MaskLocal [ q - minPixel ] = 1;
-                        predLocal [qLocal] = globalId;
-                        //rootGlobal [ q ] = rootGlobal [ globalId ];
-                        rootLocal [ qLocal ] = rootLocal [ localId ];
-                        /*
-                        atom_xchg ( &predGlobal[q], globalId );
-                        atom_xchg ( &rootGlobal[q], R );
-                        */
-                        //ReleaseSemaphor ( & rwLocks [ q ] );
+                        tmp = max ( costLocal [ localId ], imgValArray [ i ]);
+
+                        //if ( !mq || mq > tmp )
+                        if ( costLocal [ qLocal ] > tmp )
+                        {
+                            //         costGlobal [ q ] = tmp;
+                            //GetSemaphor ( & rwLocks [ q ] );
+                            //                labelGlobal [ q ] = labelGlobal [ globalId ];
+                            labelLocal [ qLocal ] = labelLocal [ localId ];
+                            costLocal [ qLocal ] = tmp;
+                            // costGlobal [q] = tmp;
+                            //MaskGlobal [ q ] = 1;
+                            //MaskLocal [ q % blockSize ] = 1;
+                            atom_xchg ( & MaskLocal [ qLocal ], 1 );
+                            MaskOfTheBlock [ blockId ] = 1;
+                            //MaskLocal [ q - minPixel ] = 1;
+                            predLocal [qLocal] = globalId;
+                            //rootGlobal [ q ] = rootGlobal [ globalId ];
+                            rootLocal [ qLocal ] = rootLocal [ localId ];
+                            //ReleaseSemaphor ( & rwLocks [ q ] );
+                        }
                     }
                 }
             }
         }
+        /*
+        else
+        {
+            //barrier ( CLK_LOCAL_MEM_FENCE );
+        }
+        barrier ( CLK_LOCAL_MEM_FENCE );
+        if ( MaskLocal [ localId ]  )
+        {
+            atom_min ( CminNext, costLocal [ localId ] );
+        }
+        barrier ( CLK_LOCAL_MEM_FENCE );
+        if ( localId == 0 )
+        {
+            CminLocal [0] = CminNext [0];
+            CminNext [0] = INT_MAX;
+        }
+        barrier ( CLK_LOCAL_MEM_FENCE );
     }
-    else
-    {
-        //barrier ( CLK_LOCAL_MEM_FENCE );
-    }
+    */
 
     /*
     //if ( MaskLocal [localId] == 1 && costLocal[localId] == Cmin[0] )
@@ -232,14 +255,14 @@ __kernel void pqueue (
     }
 */
 
-    //barrier ( CLK_GLOBAL_MEM_FENCE );
-    barrier ( CLK_LOCAL_MEM_FENCE );
+    barrier ( CLK_GLOBAL_MEM_FENCE );
     // Blocking area 
     MaskGlobal [ globalId ]  = MaskLocal [ localId ];
     costGlobal [ globalId ]  = costLocal [ localId ];
     predGlobal [ globalId ]  = predLocal [ localId ];
     rootGlobal [ globalId ]  = rootLocal [ localId ];
     labelGlobal [ globalId ]  = labelLocal [ localId ];
+    Cmin [0] = CminLocal [0];
     /*
     */
 }
