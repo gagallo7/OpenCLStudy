@@ -114,14 +114,15 @@ __kernel void pqueue (
 
     //if ( MaskGlobal [globalId] == 1 && costGlobal[globalId] == Cmin[0] )
     /*
-    while ( MaskOfTheBlock [ blockId ] == 1 )
-    {
         barrier ( CLK_LOCAL_MEM_FENCE );
         if ( localId == 0 )
         {
             MaskOfTheBlock [ blockId ] = 0;
         }
         */
+    while ( MaskOfTheBlock [ blockId ] == 1 )
+    {
+        MaskOfTheBlock [ blockId ] = 0;
         if ( MaskLocal [localId] == 1 && costLocal[localId] == CminLocal[0] )
         {
             //MaskGlobal [globalId] = 0;
@@ -168,7 +169,7 @@ __kernel void pqueue (
                             //MaskGlobal [ q ] = 1;
                             //MaskLocal [ q % blockSize ] = 1;
                             atom_xchg ( & MaskLocal [ qLocal ], 1 );
-                            MaskOfTheBlock [ blockId ] = 1;
+    //                        MaskOfTheBlock [ blockId ] = 1;
                             //MaskLocal [ q - minPixel ] = 1;
                             predLocal [qLocal] = globalId;
                             //rootGlobal [ q ] = rootGlobal [ globalId ];
@@ -179,6 +180,19 @@ __kernel void pqueue (
                 }
             }
         }
+        barrier ( CLK_LOCAL_MEM_FENCE );
+        if ( MaskLocal [ localId ] )
+        {
+            MaskOfTheBlock [ blockId ] = 1;
+            atom_min ( CminNext , costLocal [ localId ] );
+        }
+        if ( !localId )
+        {
+            CminLocal [0] = CminNext[0];
+            CminNext [0] = INT_MAX;
+        }
+        barrier ( CLK_LOCAL_MEM_FENCE );
+    }
         /*
         else
         {

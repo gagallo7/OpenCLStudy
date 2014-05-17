@@ -912,7 +912,8 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
     printf ( "\nEntering in loop...\n" );
 
 //    while( Cmin < Cmax )
-    while ( !vazio ( Mask, n ) )
+    //while ( !vazio ( Mask, n ) )
+    if ( !vazio ( Mask, n ) )
     {
         errNum = clEnqueueWriteBuffer(   
                 fila, 
@@ -1091,6 +1092,7 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
                 NULL    );
         checkErr ( errNum, "Writing extra" );
 
+        /*
         errNum = clEnqueueNDRangeKernel (
                 fila,
                 kernel3,
@@ -1120,7 +1122,6 @@ Image *Watershed(Image *img, Set *Obj, Set *Bkg, Image *imgOrig)
                 sizeof(cl_int), &Cmin, 0, NULL, &releituraFeita);
         checkErr(errNum, "Reading Mask");
         clWaitForEvents(1, &releituraFeita);
-        /*
         */
 
         errNum = clEnqueueReadBuffer(   
