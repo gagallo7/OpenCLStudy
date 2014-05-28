@@ -1,7 +1,17 @@
+/*
+ * Watershed OpenCL implementation 
+ * 2014
+ * Guilherme Alcarde Gallo, Guido Araújo and Alexandre Xavier Falcão
+ *
+ * GPLv3 License
+ *
+ * This file is a part from a blockage implementation of IFT.
+ * This is the kernel file.
+ * The host file is watershed.c
+*/
+
 #pragma OPENCL EXTENSION cl_khr_global_int32_base_atomics : enable
 #pragma OPENCL EXTENSION cl_khr_local_int32_base_atomics : enable
-#pragma OPENCL EXTENSION cl_khr_int32_base_atomics : enable
-#pragma OPENCL EXTENSION cl_khr_int32_extended_atomics : enable
 #pragma OPENCL EXTENSION cl_khr_int64_base_atomics : enable
 #pragma OPENCL EXTENSION cl_khr_int64_extended_atomics : enable
 
@@ -19,6 +29,19 @@ typedef struct _figure {
     int ncols,nrows;
 } ImageIFT;
 
+void GetLocalSemaphor(__local int * semaphor) {
+    int occupied = atomic_xchg (semaphor, 1);
+    while(occupied > 0)
+    {
+        occupied = atomic_xchg (semaphor, 1);
+    }
+}
+
+void ReleaseLocalSemaphor(__local int * semaphor)
+{
+    int prevVal = atomic_xchg (semaphor, 0);
+}
+
 void GetSemaphor(__global int * semaphor) {
     int occupied = atomic_xchg (semaphor, 1);
     while(occupied > 0)
@@ -30,20 +53,6 @@ void GetSemaphor(__global int * semaphor) {
 void ReleaseSemaphor(__global int * semaphor)
 {
     int prevVal = atomic_xchg (semaphor, 0);
-}
-
-void getMin ( __global int* Mask, int i, __global int *Cmin, int someVal )
-{
-    if ( !Mask[i] || i > (1 << 18) )
-    {
-        return;
-    }
-
-    if ( someVal > Mask[i] )
-    {
-        atomic_xchg ( Cmin, Mask[i] );
-        //atomic_xchg ( Cmin, Mask[i] );
-    }
 }
 
 __kernel void pqueue (
@@ -82,10 +91,12 @@ __kernel void pqueue (
     __local int     predLocal  [1024];
     __local int     rootLocal  [1024];
     __local int     labelLocal  [1024];
+    __local int     locks  [1024];
     /*
     */
     __local int CminLocal [1];
     __local int CminNext [1];
+    __local int localLock [1];
 
     // Blocking area 
     MaskLocal [ localId ] = MaskGlobal [ globalId ];
@@ -93,12 +104,14 @@ __kernel void pqueue (
     predLocal [ localId ] = predGlobal [ globalId ];
     rootLocal [ localId ] = rootGlobal [ globalId ];
     labelLocal [ localId ] = labelGlobal [ globalId ];
+    locks [ localId ] = 0;
     /*
     */
     if ( localId == 0 )
     {
         CminLocal [0] = Cmin[0];
         CminNext [0] = INT_MAX;
+        localLock [ 0 ] = 0;
     }
 
     barrier ( CLK_LOCAL_MEM_FENCE );
@@ -111,15 +124,20 @@ __kernel void pqueue (
     maxPixel = minPixel + ncols;
     */
     neighboorhood = cache[globalId];
+    imgValArray [0] = neighboorhood.s8;
+    imgValArray [1] = neighboorhood.s9;
+    imgValArray [2] = neighboorhood.sA;
+    imgValArray [3] = neighboorhood.sB;
+    imgValArray [4] = neighboorhood.sC;
+    imgValArray [5] = neighboorhood.sD;
+    imgValArray [6] = neighboorhood.sE;
+    imgValArray [7] = neighboorhood.sF;
 
-    //if ( MaskGlobal [globalId] == 1 && costGlobal[globalId] == Cmin[0] )
-    /*
-        barrier ( CLK_LOCAL_MEM_FENCE );
-        if ( localId == 0 )
-        {
-            MaskOfTheBlock [ blockId ] = 0;
-        }
-        */
+    for ( i = 0; i < 8; i++ )
+    {
+        qarray [ i ] = localId + dx [ i+1 ] + ncols * dy [ i + 1 ];
+    }
+
     while ( MaskOfTheBlock [ blockId ] == 1 )
     {
         MaskOfTheBlock [ blockId ] = 0;
@@ -127,32 +145,15 @@ __kernel void pqueue (
         {
             //MaskGlobal [globalId] = 0;
             MaskLocal [localId] = 0;
-            q8 = cache[globalId];
-            qarray [0] = q8.s0;
-            qarray [1] = q8.s1;
-            qarray [2] = q8.s2;
-            qarray [3] = q8.s3;
-            qarray [4] = q8.s4;
-            qarray [5] = q8.s5;
-            qarray [6] = q8.s6;
-            qarray [7] = q8.s7;
-            imgValArray [0] = q8.s8;
-            imgValArray [1] = q8.s9;
-            imgValArray [2] = q8.sA;
-            imgValArray [3] = q8.sB;
-            imgValArray [4] = q8.sC;
-            imgValArray [5] = q8.sD;
-            imgValArray [6] = q8.sE;
-            imgValArray [7] = q8.sF;
-
             for ( i = 0; i < 8; i++ )
             {
                 //q = localId + dx [ i+1 ] + ncols * dy [ i+1 ] ;
-                q = qarray[i];
-                if ( q >= 0 && 
-                        ( q < maxPixel && q >= minPixel ) )
+                //qLocal = q - minPixel;
+                qLocal = qarray [ i ];
+                //if ( q >= 0 && 
+                        //( q < maxPixel && q >= minPixel ) )
+                if ( qLocal >= 0 && qLocal < blockSize )
                 {
-                    qLocal = q - minPixel;
                     if ( costLocal [ localId ] < costLocal [ qLocal ] )
                     {
                         tmp = max ( costLocal [ localId ], imgValArray [ i ]);
@@ -160,19 +161,13 @@ __kernel void pqueue (
                         //if ( !mq || mq > tmp )
                         if ( costLocal [ qLocal ] > tmp )
                         {
-                            //         costGlobal [ q ] = tmp;
                             //GetSemaphor ( & rwLocks [ q ] );
-                            //                labelGlobal [ q ] = labelGlobal [ globalId ];
                             labelLocal [ qLocal ] = labelLocal [ localId ];
                             costLocal [ qLocal ] = tmp;
-                            // costGlobal [q] = tmp;
-                            //MaskGlobal [ q ] = 1;
-                            //MaskLocal [ q % blockSize ] = 1;
-                            atom_xchg ( & MaskLocal [ qLocal ], 1 );
-    //                        MaskOfTheBlock [ blockId ] = 1;
-                            //MaskLocal [ q - minPixel ] = 1;
+                            //atom_xchg ( & MaskLocal [ qLocal ], 1 );
+                            MaskLocal [ qLocal ] = 1;
+                            MaskOfTheBlock [ blockId ] = 1;
                             predLocal [qLocal] = globalId;
-                            //rootGlobal [ q ] = rootGlobal [ globalId ];
                             rootLocal [ qLocal ] = rootLocal [ localId ];
                             //ReleaseSemaphor ( & rwLocks [ q ] );
                         }
@@ -184,7 +179,10 @@ __kernel void pqueue (
         if ( MaskLocal [ localId ] )
         {
             MaskOfTheBlock [ blockId ] = 1;
-            atom_min ( CminNext , costLocal [ localId ] );
+            if ( costLocal [ localId ] < CminNext [ 0 ] )
+                atom_min ( CminNext, costLocal [ localId ] );
+            /*
+            */
         }
         if ( !localId )
         {
@@ -269,18 +267,19 @@ __kernel void pqueue (
     }
 */
 
-    barrier ( CLK_GLOBAL_MEM_FENCE );
+    //barrier ( CLK_GLOBAL_MEM_FENCE );
     // Blocking area 
     MaskGlobal [ globalId ]  = MaskLocal [ localId ];
     costGlobal [ globalId ]  = costLocal [ localId ];
     predGlobal [ globalId ]  = predLocal [ localId ];
     rootGlobal [ globalId ]  = rootLocal [ localId ];
     labelGlobal [ globalId ]  = labelLocal [ localId ];
-    Cmin [0] = CminLocal [0];
+    //Cmin [0] = CminLocal [0];
     /*
     */
 }
 
+// Not used
 __kernel void dijkstra2 (
         __global ImageIFT *img,
         __global int *ival,
@@ -363,18 +362,23 @@ __kernel void dijkstra3 (
         __global int *cost
         )
 {
+    // Thread id
     int tid = get_global_id(0);
 
-//    if ( M[tid] >= 0 && M[tid] < 495 )
+    // if tid is in queue
     if ( M[tid] )
     {
+        // if Cmin doesn't change
         if ( cost[tid] == *Cmin )
         {
             atomic_xchg ( extra, *Cmin );
-            //atomic_inc ( matches );
+            //atomic_inc ( matches ); // couting the min-elements in parallel
             return;
         }
 
+        else if ( cost [tid] > 0 )
+        {
             atomic_min ( extra, cost[tid] );
+        }
     }
 }
